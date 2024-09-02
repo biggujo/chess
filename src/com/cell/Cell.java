@@ -26,15 +26,10 @@ public abstract class Cell extends JComponent {
                 dimension.width,
                 dimension.height
         );
+    }
 
-        Image image = Toolkit.getDefaultToolkit().getImage("pawn.png");
-
-        graphics2D.drawImage(image,
-                offset.getX(),
-                offset.getY(),
-                dimension.width,
-                dimension.height,
-                null);
+    public Offset getOffset() {
+        return offset;
     }
 
     Dimension getDimension() {

@@ -19,7 +19,9 @@ public class Main {
 
             frame.add(paddingPanel);
 
+
             frame.pack();
+            frame.setMinimumSize(frame.getSize());
             frame.setVisible(true);
         });
     }
