@@ -1,6 +1,6 @@
 package com.cell;
 
-import com.utility.Offset;
+import com.utility.pair.Offset;
 
 import java.awt.*;
 

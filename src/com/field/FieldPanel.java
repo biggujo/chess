@@ -3,7 +3,7 @@ package com.field;
 import com.cell.Cell;
 import com.cell.CellFactory;
 import com.cell.CellType;
-import com.utility.Offset;
+import com.utility.pair.Offset;
 
 import javax.swing.*;
 import java.awt.*;
