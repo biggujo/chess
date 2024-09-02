@@ -1,4 +1,4 @@
-package com.field;
+package com.panels;
 
 import com.cell.Cell;
 import com.cell.CellFactory;
@@ -65,7 +65,7 @@ public class FieldPanel extends JPanel {
     }
 
     private CellType getCellType(int row, int col) {
-        return switch (row * col % 2) {
+        return switch ((row + col) % 2) {
             case 1 -> CellType.BLACK;
             case 0 -> CellType.WHITE;
             default -> throw new IllegalStateException("Unexpected value: " + row * col % 2);

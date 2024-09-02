@@ -1,5 +1,6 @@
-import com.field.FieldPanel;
-import com.gui.MainFrame;
+import com.panels.FieldPanel;
+import com.frames.MainFrame;
+import com.panels.PaddingPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,8 +14,10 @@ public class Main {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new MainFrame();
 
-            FieldPanel fieldPanel = new FieldPanel(FIELD_SIZE, CELL_SIZE);
-            frame.add(fieldPanel);
+            JPanel fieldPanel = new FieldPanel(FIELD_SIZE, CELL_SIZE);
+            JPanel paddingPanel = new PaddingPanel(fieldPanel);
+
+            frame.add(paddingPanel);
 
             frame.pack();
             frame.setVisible(true);

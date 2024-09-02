@@ -19,5 +19,6 @@ abstract class ColoredCell extends Cell {
         Graphics2D graphics2D = (Graphics2D) g;
         graphics2D.setColor(color);
         graphics2D.fillRect(0, 0, getDimension().width, getDimension().height);
+        graphics2D.dispose();
     }
 }

@@ -1,11 +1,11 @@
-package com.gui;
+package com.frames;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class MainFrame extends JFrame {
-    private static String TITLE = "Chess";
-    private static Dimension DIMENSION = new Dimension(400, 300);
+    private static final String TITLE = "Chess";
+    private static final Dimension DIMENSION = new Dimension(400, 300);
 
     public MainFrame() throws HeadlessException {
         super();
