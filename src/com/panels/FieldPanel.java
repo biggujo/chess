@@ -49,7 +49,7 @@ public class FieldPanel extends JPanel {
                 Offset offset = getOffset(i, j);
                 CellType cellType = getCellType(i, j);
 
-                Cell cell = cellFactory.getInstance(offset, cellType);
+                Cell cell = cellFactory.getInstance(cellType);
                 fields.add(cell);
             }
         }

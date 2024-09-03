@@ -1,11 +1,9 @@
 package com.cell;
 
-import com.utility.pair.Offset;
-
 import java.awt.*;
 
-public class BlackCell extends ColoredCell {
-    public BlackCell(Offset offset, Dimension dimension) {
-        super(offset, dimension, Color.BLACK);
+class BlackCell extends ColoredCell {
+    public BlackCell(Dimension dimension) {
+        super(dimension, Color.BLACK);
     }
 }

@@ -1,7 +1,5 @@
 package com.cell;
 
-import com.utility.pair.Offset;
-
 import java.awt.*;
 
 public final class CellFactory {
@@ -11,10 +9,10 @@ public final class CellFactory {
         this.cellDimension = cellDimension;
     }
 
-    public Cell getInstance(Offset offset, CellType type) {
+    public Cell getInstance(CellType type) {
         return switch (type) {
-            case BLACK -> new BlackCell(offset, cellDimension);
-            case WHITE -> new WhiteCell(offset, cellDimension);
+            case BLACK -> new BlackCell(cellDimension);
+            case WHITE -> new WhiteCell(cellDimension);
             default -> throw new UnsupportedOperationException();
         };
     }
