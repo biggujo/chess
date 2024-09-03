@@ -13,7 +13,6 @@ public final class CellFactory {
         return switch (type) {
             case BLACK -> new BlackCell(cellDimension);
             case WHITE -> new WhiteCell(cellDimension);
-            default -> throw new UnsupportedOperationException();
         };
     }
 }

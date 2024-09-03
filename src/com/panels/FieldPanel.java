@@ -1,82 +1,37 @@
 package com.panels;
 
 import com.cell.Cell;
-import com.cell.CellFactory;
-import com.cell.CellType;
-import com.utility.pair.Offset;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
-public class FieldPanel extends JPanel {
-    private final Dimension panelCellAmountDimension;
+abstract class FieldPanel extends JPanel {
+    private final Dimension cellsAmount;
     private final int cellSize;
 
-    public FieldPanel(Dimension panelCellAmountDimension, int cellSize) {
-        this.panelCellAmountDimension = panelCellAmountDimension;
+    public FieldPanel(Dimension cellsAmount, int cellSize) {
+        this.cellsAmount = cellsAmount;
         this.cellSize = cellSize;
-
-        applyDimension();
-        applyLayout();
-        applyBorder();
 
         addCells();
     }
 
-    private void applyDimension() {
-        Dimension preferredSizeDimension = new Dimension(panelCellAmountDimension.width * cellSize, panelCellAmountDimension.height * cellSize);
-        setPreferredSize(preferredSizeDimension);
-    }
-
-    private void applyLayout() {
-        setLayout(new GridLayout(panelCellAmountDimension.width, panelCellAmountDimension.height));
-    }
-
-    private void applyBorder() {
-        setBorder(BorderFactory.createLineBorder(Color.BLACK));
-    }
-
-    private List<Cell> createCellField() {
-        List<Cell> fields = new ArrayList<>();
-
-        Dimension cellDimension = new Dimension(cellSize, cellSize);
-        CellFactory cellFactory = new CellFactory(cellDimension);
-
-        for (int i = 0; i < panelCellAmountDimension.width; i++) {
-            for (int j = 0; j < panelCellAmountDimension.height; j++) {
-                Offset offset = getOffset(i, j);
-                CellType cellType = getCellType(i, j);
-
-                Cell cell = cellFactory.getInstance(cellType);
-                fields.add(cell);
-            }
-        }
-
-        return fields;
-    }
-
-    private Offset getOffset(int row, int col) {
-        int offsetX = row * cellSize;
-        int offsetY = col * cellSize;
-
-        return new Offset(offsetX, offsetY);
-    }
-
-    private CellType getCellType(int row, int col) {
-        return switch ((row + col) % 2) {
-            case 1 -> CellType.BLACK;
-            case 0 -> CellType.WHITE;
-            default -> throw new IllegalStateException("Unexpected value: " + row * col % 2);
-        };
-    }
+    abstract List<JComponent> createCellField();
 
     private void addCells() {
-        List<Cell> cellList = createCellField();
+        List<JComponent> cellList = createCellField();
 
-        for (Cell o : cellList) {
+        for (JComponent o : cellList) {
             add(o);
         }
+    }
+
+    Dimension getCellsAmount() {
+        return cellsAmount;
+    }
+
+    int getCellSize() {
+        return cellSize;
     }
 }
