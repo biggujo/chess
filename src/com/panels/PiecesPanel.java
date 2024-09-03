@@ -1,10 +1,9 @@
 package com.panels;
 
-import com.pieces.PieceComponent;
+import com.controller.FieldController;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class PiecesPanel extends GridPanel {
@@ -14,14 +13,6 @@ public class PiecesPanel extends GridPanel {
 
     @Override
     List<JComponent> createCellField() {
-        List<JComponent> pieces = new ArrayList<>();
-
-        for (int i = 0; i < getCellsAmount().width; i++) {
-            for (int j = 0; j < getCellsAmount().height; j++) {
-                pieces.add(new PieceComponent(new Dimension(getCellSize(), getCellSize())));
-            }
-        }
-
-        return pieces;
+        return FieldController.getInstance().getField();
     }
 }

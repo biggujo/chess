@@ -6,11 +6,15 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class PieceComponent extends JComponent {
-    private Dimension dimension;
+public class Piece extends JComponent {
+    private static final String BASE_PATH = "assets/";
 
-    public PieceComponent(Dimension dimension) {
+    private final Dimension dimension;
+    private final String iconName;
+
+    public Piece(Dimension dimension, String iconName) {
         this.dimension = dimension;
+        this.iconName = iconName;
 
         setPreferredSize(dimension);
 
@@ -25,7 +29,9 @@ public class PieceComponent extends JComponent {
 
         Image pawn = null;
         try {
-            pawn = ImageIO.read(new File("assets/pawn.png"));
+            String iconPath = BASE_PATH + iconName;
+
+            pawn = ImageIO.read(new File(iconPath));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

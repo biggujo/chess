@@ -1,7 +1,5 @@
 package com.panels;
 
-import com.cell.Cell;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
