@@ -17,10 +17,6 @@ public class Piece extends JComponent {
         this.iconName = iconName;
 
         setPreferredSize(dimension);
-
-        Color c = new Color(1f, 0f, 0f, .5f);
-
-        setBackground(c);
     }
 
     @Override
@@ -37,5 +33,15 @@ public class Piece extends JComponent {
         }
 
         g2d.drawImage(pawn, 0, 0, dimension.width, dimension.height, null);
+    }
+
+    public void setActive() {
+        setOpaque(true);
+        setBackground(Color.YELLOW);
+    }
+
+    public void setInactive() {
+        setOpaque(false);
+        setBackground(null);
     }
 }

@@ -1,5 +1,6 @@
 package com.model;
 
+import com.pieces.Piece;
 import com.pieces.PieceFactory;
 import com.pieces.PieceType;
 import com.globals.Defaults;

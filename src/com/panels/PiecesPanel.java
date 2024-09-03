@@ -9,6 +9,8 @@ import java.util.List;
 public class PiecesPanel extends GridPanel {
     public PiecesPanel(Dimension cellsAmount, int cellSize) {
         super(cellsAmount, cellSize);
+
+        addMouseListener(new PiecesMouseListener());
     }
 
     @Override
