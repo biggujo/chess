@@ -38,6 +38,7 @@ public class FieldController {
             PiecesFieldModel.getInstance().movePiece(prevCoordinates, coordinates);
             PiecesPanel.getInstance().updateCells(getField());
             disablePieceAt(activePieceIndex);
+            prevCoordinates = null;
             return;
         }
 

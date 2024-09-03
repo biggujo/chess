@@ -1,5 +1,6 @@
 package com.model;
 
+import com.pieces.EmptyPiece;
 import com.pieces.PieceFactory;
 import com.pieces.PieceType;
 import com.globals.Defaults;
@@ -59,7 +60,7 @@ public class PiecesFieldModel {
         fieldPieces[target.y][target.x] = currentPiece;
 
         JComponent piece = getFieldComponents().get(initialIndex);
-        fieldComponents.set(initialIndex, piece);
+        fieldComponents.set(initialIndex, PieceFactory.getInstance(PieceType.EMPTY));
         fieldComponents.set(targetIndex, piece);
     }
 
