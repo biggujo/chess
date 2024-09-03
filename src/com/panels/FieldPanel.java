@@ -3,7 +3,6 @@ package com.panels;
 import com.cell.Cell;
 import com.cell.CellFactory;
 import com.cell.CellType;
-import com.utility.pair.Offset;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,7 +45,6 @@ public class FieldPanel extends JPanel {
 
         for (int i = 0; i < panelCellAmountDimension.width; i++) {
             for (int j = 0; j < panelCellAmountDimension.height; j++) {
-                Offset offset = getOffset(i, j);
                 CellType cellType = getCellType(i, j);
 
                 Cell cell = cellFactory.getInstance(cellType);
@@ -55,13 +53,6 @@ public class FieldPanel extends JPanel {
         }
 
         return fields;
-    }
-
-    private Offset getOffset(int row, int col) {
-        int offsetX = row * cellSize;
-        int offsetY = col * cellSize;
-
-        return new Offset(offsetX, offsetY);
     }
 
     private CellType getCellType(int row, int col) {
