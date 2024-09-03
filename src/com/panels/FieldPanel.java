@@ -15,6 +15,7 @@ abstract class FieldPanel extends JPanel {
         this.cellSize = cellSize;
 
         addCells();
+        setOpaque(false);
     }
 
     abstract List<JComponent> createCellField();

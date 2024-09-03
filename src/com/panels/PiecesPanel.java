@@ -18,7 +18,7 @@ public class PiecesPanel extends GridPanel {
 
         for (int i = 0; i < getCellsAmount().width; i++) {
             for (int j = 0; j < getCellsAmount().height; j++) {
-                pieces.add(new PieceComponent(new Dimension(50, 50)));
+                pieces.add(new PieceComponent(new Dimension(getCellSize(), getCellSize())));
             }
         }
 
