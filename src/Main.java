@@ -17,7 +17,7 @@ public class Main {
 
             JPanel panel = new JPanel();
 
-            JPanel piecesPanel = new PiecesPanel(FIELD_SIZE, CELL_SIZE);
+            JPanel piecesPanel = PiecesPanel.getInstance();
             JPanel fieldPanel = new CellPanel(FIELD_SIZE, CELL_SIZE);
 
             panel.add(piecesPanel);

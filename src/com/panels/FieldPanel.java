@@ -12,16 +12,16 @@ abstract class FieldPanel extends JPanel {
         this.cellsAmount = cellsAmount;
         this.cellSize = cellSize;
 
-        addCells();
+        List<JComponent> cells = createCellField();
+
+        addCells(cells);
         setOpaque(false);
     }
 
     abstract List<JComponent> createCellField();
 
-    private void addCells() {
-        List<JComponent> cellList = createCellField();
-
-        for (JComponent o : cellList) {
+    protected void addCells(List<JComponent> cells) {
+        for (JComponent o : cells) {
             add(o);
         }
     }

@@ -1,9 +1,8 @@
 package com.controller;
 
-import com.cell.CellType;
 import com.globals.Defaults;
-import com.model.FieldModel;
 import com.model.PiecesFieldModel;
+import com.panels.PiecesPanel;
 import com.pieces.Piece;
 import com.pieces.PieceType;
 
@@ -13,8 +12,9 @@ import java.util.List;
 
 public class FieldController {
     private static FieldController instance;
-    private final PiecesFieldModel piecesFieldModel = new PiecesFieldModel(FieldModel.FIELD);
+    private final PiecesFieldModel piecesFieldModel = PiecesFieldModel.getInstance();
     private int prevActivePieceIndex = -1;
+    private Point prevCoordinates;
 
     public static FieldController getInstance() {
         if (FieldController.instance == null) {
@@ -28,43 +28,64 @@ public class FieldController {
     }
 
     public void toggleActivePiece(Point coordinates) {
+        if (coordinates == null) {
+            throw new NullPointerException();
+        }
+
         int activePieceIndex = Defaults.TILE_AMOUNT * coordinates.y + coordinates.x;
 
-        Piece piece = (Piece) getField().get(activePieceIndex);
-
-        if (FieldModel.FIELD[coordinates.y][coordinates.x] == PieceType.EMPTY) {
+        if (prevCoordinates != null && !coordinates.equals(prevCoordinates)) {
+            PiecesFieldModel.getInstance().movePiece(prevCoordinates, coordinates);
+            PiecesPanel.getInstance().updateCells(getField());
+            disablePieceAt(activePieceIndex);
             return;
         }
 
         if (activePieceIndex == prevActivePieceIndex) {
-            piece.setInactive();
-            prevActivePieceIndex = -1;
+            disablePieceAt(activePieceIndex);
+            forgetPrevPointIndex();
             return;
-        } else {
-            piece.setActive();
         }
 
-        if (prevActivePieceIndex != -1) {
-            piece = (Piece) getField().get(prevActivePieceIndex);
-            piece.setInactive();
+        if (prevCoordinates == null && piecesFieldModel.getPieceTypeAt(coordinates) == PieceType.EMPTY) {
+            return;
         }
 
-        prevActivePieceIndex = activePieceIndex;
-    }
+        enablePieceAt(activePieceIndex);
 
-    public void movePiece(Point initial, Point target) {
-        List<JComponent> fields = getField();
+        boolean hasChosenBefore = prevActivePieceIndex != -1;
 
-        int initialIndex = initial.x * initial.y;
-        int targetIndex = target.x * target.y;
+        if (hasChosenBefore) {
+            disablePieceAt(prevActivePieceIndex);
+        }
 
-        JComponent piece = fields.get(initialIndex);
-        fields.set(initialIndex, piece);
-
-        fields.set(targetIndex, piece);
+        saveCurrentActiveIndex(activePieceIndex);
+        saveCurrentCoordinates(coordinates);
     }
 
     public List<JComponent> getField() {
-        return piecesFieldModel.getField();
+        return piecesFieldModel.getFieldComponents();
+    }
+
+    private void disablePieceAt(int index) {
+        Piece piece = (Piece) getField().get(index);
+        piece.setInactive();
+    }
+
+    private void enablePieceAt(int index) {
+        Piece piece = (Piece) getField().get(index);
+        piece.setActive();
+    }
+
+    private void forgetPrevPointIndex() {
+        prevActivePieceIndex = -1;
+    }
+
+    private void saveCurrentActiveIndex(int index) {
+        prevActivePieceIndex = index;
+    }
+
+    private void saveCurrentCoordinates(Point coordinates) {
+        prevCoordinates = coordinates;
     }
 }
