@@ -13,6 +13,7 @@ public class PiecesFieldModel {
     private static final FieldTypes fieldTypes = new FieldTypes();
     private static final FieldComponents fieldComponents = new FieldComponents();
     private static Point prevCoordinates;
+    private static boolean hasMoved;
 
     static {
         for (int i = 0; i < Defaults.TILE_AMOUNT; i++) {
@@ -38,6 +39,8 @@ public class PiecesFieldModel {
         disablePieceAt(prevCoordinates);
         movePieceTo(coordinates);
         clearPrevCoordinates();
+
+        hasMoved = true;
     }
 
     public static void disablePieceAt(Point coordinates) {
@@ -64,8 +67,10 @@ public class PiecesFieldModel {
         return fieldComponents.getFieldComponents();
     }
 
-    public static PieceType getPieceTypeAt(Point coordinates) {
-        return fieldTypes.getPieceTypeAt(coordinates);
+    public static boolean hasMoved() {
+        boolean hasMovedCopy = hasMoved;
+        hasMoved = false;
+        return hasMovedCopy;
     }
 
     private static int getIndexByPoint(Point point) {

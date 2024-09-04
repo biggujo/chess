@@ -6,7 +6,6 @@ import java.awt.*;
 public abstract class Piece extends JComponent {
     private final Dimension dimension;
     private final Image image;
-    private boolean isActive;
 
     public Piece(Dimension dimension, Image image) {
         this.dimension = dimension;
@@ -25,7 +24,6 @@ public abstract class Piece extends JComponent {
     public void setActive() {
         setOpaque(true);
         setBackground(Color.YELLOW);
-        isActive = true;
     }
 
     public void setInactive() {

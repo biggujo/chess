@@ -11,6 +11,15 @@ import java.util.List;
 public class PiecesFieldController {
     public static void handleClickAt(Point coordinates) throws IOException {
         PiecesFieldModel.registerClickAt(coordinates);
+
+        if (!PiecesFieldModel.hasMoved()) {
+            return;
+        }
+
+        updatePanel();
+    }
+
+    private static void updatePanel() {
         List<JComponent> updatedField = PiecesFieldModel.getField();
 
         SwingUtilities.invokeLater(() -> {
