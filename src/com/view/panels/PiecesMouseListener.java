@@ -19,7 +19,7 @@ public class PiecesMouseListener implements MouseListener {
     public void mousePressed(MouseEvent e) {
         Point indexCoordinates = CellIndexByPointSearch.getIndex(e.getPoint());
         try {
-            PiecesFieldController.getInstance().toggleActivePiece(indexCoordinates);
+            PiecesFieldController.handleClickAt(indexCoordinates);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }

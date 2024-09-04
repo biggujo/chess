@@ -12,6 +12,10 @@ class FieldComponents {
         this.fieldComponents = new ArrayList<>();
     }
 
+    public JComponent get(int index) {
+        return fieldComponents.get(index);
+    }
+
     public boolean add(JComponent jComponent) {
         return fieldComponents.add(jComponent);
     }
