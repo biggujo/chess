@@ -1,4 +1,4 @@
-package com.cell;
+package com.view.cell;
 
 import javax.swing.*;
 import java.awt.*;

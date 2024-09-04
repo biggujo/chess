@@ -1,7 +1,7 @@
-import com.panels.CellPanel;
-import com.frames.MainFrame;
-import com.panels.PaddingPanel;
-import com.panels.PiecesPanel;
+import com.view.panels.CellPanel;
+import com.view.frames.MainFrame;
+import com.view.panels.PaddingPanel;
+import com.view.panels.PiecesPanel;
 
 import javax.swing.*;
 import java.awt.*;

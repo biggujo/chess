@@ -2,9 +2,9 @@ package com.controller;
 
 import com.globals.Defaults;
 import com.model.PiecesFieldModel;
-import com.panels.PiecesPanel;
-import com.pieces.Piece;
-import com.pieces.PieceType;
+import com.view.panels.PiecesPanel;
+import com.view.pieces.Piece;
+import com.view.pieces.PieceType;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,8 +1,8 @@
-package com.panels;
+package com.view.panels;
 
-import com.cell.Cell;
-import com.cell.CellFactory;
-import com.cell.CellType;
+import com.view.cell.Cell;
+import com.view.cell.CellFactory;
+import com.view.cell.CellType;
 
 import javax.swing.*;
 import java.awt.*;

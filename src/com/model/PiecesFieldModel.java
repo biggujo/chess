@@ -1,8 +1,7 @@
 package com.model;
 
-import com.pieces.EmptyPiece;
-import com.pieces.PieceFactory;
-import com.pieces.PieceType;
+import com.view.pieces.PieceFactory;
+import com.view.pieces.PieceType;
 import com.globals.Defaults;
 
 import javax.swing.*;

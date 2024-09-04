@@ -1,4 +1,4 @@
-package com.pieces;
+package com.view.pieces;
 
 public enum PieceType {
     EMPTY,

@@ -1,4 +1,4 @@
-package com.pieces;
+package com.view.pieces;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
