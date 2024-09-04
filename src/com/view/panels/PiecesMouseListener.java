@@ -1,6 +1,6 @@
 package com.view.panels;
 
-import com.controller.FieldController;
+import com.controller.PiecesFieldController;
 import com.helpers.CellIndexByPointSearch;
 
 import java.awt.*;
@@ -19,7 +19,7 @@ public class PiecesMouseListener implements MouseListener {
     public void mousePressed(MouseEvent e) {
         Point indexCoordinates = CellIndexByPointSearch.getIndex(e.getPoint());
         try {
-            FieldController.getInstance().toggleActivePiece(indexCoordinates);
+            PiecesFieldController.getInstance().toggleActivePiece(indexCoordinates);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }

@@ -1,7 +1,7 @@
 package com.controller;
 
 import com.globals.Defaults;
-import com.model.PiecesFieldModel;
+import com.model.piecesfieldmodel.PiecesFieldModel;
 import com.view.panels.PiecesPanel;
 import com.view.pieces.Piece;
 import com.view.pieces.PieceType;
@@ -11,21 +11,21 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 
-public class FieldController {
-    private static FieldController instance;
+public class PiecesFieldController {
+    private static PiecesFieldController instance;
     private final PiecesFieldModel piecesFieldModel = PiecesFieldModel.getInstance();
     private int prevActivePieceIndex = -1;
     private Point prevCoordinates;
 
-    public static FieldController getInstance() throws IOException {
-        if (FieldController.instance == null) {
-            FieldController.instance = new FieldController();
+    public static PiecesFieldController getInstance() throws IOException {
+        if (PiecesFieldController.instance == null) {
+            PiecesFieldController.instance = new PiecesFieldController();
         }
 
         return instance;
     }
 
-    private FieldController() throws IOException {
+    private PiecesFieldController() throws IOException {
     }
 
     public void toggleActivePiece(Point coordinates) throws IOException {

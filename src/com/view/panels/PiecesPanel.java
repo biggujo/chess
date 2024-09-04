@@ -1,6 +1,6 @@
 package com.view.panels;
 
-import com.controller.FieldController;
+import com.controller.PiecesFieldController;
 import com.globals.Defaults;
 
 import javax.swing.*;
@@ -27,7 +27,7 @@ public class PiecesPanel extends GridPanel {
 
     @Override
     List<JComponent> createCellField() throws IOException {
-        return FieldController.getInstance().getField();
+        return PiecesFieldController.getInstance().getField();
     }
 
     public void updateCells(List<JComponent> newCells) {
