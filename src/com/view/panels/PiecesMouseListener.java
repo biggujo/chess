@@ -6,6 +6,7 @@ import com.helpers.CellIndexByPointSearch;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 
 public class PiecesMouseListener implements MouseListener {
 
@@ -17,7 +18,11 @@ public class PiecesMouseListener implements MouseListener {
     @Override
     public void mousePressed(MouseEvent e) {
         Point indexCoordinates = CellIndexByPointSearch.getIndex(e.getPoint());
-        FieldController.getInstance().toggleActivePiece(indexCoordinates);
+        try {
+            FieldController.getInstance().toggleActivePiece(indexCoordinates);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override

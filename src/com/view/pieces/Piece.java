@@ -1,20 +1,15 @@
 package com.view.pieces;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 
-public class Piece extends JComponent {
-    private static final String BASE_PATH = "assets/";
-
+public abstract class Piece extends JComponent {
     private final Dimension dimension;
-    private final String iconName;
+    private final Image image;
 
-    public Piece(Dimension dimension, String iconName) {
+    public Piece(Dimension dimension, Image image) {
         this.dimension = dimension;
-        this.iconName = iconName;
+        this.image = image;
 
         setPreferredSize(dimension);
     }
@@ -23,16 +18,7 @@ public class Piece extends JComponent {
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
 
-        Image pawn = null;
-        try {
-            String iconPath = BASE_PATH + iconName;
-
-            pawn = ImageIO.read(new File(iconPath));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        g2d.drawImage(pawn, 0, 0, dimension.width, dimension.height, null);
+        g2d.drawImage(image, 0, 0, dimension.width, dimension.height, null);
     }
 
     public void setActive() {

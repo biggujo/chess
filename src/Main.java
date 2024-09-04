@@ -1,10 +1,11 @@
-import com.view.panels.CellPanel;
 import com.view.frames.MainFrame;
+import com.view.panels.CellPanel;
 import com.view.panels.PaddingPanel;
 import com.view.panels.PiecesPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class Main {
     private static final String WINDOW_TITLE = "Chess";
@@ -17,8 +18,18 @@ public class Main {
 
             JPanel panel = new JPanel();
 
-            JPanel piecesPanel = PiecesPanel.getInstance();
-            JPanel fieldPanel = new CellPanel(FIELD_SIZE, CELL_SIZE);
+            JPanel piecesPanel = null;
+            try {
+                piecesPanel = PiecesPanel.getInstance();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            JPanel fieldPanel = null;
+            try {
+                fieldPanel = new CellPanel(FIELD_SIZE, CELL_SIZE);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
             panel.add(piecesPanel);
             panel.add(fieldPanel);

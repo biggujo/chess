@@ -8,6 +8,7 @@ import com.view.pieces.PieceType;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.List;
 
 public class FieldController {
@@ -16,7 +17,7 @@ public class FieldController {
     private int prevActivePieceIndex = -1;
     private Point prevCoordinates;
 
-    public static FieldController getInstance() {
+    public static FieldController getInstance() throws IOException {
         if (FieldController.instance == null) {
             FieldController.instance = new FieldController();
         }
@@ -24,10 +25,10 @@ public class FieldController {
         return instance;
     }
 
-    private FieldController() {
+    private FieldController() throws IOException {
     }
 
-    public void toggleActivePiece(Point coordinates) {
+    public void toggleActivePiece(Point coordinates) throws IOException {
         if (coordinates == null) {
             throw new NullPointerException();
         }

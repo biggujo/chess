@@ -1,11 +1,12 @@
 package com.model;
 
+import com.globals.Defaults;
 import com.view.pieces.PieceFactory;
 import com.view.pieces.PieceType;
-import com.globals.Defaults;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class PiecesFieldModel {
     private static PiecesFieldModel instance;
     private final List<JComponent> fieldComponents = new ArrayList<>();
 
-    public static PiecesFieldModel getInstance() {
+    public static PiecesFieldModel getInstance() throws IOException {
         if (PiecesFieldModel.instance == null) {
             PiecesFieldModel.instance = new PiecesFieldModel();
         }

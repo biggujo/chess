@@ -6,11 +6,12 @@ import com.view.cell.CellType;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CellPanel extends GridPanel {
-    public CellPanel(Dimension cellsAmount, int cellSize) {
+    public CellPanel(Dimension cellsAmount, int cellSize) throws IOException {
         super(cellsAmount, cellSize);
     }
 
