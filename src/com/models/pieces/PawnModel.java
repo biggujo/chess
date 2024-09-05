@@ -22,12 +22,6 @@ public class PawnModel extends PieceModelImpl {
         addDoubleForward();
     }
 
-    @Override
-    public void setCoordinates(Point coordinates) throws ArrayIndexOutOfBoundsException {
-        super.setCoordinates(coordinates);
-        hasMovedAtLeastOnce = true;
-    }
-
     private boolean hasReachedTheTop() {
         return getCoordinates().y == 0;
     }
@@ -62,6 +56,12 @@ public class PawnModel extends PieceModelImpl {
         if (MoveValidator.validate(coordinates)) {
             getAvailableMoves().add(coordinates);
         }
+    }
+
+    @Override
+    public void setCoordinates(Point coordinates) throws ArrayIndexOutOfBoundsException {
+        super.setCoordinates(coordinates);
+        hasMovedAtLeastOnce = true;
     }
 
     public static void main(String[] args) {

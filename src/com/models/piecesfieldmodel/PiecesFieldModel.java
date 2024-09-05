@@ -10,7 +10,7 @@ import java.awt.*;
 import java.util.List;
 
 public class PiecesFieldModel {
-    private static final FieldTypes fieldTypes = new FieldTypes();
+    private static final FieldTypesManager FIELD_TYPES_MANAGER = new FieldTypesManager();
     private static final FieldComponents fieldComponents = new FieldComponents();
     private static Point prevCoordinates;
     private static boolean hasMoved;
@@ -18,7 +18,7 @@ public class PiecesFieldModel {
     static {
         for (int i = 0; i < Defaults.TILE_AMOUNT; i++) {
             for (int j = 0; j < Defaults.TILE_AMOUNT; j++) {
-                PieceType currentType = fieldTypes.getFieldTypes()[i][j];
+                PieceType currentType = FIELD_TYPES_MANAGER.getFieldTypes()[i][j];
 
                 fieldComponents.add(PieceFactory.getInstance(currentType));
             }
@@ -59,7 +59,7 @@ public class PiecesFieldModel {
         int srcIndex = PiecesFieldModel.getIndexByPoint(prevCoordinates);
         int destIndex = PiecesFieldModel.getIndexByPoint(coordinates);
 
-        fieldTypes.swap(prevCoordinates, coordinates);
+        FIELD_TYPES_MANAGER.swap(prevCoordinates, coordinates);
         fieldComponents.swap(srcIndex, destIndex);
     }
 
@@ -68,7 +68,7 @@ public class PiecesFieldModel {
     }
 
     public static PieceType[][] getFieldTypes() {
-        return fieldTypes.getFieldTypes();
+        return FIELD_TYPES_MANAGER.getFieldTypes();
     }
 
     public static boolean hasMoved() {
@@ -102,6 +102,6 @@ public class PiecesFieldModel {
     }
 
     private static boolean isCellEmptyAt(Point coordinates) {
-        return fieldTypes.getPieceTypeAt(coordinates) == PieceType.EMPTY;
+        return FIELD_TYPES_MANAGER.getPieceTypeAt(coordinates) == PieceType.EMPTY;
     }
 }
