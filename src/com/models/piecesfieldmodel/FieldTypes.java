@@ -1,4 +1,4 @@
-package com.model.piecesfieldmodel;
+package com.models.piecesfieldmodel;
 
 import com.view.pieces.PieceType;
 

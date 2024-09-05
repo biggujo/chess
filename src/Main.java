@@ -1,3 +1,4 @@
+import com.globals.Defaults;
 import com.view.frames.MainFrame;
 import com.view.panels.CellPanel;
 import com.view.panels.PaddingPanel;
@@ -10,7 +11,7 @@ import java.io.IOException;
 public class Main {
     private static final String WINDOW_TITLE = "Chess";
     private static final Dimension FIELD_SIZE = new Dimension(8, 8);
-    private static final int CELL_SIZE = 50;
+    private static final int CELL_SIZE = Defaults.PIECE_SIZE;
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {

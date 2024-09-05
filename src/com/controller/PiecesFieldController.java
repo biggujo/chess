@@ -1,6 +1,6 @@
 package com.controller;
 
-import com.model.piecesfieldmodel.PiecesFieldModel;
+import com.models.piecesfieldmodel.PiecesFieldModel;
 import com.view.panels.PiecesPanel;
 
 import javax.swing.*;

@@ -1,4 +1,4 @@
-package com.model.piecesfieldmodel;
+package com.models.piecesfieldmodel;
 
 import com.globals.Defaults;
 import com.view.pieces.Piece;
@@ -65,6 +65,10 @@ public class PiecesFieldModel {
 
     public static List<JComponent> getField() {
         return fieldComponents.getFieldComponents();
+    }
+
+    public static PieceType[][] getFieldTypes() {
+        return fieldTypes.getFieldTypes();
     }
 
     public static boolean hasMoved() {
