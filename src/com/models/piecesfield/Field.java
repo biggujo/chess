@@ -19,7 +19,7 @@ public class Field {
         this.field = field;
     }
 
-    Piece get(Point point) {
+    public Piece get(Point point) {
         int index = IndexCalculatorByPoint.getIndex(point);
         return field.get(index);
     }
@@ -28,11 +28,13 @@ public class Field {
         int srcIndex = IndexCalculatorByPoint.getIndex(src);
         int destIndex = IndexCalculatorByPoint.getIndex(src);
 
+//        Piece oldPiece =
+
         Collections.swap(field, srcIndex, destIndex);
 //        field.getField().set(srcIndex, )
     }
 
-    List<Piece> getList() {
+    public List<Piece> getList() {
         return field;
     }
 }

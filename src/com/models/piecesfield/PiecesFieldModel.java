@@ -1,6 +1,6 @@
 package com.models.piecesfield;
 
-import com.globals.Defaults;
+import com.helpers.IndexCalculatorByPoint;
 import com.view.pieces.PieceComponent;
 import com.models.pieces.PieceType;
 
@@ -40,22 +40,22 @@ public class PiecesFieldModel {
     }
 
     public static void disablePieceAt(Point coordinates) {
-        int index = getIndexByPoint(coordinates);
+        int index = IndexCalculatorByPoint.getIndex(coordinates);
         PieceComponent pieceComponent = (PieceComponent) COMPONENTS.get(index);
         pieceComponent.setInactive();
     }
 
     public static void enablePieceAt(Point coordinates) {
-        int index = getIndexByPoint(coordinates);
+        int index = IndexCalculatorByPoint.getIndex(coordinates);
         PieceComponent pieceComponent = (PieceComponent) COMPONENTS.get(index);
         pieceComponent.setActive();
     }
 
     private static void movePieceTo(Point coordinates) {
-        int srcIndex = PiecesFieldModel.getIndexByPoint(prevCoordinates);
-        int destIndex = PiecesFieldModel.getIndexByPoint(coordinates);
+        int srcIndex = IndexCalculatorByPoint.getIndex(prevCoordinates);
+        int destIndex = IndexCalculatorByPoint.getIndex(coordinates);
 
-        FIELD_TYPES_MANAGER.getField().swap(prevCoordinates, coordinates);
+        FIELD_TYPES_MANAGER.getField().get(coordinates).moveTo(coordinates);
         COMPONENTS.swap(srcIndex, destIndex);
     }
 
@@ -67,10 +67,6 @@ public class PiecesFieldModel {
         boolean hasMovedCopy = hasMoved;
         hasMoved = false;
         return hasMovedCopy;
-    }
-
-    private static int getIndexByPoint(Point point) {
-        return Defaults.TILE_AMOUNT * point.y + point.x;
     }
 
     private static boolean hasActivatedThePieceBefore() {
