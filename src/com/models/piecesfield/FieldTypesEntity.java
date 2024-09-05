@@ -1,7 +1,7 @@
-package com.models.piecesfieldmodel;
+package com.models.piecesfield;
 
 import com.globals.Defaults;
-import com.models.piecesfieldmodel.fieldinitializers.FieldInitializer;
+import com.models.piecesfield.fieldinitializers.FieldInitializer;
 import com.view.pieces.PieceType;
 
 class FieldTypesEntity {

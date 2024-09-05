@@ -1,7 +1,7 @@
 package com.view.panels;
 
 import com.globals.Defaults;
-import com.models.piecesfieldmodel.PiecesFieldModel;
+import com.models.piecesfield.PiecesFieldModel;
 
 import javax.swing.*;
 import java.awt.*;

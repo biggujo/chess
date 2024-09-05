@@ -1,4 +1,4 @@
-package com.models.piecesfieldmodel.fieldinitializers;
+package com.models.piecesfield.fieldinitializers;
 
 import com.view.pieces.PieceType;
 

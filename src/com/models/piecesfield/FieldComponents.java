@@ -1,4 +1,4 @@
-package com.models.piecesfieldmodel;
+package com.models.piecesfield;
 
 import javax.swing.*;
 import java.util.ArrayList;

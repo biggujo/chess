@@ -1,8 +1,7 @@
-package com.models.piecesfieldmodel;
+package com.models.piecesfield;
 
 import com.globals.Defaults;
 import com.view.pieces.Piece;
-import com.view.pieces.PieceFactory;
 import com.view.pieces.PieceType;
 
 import javax.swing.*;
@@ -15,32 +14,29 @@ public class PiecesFieldModel {
     private static Point prevCoordinates;
     private static boolean hasMoved;
 
-    static {
-        for (int i = 0; i < Defaults.TILE_AMOUNT; i++) {
-            for (int j = 0; j < Defaults.TILE_AMOUNT; j++) {
-                PieceType currentType = FIELD_TYPES_MANAGER.getFieldTypes()[i][j];
-
-                fieldComponents.add(PieceFactory.getInstance(currentType));
-            }
-        }
-    }
-
     public static void registerClickAt(Point coordinates) {
         if (isRegisteringAnEmptyCellAt(coordinates)) {
             return;
         }
 
-        if (!isReadyToMove()) {
-            enablePieceAt(coordinates);
-            savePrevCoordinates(coordinates);
+        if (!hasPieceSelected()) {
+            selectPieceAt(coordinates);
             return;
         }
 
-        disablePieceAt(prevCoordinates);
         movePieceTo(coordinates);
-        clearPrevCoordinates();
-
+        unselectPiece();
         hasMoved = true;
+    }
+
+    private static void selectPieceAt(Point coordinates) {
+        enablePieceAt(coordinates);
+        savePrevCoordinates(coordinates);
+    }
+
+    private static void unselectPiece() {
+        disablePieceAt(prevCoordinates);
+        clearPrevCoordinates();
     }
 
     public static void disablePieceAt(Point coordinates) {
@@ -97,7 +93,7 @@ public class PiecesFieldModel {
         prevCoordinates = null;
     }
 
-    private static boolean isReadyToMove() {
+    private static boolean hasPieceSelected() {
         return hasActivatedThePieceBefore();
     }
 

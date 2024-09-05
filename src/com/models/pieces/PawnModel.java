@@ -1,6 +1,6 @@
 package com.models.pieces;
 
-import com.models.piecesfieldmodel.PiecesFieldModel;
+import com.models.piecesfield.PiecesFieldModel;
 import com.validators.MoveValidator;
 import com.view.pieces.PieceType;
 
