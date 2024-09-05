@@ -5,7 +5,7 @@ import com.helpers.PiecesIconPaths;
 
 import java.awt.*;
 
-final class Pawn extends Piece {
+final class Pawn extends PieceComponent {
     public Pawn(Dimension dimension) {
         super(dimension, PiecesIconLoader.fetchImageFrom(PiecesIconPaths.PAWN));
     }

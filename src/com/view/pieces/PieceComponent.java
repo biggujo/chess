@@ -3,11 +3,11 @@ package com.view.pieces;
 import javax.swing.*;
 import java.awt.*;
 
-public abstract class Piece extends JComponent {
+public abstract class PieceComponent extends JComponent {
     private final Dimension dimension;
     private final Image image;
 
-    public Piece(Dimension dimension, Image image) {
+    public PieceComponent(Dimension dimension, Image image) {
         this.dimension = dimension;
         this.image = image;
 

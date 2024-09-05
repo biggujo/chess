@@ -1,19 +1,21 @@
 package com.models.pieces;
 
-import com.models.piecesfield.PiecesFieldModel;
 import com.validators.MoveValidator;
-import com.view.pieces.PieceType;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class PawnModel extends PieceModelImpl {
+public class PawnModel extends NonEmptyPiece {
+    private static final PieceType type = PieceType.PAWN;
+
     private boolean hasMovedAtLeastOnce = false;
 
-    public PawnModel(PieceType[][] field, Point coordinates) {
-        super(field, coordinates);
+    public PawnModel(Point coordinates, List<Point> availableMoves) {
+        super(coordinates, availableMoves);
     }
 
-    public void addAvailableMoves() {
+    void addAvailableMoves() {
         if (hasReachedTheTop()) {
             return;
         }
@@ -64,11 +66,8 @@ public class PawnModel extends PieceModelImpl {
         hasMovedAtLeastOnce = true;
     }
 
-    public static void main(String[] args) {
-        Point currentCoordinates = new Point(2, 3);
-        PieceType[][] field = PiecesFieldModel.getFieldTypes();
-        PawnModel pawnModel = new PawnModel(field, currentCoordinates);
-
-        System.out.println(pawnModel.getAvailableMoves());
+    @Override
+    public PieceType getType() {
+        return PawnModel.type;
     }
 }

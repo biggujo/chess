@@ -1,7 +1,7 @@
 package com.models.piecesfield.fieldinitializers;
 
-import com.view.pieces.PieceType;
+import com.models.piecesfield.Field;
 
 public interface FieldInitializer {
-    PieceType[][] initializeField(PieceType[][] originalField);
+    Field initialize(Field originalField);
 }
