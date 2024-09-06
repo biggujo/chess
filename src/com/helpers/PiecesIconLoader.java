@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class PiecesIconLoader {
-    public static Image fetchImageFrom(PiecesIconPaths path) {
+    public static Image fetchImageFrom(IconPaths path) {
         try {
             return ImageIO.read(new File(path.getPath()));
         } catch (IOException e) {

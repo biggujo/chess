@@ -1,6 +1,6 @@
 package com.models.piecesfield;
 
-import com.view.pieces.PieceFactory;
+import com.view.pieces.PieceComponentFactory;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ class Components {
         components = new ArrayList<>();
 
         field.getList().forEach(pieceModel -> {
-            JComponent pieceInstance = PieceFactory.getInstance(pieceModel.getPieceType());
+            JComponent pieceInstance = PieceComponentFactory.getInstance(pieceModel);
             components.add(pieceInstance);
         });
     }

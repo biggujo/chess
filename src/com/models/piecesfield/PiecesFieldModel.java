@@ -1,7 +1,7 @@
 package com.models.piecesfield;
 
 import com.helpers.IndexCalculatorByPoint;
-import com.models.currentmove.CurrentPlayer;
+import com.models.currentmove.PlayerStatus;
 import com.models.pieces.IllegalPieceMoveException;
 import com.models.pieces.Piece;
 import com.models.pieces.PieceType;
@@ -17,7 +17,7 @@ import java.util.List;
 
 public class PiecesFieldModel {
     private static final FieldManager fieldManager = new FieldManager();
-    private static final CurrentPlayer currentPlayer = new CurrentPlayer(PlayerType.FIRST);
+    private static final PlayerStatus playerStatus = PlayerStatus.fromInitialPlayer(PlayerType.WHITE);
     private static Point prevCoordinates;
     private static boolean hasMoved;
 
@@ -55,7 +55,7 @@ public class PiecesFieldModel {
             unselectPiece();
         }
 
-//        currentPlayer.switchPlayer();
+        playerStatus.switchPlayer();
     }
 
     private static void selectPieceAt(Point coordinates) {
@@ -153,6 +153,6 @@ public class PiecesFieldModel {
         }
 
         return fieldManager.getField().get(coordinates).getPlayerType()
-                .equals(currentPlayer.getCurrentPlayer());
+                .equals(playerStatus.getCurrentPlayer());
     }
 }

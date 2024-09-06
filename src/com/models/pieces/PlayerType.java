@@ -1,7 +1,7 @@
 package com.models.pieces;
 
 public enum PlayerType {
-    FIRST,
-    SECOND,
+    WHITE,
+    BLACK,
     NONE
 }

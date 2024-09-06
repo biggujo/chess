@@ -58,6 +58,6 @@ public class Field {
 
     private void setEmptyPieceAt(Point coordinates) {
         int index = IndexCalculatorByPoint.getIndex(coordinates);
-        field.set(index, new PieceFactory(PlayerType.FIRST).getInstance(PieceType.EMPTY, coordinates));
+        field.set(index, new PieceFactory(PlayerType.WHITE).getInstance(PieceType.EMPTY, coordinates));
     }
 }
