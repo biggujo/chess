@@ -50,6 +50,12 @@ public class Field {
         return field;
     }
 
+    public boolean isEmptyAt(Point coordinates) {
+        int index = IndexCalculatorByPoint.getIndex(coordinates);
+
+        return field.get(index).getType() == PieceType.EMPTY;
+    }
+
     private boolean isMovedPieceEmpty(Piece piece) {
         return piece.getType() != PieceType.EMPTY;
     }

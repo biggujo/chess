@@ -15,7 +15,7 @@ public class EmptyFieldInitializer implements FieldInitializer {
         for (int i = 0; i < Defaults.TILE_AMOUNT; i++) {
             for (int j = 0; j < Defaults.TILE_AMOUNT; j++) {
                 Point coordinates = new Point(j, i);
-                if (i == 3 && j == 2) {
+                if (i == 3 && j == 2 || i == 2 && j == 6) {
                     originalField.getList().add(new PawnModel(coordinates, new ArrayList<>()));
                 } else {
                     originalField.getList().add(new EmptyPiece(coordinates, new ArrayList<>()));

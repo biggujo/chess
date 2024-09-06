@@ -2,11 +2,14 @@ package com.models.piecesfield;
 
 import com.helpers.IndexCalculatorByPoint;
 import com.models.pieces.IllegalPieceMoveException;
+import com.models.pieces.Piece;
+import com.view.panels.AvailableMovesPanel;
 import com.view.pieces.PieceComponent;
 import com.models.pieces.PieceType;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PiecesFieldModel {
@@ -21,12 +24,18 @@ public class PiecesFieldModel {
 
         if (!hasPieceSelected()) {
             selectPieceAt(coordinates);
+            updateAvailableMovesPanel(coordinates);
+            return;
+        }
+
+        if (!fieldManager.getField().isEmptyAt(coordinates)) {
+            selectAnotherPieceAt(coordinates);
             return;
         }
 
         try {
+            clearAvailableMovesPanel();
             movePieceTo(coordinates);
-            hasMoved = true;
         } catch (IllegalPieceMoveException ignored) {
         } finally {
             unselectPiece();
@@ -69,8 +78,17 @@ public class PiecesFieldModel {
         return fieldManager.getComponents().getList();
     }
 
+    private static void selectAnotherPieceAt(Point coordinates) {
+        disablePieceAt(prevCoordinates);
+        enablePieceAt(coordinates);
+        updateAvailableMovesPanel(coordinates);
+
+        savePrevCoordinates(coordinates);
+    }
+
     private static void movePieceTo(Point coordinates) throws IllegalPieceMoveException {
         fieldManager.move(prevCoordinates, coordinates);
+        hasMoved = true;
     }
 
     private static boolean hasActivatedThePieceBefore() {
@@ -95,5 +113,15 @@ public class PiecesFieldModel {
 
     private static boolean isCellEmptyAt(Point coordinates) {
         return fieldManager.getField().get(coordinates).getType() == PieceType.EMPTY;
+    }
+
+    private static void updateAvailableMovesPanel(Point coordinates) {
+        Piece piece = PiecesFieldModel.getField().get(coordinates);
+        List<Point> availableMoves = piece.getAvailableMoves();
+        AvailableMovesPanel.getInstance(null).setAvailableMoves(availableMoves);
+    }
+
+    private static void clearAvailableMovesPanel() {
+        AvailableMovesPanel.getInstance(null).setAvailableMoves(new ArrayList<>());
     }
 }
