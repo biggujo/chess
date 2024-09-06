@@ -20,7 +20,7 @@ public class PiecesFieldController {
     }
 
     private static void updatePanel() {
-        List<JComponent> updatedField = PiecesFieldModel.getField();
+        List<JComponent> updatedField = PiecesFieldModel.getComponents();
 
         SwingUtilities.invokeLater(() -> {
             try {

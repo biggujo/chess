@@ -4,13 +4,12 @@ import com.view.pieces.PieceFactory;
 
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 class Components {
     private final ArrayList<JComponent> components;
 
-    public static Components fromField(Field field) {
+    public static Components from(Field field) {
         Field field1 = new Field(field.getList());
         field1.getList().sort(Comparable::compareTo);
 
@@ -34,11 +33,7 @@ class Components {
         return components.add(jComponent);
     }
 
-    public void swap(int srcIndex, int destIndex) {
-        Collections.swap(components, srcIndex, destIndex);
-    }
-
-    public List<JComponent> getComponents() {
+    public List<JComponent> getList() {
         return components;
     }
 }

@@ -1,6 +1,7 @@
 package com.models.piecesfield;
 
 import com.helpers.IndexCalculatorByPoint;
+import com.models.pieces.IllegalPieceMoveException;
 import com.view.pieces.PieceComponent;
 import com.models.pieces.PieceType;
 
@@ -9,8 +10,7 @@ import java.awt.*;
 import java.util.List;
 
 public class PiecesFieldModel {
-    private static final FieldManager FIELD_TYPES_MANAGER = new FieldManager();
-    private static final Components COMPONENTS = Components.fromField(FIELD_TYPES_MANAGER.getField());
+    private static final FieldManager fieldManager = new FieldManager();
     private static Point prevCoordinates;
     private static boolean hasMoved;
 
@@ -24,9 +24,13 @@ public class PiecesFieldModel {
             return;
         }
 
-        movePieceTo(coordinates);
-        unselectPiece();
-        hasMoved = true;
+        try {
+            movePieceTo(coordinates);
+            hasMoved = true;
+        } catch (IllegalPieceMoveException ignored) {
+        } finally {
+            unselectPiece();
+        }
     }
 
     private static void selectPieceAt(Point coordinates) {
@@ -41,32 +45,28 @@ public class PiecesFieldModel {
 
     public static void disablePieceAt(Point coordinates) {
         int index = IndexCalculatorByPoint.getIndex(coordinates);
-        PieceComponent pieceComponent = (PieceComponent) COMPONENTS.get(index);
+        PieceComponent pieceComponent = (PieceComponent) fieldManager.getComponents().get(index);
         pieceComponent.setInactive();
     }
 
     public static void enablePieceAt(Point coordinates) {
         int index = IndexCalculatorByPoint.getIndex(coordinates);
-        PieceComponent pieceComponent = (PieceComponent) COMPONENTS.get(index);
+        PieceComponent pieceComponent = (PieceComponent) fieldManager.getComponents().get(index);
         pieceComponent.setActive();
-    }
-
-    private static void movePieceTo(Point coordinates) {
-        int srcIndex = IndexCalculatorByPoint.getIndex(prevCoordinates);
-        int destIndex = IndexCalculatorByPoint.getIndex(coordinates);
-
-        FIELD_TYPES_MANAGER.getField().get(coordinates).moveTo(coordinates);
-        COMPONENTS.swap(srcIndex, destIndex);
-    }
-
-    public static List<JComponent> getField() {
-        return COMPONENTS.getComponents();
     }
 
     public static boolean hasMoved() {
         boolean hasMovedCopy = hasMoved;
         hasMoved = false;
         return hasMovedCopy;
+    }
+
+    private static void movePieceTo(Point coordinates) throws IllegalPieceMoveException {
+        fieldManager.move(prevCoordinates, coordinates);
+    }
+
+    public static List<JComponent> getComponents() {
+        return fieldManager.getComponents().getList();
     }
 
     private static boolean hasActivatedThePieceBefore() {
@@ -90,6 +90,6 @@ public class PiecesFieldModel {
     }
 
     private static boolean isCellEmptyAt(Point coordinates) {
-        return FIELD_TYPES_MANAGER.getField().get(coordinates).getType() == PieceType.EMPTY;
+        return fieldManager.getField().get(coordinates).getType() == PieceType.EMPTY;
     }
 }

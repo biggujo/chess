@@ -13,20 +13,25 @@ public abstract class NonEmptyPiece extends PieceImpl {
     }
 
     @Override
-    public void moveTo(Point givenCoordinates) throws ArrayIndexOutOfBoundsException {
-        clearAvailableMoves();
-        addAvailableMoves();
+    public void moveTo(Point givenCoordinates) throws IllegalPieceMoveException {
         super.moveTo(givenCoordinates);
 
         if (!isMoveLegalTo(givenCoordinates)) {
             throw new IllegalPieceMoveException();
         }
+
+        recalculateAvailableMoves();
     }
 
-    public void setCoordinates(Point coordinates) throws ArrayIndexOutOfBoundsException {
+    public void setCoordinates(Point coordinates) throws IllegalPieceMoveException {
         if (MoveValidator.validate(coordinates)) {
             super.setCoordinates(coordinates);
         }
+    }
+
+    private void recalculateAvailableMoves() {
+        clearAvailableMoves();
+        addAvailableMoves();
     }
 
     private boolean isMoveLegalTo(Point givenCoordinates) {

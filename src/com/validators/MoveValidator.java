@@ -1,13 +1,14 @@
 package com.validators;
 
 import com.globals.Defaults;
+import com.models.pieces.IllegalPieceMoveException;
 
 import java.awt.*;
 
 public class MoveValidator {
-    public static boolean validate(Point point) throws ArrayIndexOutOfBoundsException {
+    public static boolean validate(Point point) throws IllegalPieceMoveException {
         if (isOutOfBoundsBy(point.x) || isOutOfBoundsBy(point.y)) {
-            throw new ArrayIndexOutOfBoundsException(point.toString());
+            throw new IllegalPieceMoveException();
         }
 
         return true;

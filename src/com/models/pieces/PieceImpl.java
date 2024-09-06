@@ -6,7 +6,7 @@ import java.awt.*;
 import java.util.List;
 
 abstract class PieceImpl implements Piece {
-    private List<Point> availableMoves;
+    private final List<Point> availableMoves;
     private Point coordinates;
 
     PieceImpl(Point coordinates, List<Point> availableMoves) {
@@ -19,6 +19,10 @@ abstract class PieceImpl implements Piece {
     }
 
     void clearAvailableMoves() {
+        if (availableMoves.isEmpty()) {
+            return;
+        }
+
         availableMoves.clear();
     }
 

@@ -27,7 +27,7 @@ public class PiecesPanel extends GridPanel {
 
     @Override
     List<JComponent> createCellField() {
-        return PiecesFieldModel.getField();
+        return PiecesFieldModel.getComponents();
     }
 
     public void updateWith(List<JComponent> newCells) {
