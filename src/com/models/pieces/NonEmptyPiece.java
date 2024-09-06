@@ -3,11 +3,13 @@ package com.models.pieces;
 import com.validators.MoveValidator;
 
 import java.awt.*;
-import java.util.List;
 
 public abstract class NonEmptyPiece extends PieceImpl {
-    public NonEmptyPiece(Point coordinates, List<Point> availableMoves) {
-        super(coordinates, availableMoves);
+    private final PlayerType playerType;
+
+    public NonEmptyPiece(PlayerType playerType, Point coordinates) {
+        super(coordinates);
+        this.playerType = playerType;
 
         addAvailableMoves();
     }
@@ -21,6 +23,10 @@ public abstract class NonEmptyPiece extends PieceImpl {
 //        }
 
         recalculateAvailableMoves();
+    }
+
+    public PlayerType getPlayerType() {
+        return playerType;
     }
 
     public void setCoordinates(Point coordinates) throws IllegalPieceMoveException {

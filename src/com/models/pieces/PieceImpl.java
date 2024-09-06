@@ -3,15 +3,16 @@ package com.models.pieces;
 import com.helpers.IndexCalculatorByPoint;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 abstract class PieceImpl implements Piece {
     private final List<Point> availableMoves;
     private Point coordinates;
 
-    PieceImpl(Point coordinates, List<Point> availableMoves) {
+    PieceImpl(Point coordinates) {
         this.coordinates = coordinates;
-        this.availableMoves = availableMoves;
+        this.availableMoves = new ArrayList<>();
     }
 
     public void moveTo(Point point) throws ArrayIndexOutOfBoundsException {

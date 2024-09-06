@@ -9,17 +9,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class PiecesPanel extends GridPanel {
-    private static PiecesPanel instance;
-
-    public static PiecesPanel getInstance() throws IOException {
-        if (PiecesPanel.instance == null) {
-            PiecesPanel.instance = new PiecesPanel();
-        }
-
-        return PiecesPanel.instance;
-    }
-
-    private PiecesPanel() throws IOException {
+    PiecesPanel() throws IOException {
         super(new Dimension(Defaults.TILE_AMOUNT, Defaults.TILE_AMOUNT), Defaults.PIECE_SIZE);
 
         addMouseListener(new PiecesMouseListener());

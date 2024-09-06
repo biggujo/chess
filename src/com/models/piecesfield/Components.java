@@ -20,7 +20,7 @@ class Components {
         components = new ArrayList<>();
 
         field.getList().forEach(pieceModel -> {
-            JComponent pieceInstance = PieceFactory.getInstance(pieceModel.getType());
+            JComponent pieceInstance = PieceFactory.getInstance(pieceModel.getPieceType());
             components.add(pieceInstance);
         });
     }

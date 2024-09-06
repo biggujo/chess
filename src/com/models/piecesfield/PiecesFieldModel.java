@@ -1,24 +1,32 @@
 package com.models.piecesfield;
 
 import com.helpers.IndexCalculatorByPoint;
+import com.models.currentmove.CurrentPlayer;
 import com.models.pieces.IllegalPieceMoveException;
 import com.models.pieces.Piece;
-import com.view.panels.AvailableMovesPanel;
-import com.view.pieces.PieceComponent;
 import com.models.pieces.PieceType;
+import com.models.pieces.PlayerType;
+import com.view.panels.PanelManager;
+import com.view.pieces.PieceComponent;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PiecesFieldModel {
     private static final FieldManager fieldManager = new FieldManager();
+    private static final CurrentPlayer currentPlayer = new CurrentPlayer(PlayerType.FIRST);
     private static Point prevCoordinates;
     private static boolean hasMoved;
 
-    public static void registerClickAt(Point coordinates) {
+    public static void registerClickAt(Point coordinates) throws IOException {
         if (isRegisteringAnEmptyCellAt(coordinates)) {
+            return;
+        }
+
+        if (!isSelectingOwnPiece(coordinates)) {
             return;
         }
 
@@ -28,18 +36,26 @@ public class PiecesFieldModel {
             return;
         }
 
+        if (hasSelectedTheSamePieceAt(coordinates)) {
+            clearAvailableMovesPanel();
+            unselectPiece();
+            return;
+        }
+
         if (!fieldManager.getField().isEmptyAt(coordinates)) {
             selectAnotherPieceAt(coordinates);
             return;
         }
 
         try {
-            clearAvailableMovesPanel();
             movePieceTo(coordinates);
         } catch (IllegalPieceMoveException ignored) {
         } finally {
+            clearAvailableMovesPanel();
             unselectPiece();
         }
+
+//        currentPlayer.switchPlayer();
     }
 
     private static void selectPieceAt(Point coordinates) {
@@ -78,7 +94,7 @@ public class PiecesFieldModel {
         return fieldManager.getComponents().getList();
     }
 
-    private static void selectAnotherPieceAt(Point coordinates) {
+    private static void selectAnotherPieceAt(Point coordinates) throws IOException {
         disablePieceAt(prevCoordinates);
         enablePieceAt(coordinates);
         updateAvailableMovesPanel(coordinates);
@@ -112,16 +128,31 @@ public class PiecesFieldModel {
     }
 
     private static boolean isCellEmptyAt(Point coordinates) {
-        return fieldManager.getField().get(coordinates).getType() == PieceType.EMPTY;
+        return fieldManager.getField().get(coordinates).getPieceType() == PieceType.EMPTY;
     }
 
-    private static void updateAvailableMovesPanel(Point coordinates) {
+    private static boolean hasSelectedTheSamePieceAt(Point coordinates) {
+        return prevCoordinates.equals(coordinates);
+    }
+
+    private static void updateAvailableMovesPanel(Point coordinates) throws IOException {
         Piece piece = PiecesFieldModel.getField().get(coordinates);
         List<Point> availableMoves = piece.getAvailableMoves();
-        AvailableMovesPanel.getInstance(null).setAvailableMoves(availableMoves);
+        PanelManager.getInstance().getAvailableMovesPanel().setAvailableMoves(availableMoves);
     }
 
-    private static void clearAvailableMovesPanel() {
-        AvailableMovesPanel.getInstance(null).setAvailableMoves(new ArrayList<>());
+    private static void clearAvailableMovesPanel() throws IOException {
+        PanelManager.getInstance().getAvailableMovesPanel().setAvailableMoves(new ArrayList<>());
+    }
+
+    private static boolean isSelectingOwnPiece(Point coordinates) {
+        PlayerType piecePlayerType = fieldManager.getField().get(coordinates).getPlayerType();
+
+        if (piecePlayerType.equals(PlayerType.NONE)) {
+            return true;
+        }
+
+        return fieldManager.getField().get(coordinates).getPlayerType()
+                .equals(currentPlayer.getCurrentPlayer());
     }
 }

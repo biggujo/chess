@@ -1,7 +1,7 @@
 package com.controller;
 
 import com.models.piecesfield.PiecesFieldModel;
-import com.view.panels.PiecesPanel;
+import com.view.panels.PanelManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,8 +24,8 @@ public class PiecesFieldController {
 
         SwingUtilities.invokeLater(() -> {
             try {
-                PiecesPanel.getInstance().updateWith(updatedField);
-                PiecesPanel.getInstance().revalidate();
+                PanelManager.getInstance().getPiecesPanel().updateWith(updatedField);
+                PanelManager.getInstance().getPiecesPanel().revalidate();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

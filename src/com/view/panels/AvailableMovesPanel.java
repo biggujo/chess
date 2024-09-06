@@ -4,24 +4,20 @@ import com.globals.Defaults;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
-public class AvailableMovesPanel extends JComponent {
+public class AvailableMovesPanel extends JPanel {
     private static final int CIRCLE_DIAMETER = Defaults.PIECE_SIZE / 5;
     private static final int INITIAL_OFFSET = Defaults.PIECE_SIZE / 2;
     private static final int STEP = Defaults.PIECE_SIZE;
-    private static AvailableMovesPanel instance;
     private List<Point> availableMoves;
 
-    public static AvailableMovesPanel getInstance(List<Point> availableMoves) {
-        if (AvailableMovesPanel.instance == null) {
-            AvailableMovesPanel.instance = new AvailableMovesPanel(availableMoves);
-        }
-
-        return AvailableMovesPanel.instance;
+    AvailableMovesPanel() {
+        this(new ArrayList<>());
     }
 
-    public AvailableMovesPanel(List<Point> availableMoves) {
+    AvailableMovesPanel(List<Point> availableMoves) {
         this.availableMoves = availableMoves;
 
         int side = Defaults.PIECE_SIZE * Defaults.TILE_AMOUNT;

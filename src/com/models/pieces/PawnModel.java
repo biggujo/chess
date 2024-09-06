@@ -3,16 +3,14 @@ package com.models.pieces;
 import com.validators.MoveValidator;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class PawnModel extends NonEmptyPiece {
     private static final PieceType type = PieceType.PAWN;
 
     private boolean hasMovedAtLeastOnce = false;
 
-    public PawnModel(Point coordinates, List<Point> availableMoves) {
-        super(coordinates, availableMoves);
+    public PawnModel(PlayerType playerType, Point coordinates) {
+        super(playerType, coordinates);
     }
 
     void addAvailableMoves() {
@@ -67,7 +65,7 @@ public class PawnModel extends NonEmptyPiece {
     }
 
     @Override
-    public PieceType getType() {
+    public PieceType getPieceType() {
         return PawnModel.type;
     }
 }

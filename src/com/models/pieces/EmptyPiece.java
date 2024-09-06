@@ -1,17 +1,21 @@
 package com.models.pieces;
 
 import java.awt.*;
-import java.util.List;
 
 public class EmptyPiece extends PieceImpl {
     private static final PieceType type = PieceType.EMPTY;
 
-    public EmptyPiece(Point coordinates, List<Point> availableMoves) {
-        super(coordinates, availableMoves);
+    public EmptyPiece(Point coordinates) {
+        super(coordinates);
     }
 
     @Override
-    public PieceType getType() {
+    public PieceType getPieceType() {
         return type;
+    }
+
+    @Override
+    public PlayerType getPlayerType() {
+        return PlayerType.NONE;
     }
 }

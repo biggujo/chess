@@ -1,14 +1,10 @@
 package com.models.piecesfield;
 
 import com.helpers.IndexCalculatorByPoint;
-import com.models.pieces.EmptyPiece;
-import com.models.pieces.IllegalPieceMoveException;
-import com.models.pieces.Piece;
-import com.models.pieces.PieceType;
+import com.models.pieces.*;
 import com.models.piecesfield.fieldinitializers.FieldInitializer;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -53,15 +49,15 @@ public class Field {
     public boolean isEmptyAt(Point coordinates) {
         int index = IndexCalculatorByPoint.getIndex(coordinates);
 
-        return field.get(index).getType() == PieceType.EMPTY;
+        return field.get(index).getPieceType() == PieceType.EMPTY;
     }
 
     private boolean isMovedPieceEmpty(Piece piece) {
-        return piece.getType() != PieceType.EMPTY;
+        return piece.getPieceType() != PieceType.EMPTY;
     }
 
     private void setEmptyPieceAt(Point coordinates) {
         int index = IndexCalculatorByPoint.getIndex(coordinates);
-        field.set(index, new EmptyPiece(coordinates, new ArrayList<>()));
+        field.set(index, new PieceFactory(PlayerType.FIRST).getInstance(PieceType.EMPTY, coordinates));
     }
 }

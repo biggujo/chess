@@ -8,7 +8,9 @@ public interface Piece extends Comparable<Piece> {
 
     Point getCoordinates();
 
-    PieceType getType();
+    PieceType getPieceType();
+
+    PlayerType getPlayerType();
 
     void moveTo(Point point) throws ArrayIndexOutOfBoundsException;
 }
