@@ -61,12 +61,16 @@ public class PiecesFieldModel {
         return hasMovedCopy;
     }
 
-    private static void movePieceTo(Point coordinates) throws IllegalPieceMoveException {
-        fieldManager.move(prevCoordinates, coordinates);
+    public static Field getField() {
+        return fieldManager.getField();
     }
 
     public static List<JComponent> getComponents() {
         return fieldManager.getComponents().getList();
+    }
+
+    private static void movePieceTo(Point coordinates) throws IllegalPieceMoveException {
+        fieldManager.move(prevCoordinates, coordinates);
     }
 
     private static boolean hasActivatedThePieceBefore() {

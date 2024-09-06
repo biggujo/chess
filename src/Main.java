@@ -1,5 +1,6 @@
 import com.globals.Defaults;
 import com.view.frames.MainFrame;
+import com.view.panels.AvailableMovesPanel;
 import com.view.panels.CellPanel;
 import com.view.panels.PaddingPanel;
 import com.view.panels.PiecesPanel;
@@ -7,6 +8,8 @@ import com.view.panels.PiecesPanel;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     private static final String WINDOW_TITLE = "Chess";
@@ -32,7 +35,10 @@ public class Main {
                 throw new RuntimeException(e);
             }
 
+            JComponent availableMovesPanel = AvailableMovesPanel.getInstance(new ArrayList<>());
+
             panel.add(piecesPanel);
+            panel.add(availableMovesPanel);
             panel.add(fieldPanel);
 
             panel.setLayout(new OverlayLayout(panel));

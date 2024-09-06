@@ -16,9 +16,9 @@ public abstract class NonEmptyPiece extends PieceImpl {
     public void moveTo(Point givenCoordinates) throws IllegalPieceMoveException {
         super.moveTo(givenCoordinates);
 
-        if (!isMoveLegalTo(givenCoordinates)) {
-            throw new IllegalPieceMoveException();
-        }
+//        if (!isMoveLegalTo(givenCoordinates)) {
+//            throw new IllegalPieceMoveException();
+//        }
 
         recalculateAvailableMoves();
     }

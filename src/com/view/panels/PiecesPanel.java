@@ -23,6 +23,7 @@ public class PiecesPanel extends GridPanel {
         super(new Dimension(Defaults.TILE_AMOUNT, Defaults.TILE_AMOUNT), Defaults.PIECE_SIZE);
 
         addMouseListener(new PiecesMouseListener());
+        setOpaque(false);
     }
 
     @Override

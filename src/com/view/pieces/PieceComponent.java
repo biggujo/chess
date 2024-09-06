@@ -15,7 +15,7 @@ public abstract class PieceComponent extends JComponent {
     }
 
     @Override
-    public void paint(Graphics g) {
+    public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
 
         g2d.drawImage(image, 0, 0, dimension.width, dimension.height, null);

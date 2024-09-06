@@ -17,6 +17,10 @@ class FieldManager {
     }
 
     public void move(Point src, Point dest) throws IllegalPieceMoveException {
+        if (src.equals(dest)) {
+            return;
+        }
+
         field.move(src, dest);
         componentsManager.updateWith(field);
     }
