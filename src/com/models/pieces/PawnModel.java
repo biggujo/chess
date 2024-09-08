@@ -1,12 +1,12 @@
 package com.models.pieces;
 
 import com.globals.Defaults;
+import com.helpers.PointTranslator;
 import com.models.piecesfield.Field;
 import com.models.piecesfield.PiecesFieldModel;
 import com.validators.MoveOutOfBoundsValidator;
 
 import java.awt.*;
-import java.lang.reflect.Array;
 
 public class PawnModel extends NonEmptyPiece {
     private static final PieceType type = PieceType.PAWN;
@@ -24,13 +24,7 @@ public class PawnModel extends NonEmptyPiece {
 
         tryToAddForwardMoves();
         tryToAddDiagonalMoves();
-    }
-
-    private void tryToAddDiagonalMoves() {
-        try {
-            addDiagonalMoves();
-        } catch (IllegalPieceMoveException ignored) {
-        }
+        tryToAddEnPassant();
     }
 
     private void tryToAddForwardMoves() {
@@ -41,39 +35,18 @@ public class PawnModel extends NonEmptyPiece {
         }
     }
 
-    private void addDiagonalMoves() {
-        int dx = -1;
-        int dy = -1;
-
-        if (!isFirstPlayer()) {
-            dy = -dy;
-        }
-
+    private void tryToAddDiagonalMoves() {
         try {
-            addDiagonalMoveTo(dx, dy);
-        } catch (IllegalPieceMoveException ignored) {
-        }
-
-        try {
-            addDiagonalMoveTo(-dx, dy);
+            addDiagonalMoves();
         } catch (IllegalPieceMoveException ignored) {
         }
     }
 
-    private void addDiagonalMoveTo(int dx, int dy) {
-        Point destination = getCoordinates().getLocation();
-        destination.translate(dx, dy);
-
-        Field field = PiecesFieldModel.getField();
+    private void tryToAddEnPassant() {
         try {
-            if (field.isEmptyAt(destination)) {
-                throw new IllegalPieceMoveException();
-            }
-        } catch (IndexOutOfBoundsException ignored) {
-            return;
+            addEnPassant();
+        } catch (IllegalPieceMoveException ignored) {
         }
-
-        addMoveTo(destination);
     }
 
     private boolean hasReachedTheTop() {
@@ -109,8 +82,7 @@ public class PawnModel extends NonEmptyPiece {
     }
 
     private void addForwardBy(int dy) throws IllegalPieceMoveException {
-        Point destination = getCoordinates().getLocation();
-        destination.translate(0, dy);
+        Point destination = PointTranslator.translate(getCoordinates(), 0, dy);
 
         try {
             if (!PiecesFieldModel.getField().isEmptyAt(destination)) {
@@ -123,16 +95,66 @@ public class PawnModel extends NonEmptyPiece {
         addMoveTo(destination);
     }
 
-    private void addMoveTo(Point destination) {
+    private void addDiagonalMoves() {
+        int dx = -1;
+        int dy = -1;
+
+        if (!isFirstPlayer()) {
+            dy = -dy;
+        }
+
         try {
-            addAvailableMoveTo(destination);
-        } catch (ArrayIndexOutOfBoundsException ignored) {
+            addDiagonalMoveTo(dx, dy);
+        } catch (IllegalPieceMoveException ignored) {
+        }
+
+        try {
+            addDiagonalMoveTo(-dx, dy);
+        } catch (IllegalPieceMoveException ignored) {
         }
     }
 
-    private void addAvailableMoveTo(Point coordinates) throws ArrayIndexOutOfBoundsException {
-        if (MoveOutOfBoundsValidator.validate(coordinates)) {
-            getAvailableMoves().add(coordinates);
+    private void addDiagonalMoveTo(int dx, int dy) {
+        Point destination = PointTranslator.translate(getCoordinates(), dx, dy);
+
+        Field field = PiecesFieldModel.getField();
+        try {
+            if (field.isEmptyAt(destination)) {
+                throw new IllegalPieceMoveException();
+            }
+        } catch (IndexOutOfBoundsException ignored) {
+            return;
+        }
+
+        addMoveTo(destination);
+    }
+
+    private void addEnPassant() {
+        int dx = -1;
+        int dy = -1;
+
+        Point destination = PointTranslator.translate(getCoordinates(), dx, dy);
+
+        Point nearToTheLeft = PointTranslator.translate(getCoordinates(), -1, 0);
+        Point nearToTheRight = PointTranslator.translate(getCoordinates(), 1, 0);
+
+        if (!PiecesFieldModel.getField().isEmptyAt(nearToTheLeft)) {
+            addMoveTo(destination);
+            PiecesFieldModel.getField().captureAt(nearToTheLeft);
+        }
+
+        if (!PiecesFieldModel.getField().isEmptyAt(nearToTheRight)) {
+            addMoveTo(destination);
+            PiecesFieldModel.getField().captureAt(nearToTheRight);
+        }
+    }
+
+    private void addMoveTo(Point destination) {
+        try {
+            if (MoveOutOfBoundsValidator.validate(destination)) {
+                getAvailableMoves().add(destination);
+            }
+        } catch (IllegalPieceMoveException ignored) {
         }
     }
 
