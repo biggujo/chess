@@ -15,8 +15,8 @@ public class PlayerStatus {
 
     public void switchPlayer() {
         switch (currentPlayer) {
-            case WHITE -> this.currentPlayer = PlayerType.BLACK;
-            case BLACK -> this.currentPlayer = PlayerType.WHITE;
+            case FIRST -> this.currentPlayer = PlayerType.SECOND;
+            case SECOND -> this.currentPlayer = PlayerType.FIRST;
         }
     }
 
@@ -25,7 +25,7 @@ public class PlayerStatus {
     }
 
     public static void main(String[] args) {
-        PlayerStatus playerStatus1 = new PlayerStatus(PlayerType.WHITE);
+        PlayerStatus playerStatus1 = new PlayerStatus(PlayerType.FIRST);
 
         playerStatus1.switchPlayer();
 

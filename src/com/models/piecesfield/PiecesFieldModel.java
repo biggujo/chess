@@ -17,7 +17,7 @@ import java.util.List;
 
 public class PiecesFieldModel {
     private static final FieldManager fieldManager = new FieldManager();
-    private static final PlayerStatus playerStatus = PlayerStatus.fromInitialPlayer(PlayerType.WHITE);
+    private static final PlayerStatus playerStatus = PlayerStatus.fromInitialPlayer(PlayerType.FIRST);
     private static Point prevCoordinates;
     private static boolean hasMoved;
 
@@ -42,7 +42,7 @@ public class PiecesFieldModel {
             return;
         }
 
-        if (!fieldManager.getField().isEmptyAt(coordinates)) {
+        if (fieldManager.getField().isNotEmptyAt(coordinates)) {
             selectAnotherPieceAt(coordinates);
             return;
         }

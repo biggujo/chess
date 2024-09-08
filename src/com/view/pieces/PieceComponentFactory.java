@@ -13,8 +13,8 @@ public class PieceComponentFactory {
 
     public static JComponent getInstance(Piece piece) {
         return switch (piece.getPlayerType()) {
-            case WHITE -> whitePieceFactory.getInstance(piece);
-            case BLACK -> blackPieceFactory.getInstance(piece);
+            case FIRST -> whitePieceFactory.getInstance(piece);
+            case SECOND -> blackPieceFactory.getInstance(piece);
             case NONE -> new EmptyPieceComponent(dimension);
         };
     }

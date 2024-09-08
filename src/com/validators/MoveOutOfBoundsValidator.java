@@ -5,7 +5,7 @@ import com.models.pieces.IllegalPieceMoveException;
 
 import java.awt.*;
 
-public class MoveValidator {
+public class MoveOutOfBoundsValidator {
     public static boolean validate(Point point) throws IllegalPieceMoveException {
         if (isOutOfBoundsBy(point.x) || isOutOfBoundsBy(point.y)) {
             throw new IllegalPieceMoveException();

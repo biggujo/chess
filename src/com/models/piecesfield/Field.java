@@ -46,10 +46,10 @@ public class Field {
         return field;
     }
 
-    public boolean isEmptyAt(Point coordinates) {
+    public boolean isNotEmptyAt(Point coordinates) {
         int index = IndexCalculatorByPoint.getIndex(coordinates);
 
-        return field.get(index).getPieceType() == PieceType.EMPTY;
+        return field.get(index).getPieceType() != PieceType.EMPTY;
     }
 
     private boolean isMovedPieceEmpty(Piece piece) {
@@ -58,6 +58,6 @@ public class Field {
 
     private void setEmptyPieceAt(Point coordinates) {
         int index = IndexCalculatorByPoint.getIndex(coordinates);
-        field.set(index, new PieceFactory(PlayerType.WHITE).getInstance(PieceType.EMPTY, coordinates));
+        field.set(index, new PieceFactory(PlayerType.FIRST).getInstance(PieceType.EMPTY, coordinates));
     }
 }

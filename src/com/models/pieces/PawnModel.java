@@ -1,6 +1,8 @@
 package com.models.pieces;
 
-import com.validators.MoveValidator;
+import com.globals.Defaults;
+import com.models.piecesfield.PiecesFieldModel;
+import com.validators.MoveOutOfBoundsValidator;
 
 import java.awt.*;
 
@@ -18,12 +20,23 @@ public class PawnModel extends NonEmptyPiece {
             return;
         }
 
-        addSingleForward();
-        addDoubleForward();
+        tryToAddMoves();
+    }
+
+    private void tryToAddMoves() {
+        try {
+            addSingleForward();
+            addDoubleForward();
+        } catch (IllegalPieceMoveException ignored) {
+        }
     }
 
     private boolean hasReachedTheTop() {
-        return getCoordinates().y == 0;
+        if (isFirstPlayer()) {
+            return getCoordinates().y == 0;
+        }
+
+        return getCoordinates().y == Defaults.TILE_AMOUNT - 1;
     }
 
     private void addDoubleForward() {
@@ -31,18 +44,40 @@ public class PawnModel extends NonEmptyPiece {
             return;
         }
 
-        addMoveToTopBy(2);
+        int dy = -2;
+
+        if (isFirstPlayer()) {
+            dy = -dy;
+        }
+
+        addMoveToTopBy(dy);
     }
 
     private void addSingleForward() {
-        addMoveToTopBy(1);
+        int dy = -1;
+
+        if (isFirstPlayer()) {
+            dy = -dy;
+        }
+
+        addMoveToTopBy(dy);
     }
 
     private void addMoveToTopBy(int y) {
-        Point doubleForwardDestination = getCoordinates().getLocation();
-        doubleForwardDestination.translate(0, -y);
+        Point destination = getCoordinates().getLocation();
+        destination.translate(0, -y);
 
-        tryToAddAvailableMove(doubleForwardDestination);
+        try {
+            MoveOutOfBoundsValidator.validate(destination);
+        } catch (IllegalPieceMoveException ignored) {
+            return;
+        }
+
+        if (PiecesFieldModel.getField().isNotEmptyAt(destination)) {
+            throw new IllegalPieceMoveException();
+        }
+
+        tryToAddAvailableMove(destination);
     }
 
     private void tryToAddAvailableMove(Point coordinates) {
@@ -53,9 +88,13 @@ public class PawnModel extends NonEmptyPiece {
     }
 
     private void addAvailableMove(Point coordinates) throws ArrayIndexOutOfBoundsException {
-        if (MoveValidator.validate(coordinates)) {
+        if (MoveOutOfBoundsValidator.validate(coordinates)) {
             getAvailableMoves().add(coordinates);
         }
+    }
+
+    private boolean isFirstPlayer() {
+        return getPlayerType() == PlayerType.FIRST;
     }
 
     @Override

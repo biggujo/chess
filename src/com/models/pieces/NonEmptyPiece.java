@@ -1,6 +1,6 @@
 package com.models.pieces;
 
-import com.validators.MoveValidator;
+import com.validators.MoveOutOfBoundsValidator;
 
 import java.awt.*;
 
@@ -10,8 +10,6 @@ public abstract class NonEmptyPiece extends PieceImpl {
     public NonEmptyPiece(PlayerType playerType, Point coordinates) {
         super(coordinates);
         this.playerType = playerType;
-
-        addAvailableMoves();
     }
 
     @Override
@@ -22,7 +20,7 @@ public abstract class NonEmptyPiece extends PieceImpl {
 //            throw new IllegalPieceMoveException();
 //        }
 
-        recalculateAvailableMoves();
+        calculateAvailableMoves();
     }
 
     public PlayerType getPlayerType() {
@@ -30,12 +28,12 @@ public abstract class NonEmptyPiece extends PieceImpl {
     }
 
     public void setCoordinates(Point coordinates) throws IllegalPieceMoveException {
-        if (MoveValidator.validate(coordinates)) {
+        if (MoveOutOfBoundsValidator.validate(coordinates)) {
             super.setCoordinates(coordinates);
         }
     }
 
-    private void recalculateAvailableMoves() {
+    public void calculateAvailableMoves() {
         clearAvailableMoves();
         addAvailableMoves();
     }
@@ -43,6 +41,4 @@ public abstract class NonEmptyPiece extends PieceImpl {
     private boolean isMoveLegalTo(Point givenCoordinates) {
         return getAvailableMoves().stream().anyMatch(p -> p.equals(givenCoordinates));
     }
-
-    abstract void addAvailableMoves();
 }

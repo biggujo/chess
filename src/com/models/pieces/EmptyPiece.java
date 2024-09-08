@@ -10,6 +10,10 @@ public class EmptyPiece extends PieceImpl {
     }
 
     @Override
+    void addAvailableMoves() {
+    }
+
+    @Override
     public PieceType getPieceType() {
         return type;
     }

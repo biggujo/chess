@@ -10,18 +10,18 @@ public class EmptyFieldInitializer implements FieldInitializer {
 
     @Override
     public Field initialize(Field originalField) {
-        PieceFactory whiteFactory = new PieceFactory(PlayerType.WHITE);
-        PieceFactory blackFactory = new PieceFactory(PlayerType.BLACK);
+        PieceFactory whiteFactory = new PieceFactory(PlayerType.FIRST);
+        PieceFactory blackFactory = new PieceFactory(PlayerType.SECOND);
 
         for (int i = 0; i < Defaults.TILE_AMOUNT; i++) {
             for (int j = 0; j < Defaults.TILE_AMOUNT; j++) {
                 Point coordinates = new Point(j, i);
-                if (i == 2 && j == 6) {
+                if (i == 2 && j == 6 || i == 3 && j == 6) {
                     originalField.getList().add(blackFactory.getInstance(PieceType.PAWN, coordinates));
                     continue;
                 }
 
-                if (i == 3 && j == 2) {
+                if (i == 3 && j == 2 || i == 1 && j == 2) {
                     originalField.getList().add(whiteFactory.getInstance(PieceType.PAWN, coordinates));
                     continue;
                 }
