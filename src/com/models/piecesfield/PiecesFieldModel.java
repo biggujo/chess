@@ -57,6 +57,7 @@ public class PiecesFieldModel {
 
     private static void selectPieceAt(Point coordinates) {
         enablePieceAt(coordinates);
+        fieldManager.getField().get(coordinates).getAdvancesList();
         savePrevCoordinates(coordinates);
     }
 
@@ -157,7 +158,7 @@ public class PiecesFieldModel {
 
     private static void updateAvailableMovesPanel(Point coordinates) throws IOException {
         Piece piece = PiecesFieldModel.getField().get(coordinates);
-        List<Point> availableMoves = piece.getAvailableMoves();
+        List<Point> availableMoves = piece.getAdvancesList().getAvailableMoves();
         PanelManager.getInstance().getAvailableMovesPanel().setAvailableMoves(availableMoves);
     }
 

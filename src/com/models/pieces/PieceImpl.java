@@ -1,52 +1,62 @@
 package com.models.pieces;
 
 import com.helpers.IndexCalculatorByPoint;
+import com.services.moves.AdvanceProcessor;
+import com.services.moves.Advances;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 abstract class PieceImpl implements Piece {
-    private final List<Point> availableMoves;
+    private final Advances availableAdvances;
+    private List<AdvanceProcessor> advanceProcessors;
     private Point coordinates;
     private boolean hasEmptiedMoves;
+    private boolean hasBeenMoved;
 
     PieceImpl(Point coordinates) {
+        this.availableAdvances = new Advances();
+        this.advanceProcessors = new ArrayList<>();
         this.coordinates = coordinates;
-        this.availableMoves = new ArrayList<>();
         this.hasEmptiedMoves = true;
     }
 
     public void moveTo(Point point) throws ArrayIndexOutOfBoundsException {
-        setCoordinates(point);
-
         if (!isMoveLegalTo(point)) {
             throw new IllegalPieceMoveException();
         }
 
+        setCoordinates(point);
+        clearAvailableMoves();
         hasEmptiedMoves = true;
+        hasBeenMoved = true;
     }
 
-    abstract void addAvailableMoves();
+    protected abstract void addPossibleAdvances();
 
     void clearAvailableMoves() {
-        if (availableMoves.isEmpty()) {
+        if (availableAdvances.getAvailableAdvances().isEmpty()) {
             return;
         }
 
-        availableMoves.clear();
+        availableAdvances.getAvailableAdvances().clear();
     }
 
     @Override
-    public List<Point> getAvailableMoves() {
+    public Advances getAdvancesList() {
         if (hasEmptiedMoves) {
             hasEmptiedMoves = false;
-            addAvailableMoves();
+            addPossibleAdvances();
         }
 
-        System.out.println(availableMoves);
+        System.out.println(availableAdvances);
 
-        return availableMoves;
+        return availableAdvances;
+    }
+
+    public List<AdvanceProcessor> getAdvanceProcessors() {
+        return advanceProcessors;
     }
 
     @Override
@@ -56,6 +66,14 @@ abstract class PieceImpl implements Piece {
 
     public void setCoordinates(Point coordinates) {
         this.coordinates = coordinates;
+    }
+
+    public boolean hasBeenMoved() {
+        return hasBeenMoved;
+    }
+
+    protected boolean hasAddedAdvanceProcessors() {
+        return !advanceProcessors.isEmpty();
     }
 
     @Override
@@ -74,6 +92,6 @@ abstract class PieceImpl implements Piece {
     }
 
     private boolean isMoveLegalTo(Point givenCoordinates) {
-        return getAvailableMoves().stream().anyMatch(p -> p.equals(givenCoordinates));
+        return getAdvancesList().getAvailableMoves().stream().anyMatch(p -> p.equals(givenCoordinates));
     }
 }

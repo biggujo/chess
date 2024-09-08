@@ -23,13 +23,13 @@ public abstract class NonEmptyPiece extends PieceImpl {
     }
 
     public void setCoordinates(Point coordinates) throws IllegalPieceMoveException {
-        if (MoveOutOfBoundsValidator.validate(coordinates)) {
+        if (MoveOutOfBoundsValidator.validateDestination(coordinates)) {
             super.setCoordinates(coordinates);
         }
     }
 
     public void calculateAvailableMoves() {
         clearAvailableMoves();
-        addAvailableMoves();
+        addPossibleAdvances();
     }
 }

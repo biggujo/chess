@@ -10,7 +10,7 @@ public class EmptyPiece extends PieceImpl {
     }
 
     @Override
-    void addAvailableMoves() {
+    protected void addPossibleAdvances() {
     }
 
     @Override

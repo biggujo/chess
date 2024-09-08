@@ -1,10 +1,11 @@
 package com.models.pieces;
 
+import com.services.moves.Advances;
+
 import java.awt.*;
-import java.util.List;
 
 public interface Piece extends Comparable<Piece> {
-    List<Point> getAvailableMoves();
+    Advances getAdvancesList();
 
     Point getCoordinates();
 
