@@ -15,11 +15,6 @@ public abstract class NonEmptyPiece extends PieceImpl {
     @Override
     public void moveTo(Point givenCoordinates) throws IllegalPieceMoveException {
         super.moveTo(givenCoordinates);
-
-//        if (!isMoveLegalTo(givenCoordinates)) {
-//            throw new IllegalPieceMoveException();
-//        }
-
         calculateAvailableMoves();
     }
 
@@ -36,9 +31,5 @@ public abstract class NonEmptyPiece extends PieceImpl {
     public void calculateAvailableMoves() {
         clearAvailableMoves();
         addAvailableMoves();
-    }
-
-    private boolean isMoveLegalTo(Point givenCoordinates) {
-        return getAvailableMoves().stream().anyMatch(p -> p.equals(givenCoordinates));
     }
 }

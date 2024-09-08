@@ -16,7 +16,7 @@ public class EmptyFieldInitializer implements FieldInitializer {
         for (int i = 0; i < Defaults.TILE_AMOUNT; i++) {
             for (int j = 0; j < Defaults.TILE_AMOUNT; j++) {
                 Point coordinates = new Point(j, i);
-                if (i == 2 && j == 6 || i == 3 && j == 6) {
+                if (i == 2 && j == 6 || i == 3 && j == 6 || i == 2 && j == 1) {
                     originalField.getList().add(blackFactory.getInstance(PieceType.PAWN, coordinates));
                     continue;
                 }

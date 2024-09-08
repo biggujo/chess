@@ -1,10 +1,12 @@
 package com.models.pieces;
 
 import com.globals.Defaults;
+import com.models.piecesfield.Field;
 import com.models.piecesfield.PiecesFieldModel;
 import com.validators.MoveOutOfBoundsValidator;
 
 import java.awt.*;
+import java.lang.reflect.Array;
 
 public class PawnModel extends NonEmptyPiece {
     private static final PieceType type = PieceType.PAWN;
@@ -20,15 +22,58 @@ public class PawnModel extends NonEmptyPiece {
             return;
         }
 
-        tryToAddMoves();
+        tryToAddForwardMoves();
+        tryToAddDiagonalMoves();
     }
 
-    private void tryToAddMoves() {
+    private void tryToAddDiagonalMoves() {
+        try {
+            addDiagonalMoves();
+        } catch (IllegalPieceMoveException ignored) {
+        }
+    }
+
+    private void tryToAddForwardMoves() {
         try {
             addSingleForward();
             addDoubleForward();
         } catch (IllegalPieceMoveException ignored) {
         }
+    }
+
+    private void addDiagonalMoves() {
+        int dx = -1;
+        int dy = -1;
+
+        if (!isFirstPlayer()) {
+            dy = -dy;
+        }
+
+        try {
+            addDiagonalMoveTo(dx, dy);
+        } catch (IllegalPieceMoveException ignored) {
+        }
+
+        try {
+            addDiagonalMoveTo(-dx, dy);
+        } catch (IllegalPieceMoveException ignored) {
+        }
+    }
+
+    private void addDiagonalMoveTo(int dx, int dy) {
+        Point destination = getCoordinates().getLocation();
+        destination.translate(dx, dy);
+
+        Field field = PiecesFieldModel.getField();
+        try {
+            if (field.isEmptyAt(destination)) {
+                throw new IllegalPieceMoveException();
+            }
+        } catch (IndexOutOfBoundsException ignored) {
+            return;
+        }
+
+        addMoveTo(destination);
     }
 
     private boolean hasReachedTheTop() {
@@ -39,55 +84,53 @@ public class PawnModel extends NonEmptyPiece {
         return getCoordinates().y == Defaults.TILE_AMOUNT - 1;
     }
 
+    private void addSingleForward() {
+        int dy = 1;
+
+        if (isFirstPlayer()) {
+            dy = -dy;
+        }
+
+        addForwardBy(dy);
+    }
+
     private void addDoubleForward() {
         if (hasMovedAtLeastOnce) {
             return;
         }
 
-        int dy = -2;
+        int dy = 2;
 
         if (isFirstPlayer()) {
             dy = -dy;
         }
 
-        addMoveToTopBy(dy);
+        addForwardBy(dy);
     }
 
-    private void addSingleForward() {
-        int dy = -1;
-
-        if (isFirstPlayer()) {
-            dy = -dy;
-        }
-
-        addMoveToTopBy(dy);
-    }
-
-    private void addMoveToTopBy(int y) {
+    private void addForwardBy(int dy) throws IllegalPieceMoveException {
         Point destination = getCoordinates().getLocation();
-        destination.translate(0, -y);
+        destination.translate(0, dy);
 
         try {
-            MoveOutOfBoundsValidator.validate(destination);
-        } catch (IllegalPieceMoveException ignored) {
+            if (!PiecesFieldModel.getField().isEmptyAt(destination)) {
+                throw new IllegalPieceMoveException();
+            }
+        } catch (IndexOutOfBoundsException ignored) {
             return;
         }
 
-        if (PiecesFieldModel.getField().isNotEmptyAt(destination)) {
-            throw new IllegalPieceMoveException();
-        }
-
-        tryToAddAvailableMove(destination);
+        addMoveTo(destination);
     }
 
-    private void tryToAddAvailableMove(Point coordinates) {
+    private void addMoveTo(Point destination) {
         try {
-            addAvailableMove(coordinates);
+            addAvailableMoveTo(destination);
         } catch (ArrayIndexOutOfBoundsException ignored) {
         }
     }
 
-    private void addAvailableMove(Point coordinates) throws ArrayIndexOutOfBoundsException {
+    private void addAvailableMoveTo(Point coordinates) throws ArrayIndexOutOfBoundsException {
         if (MoveOutOfBoundsValidator.validate(coordinates)) {
             getAvailableMoves().add(coordinates);
         }

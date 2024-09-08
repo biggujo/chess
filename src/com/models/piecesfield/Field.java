@@ -42,14 +42,18 @@ public class Field {
         }
     }
 
+    public void captureAt(Point coordinates) {
+        setEmptyPieceAt(coordinates);
+    }
+
     public List<Piece> getList() {
         return field;
     }
 
-    public boolean isNotEmptyAt(Point coordinates) {
+    public boolean isEmptyAt(Point coordinates) throws IndexOutOfBoundsException {
         int index = IndexCalculatorByPoint.getIndex(coordinates);
 
-        return field.get(index).getPieceType() != PieceType.EMPTY;
+        return field.get(index).getPieceType() == PieceType.EMPTY;
     }
 
     private boolean isMovedPieceEmpty(Piece piece) {

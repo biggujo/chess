@@ -26,6 +26,11 @@ public class PiecesFieldModel {
             return;
         }
 
+        if (isReadyToCaptureAt(coordinates)) {
+            tryToCaptureAt(coordinates);
+            return;
+        }
+
         if (!isSelectingOwnPiece(coordinates)) {
             return;
         }
@@ -42,20 +47,12 @@ public class PiecesFieldModel {
             return;
         }
 
-        if (fieldManager.getField().isNotEmptyAt(coordinates)) {
+        if (!fieldManager.getField().isEmptyAt(coordinates)) {
             selectAnotherPieceAt(coordinates);
             return;
         }
 
-        try {
-            movePieceTo(coordinates);
-        } catch (IllegalPieceMoveException ignored) {
-        } finally {
-            clearAvailableMovesPanel();
-            unselectPiece();
-        }
-
-        playerStatus.switchPlayer();
+        tryToMoveTo(coordinates);
     }
 
     private static void selectPieceAt(Point coordinates) {
@@ -102,9 +99,32 @@ public class PiecesFieldModel {
         savePrevCoordinates(coordinates);
     }
 
+    private static void tryToCaptureAt(Point coordinates) throws IOException {
+        try {
+            fieldManager.getField().captureAt(coordinates);
+            tryToMoveTo(coordinates);
+        } catch (IllegalPieceMoveException ignored) {
+        }
+    }
+
+    private static void tryToMoveTo(Point coordinates) throws IOException {
+        try {
+            movePieceTo(coordinates);
+            playerStatus.switchPlayer();
+        } catch (IllegalPieceMoveException ignored) {
+        } finally {
+            clearAvailableMovesPanel();
+            unselectPiece();
+        }
+    }
+
     private static void movePieceTo(Point coordinates) throws IllegalPieceMoveException {
         fieldManager.move(prevCoordinates, coordinates);
         hasMoved = true;
+    }
+
+    private static boolean isReadyToCaptureAt(Point coordinates) {
+        return !isSelectingOwnPiece(coordinates) && hasPieceSelected();
     }
 
     private static boolean hasActivatedThePieceBefore() {

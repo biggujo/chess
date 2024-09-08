@@ -4,7 +4,6 @@ import com.helpers.IndexCalculatorByPoint;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 abstract class PieceImpl implements Piece {
@@ -20,6 +19,11 @@ abstract class PieceImpl implements Piece {
 
     public void moveTo(Point point) throws ArrayIndexOutOfBoundsException {
         setCoordinates(point);
+
+        if (!isMoveLegalTo(point)) {
+            throw new IllegalPieceMoveException();
+        }
+
         hasEmptiedMoves = true;
     }
 
@@ -39,6 +43,8 @@ abstract class PieceImpl implements Piece {
             hasEmptiedMoves = false;
             addAvailableMoves();
         }
+
+        System.out.println(availableMoves);
 
         return availableMoves;
     }
@@ -65,5 +71,9 @@ abstract class PieceImpl implements Piece {
         int otherPointIndex = IndexCalculatorByPoint.getIndex(otherPoint);
 
         return Integer.compare(thisPointIndex, otherPointIndex);
+    }
+
+    private boolean isMoveLegalTo(Point givenCoordinates) {
+        return getAvailableMoves().stream().anyMatch(p -> p.equals(givenCoordinates));
     }
 }
