@@ -35,10 +35,6 @@ abstract class ForwardAdvanceProcessor extends AdvanceProcessorImpl {
         add(advance);
     }
 
-    protected boolean isFirstPlayerPiece() {
-        return getPiece().getPlayerType() == PlayerType.FIRST;
-    }
-
     private boolean isBusyCellAt(Point coordinates) throws IndexOutOfBoundsException {
         return !PiecesFieldModel.getField().isEmptyAt(coordinates);
     }

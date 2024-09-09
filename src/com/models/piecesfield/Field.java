@@ -31,16 +31,13 @@ public class Field {
             return;
         }
 
-        get(src).moveTo(advance.getDestination());
-        swap(src, advance.getDestination());
-
         Point possibleCapture = advance.getPossibleCapture();
-
-        if (possibleCapture == null) {
-            return;
+        if (possibleCapture != null) {
+            captureAt(possibleCapture);
         }
 
-        captureAt(possibleCapture);
+        get(src).moveTo(advance.getDestination());
+        swap(src, advance.getDestination());
     }
 
     public void swap(Point src, Point dest) {

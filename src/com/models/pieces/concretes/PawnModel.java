@@ -23,20 +23,6 @@ public class PawnModel extends PieceImpl {
         super.addPossibleAdvances();
     }
 
-//    private void tryToAddDiagonalMoves() {
-//        try {
-//            addDiagonalMoves();
-//        } catch (IllegalPieceMoveException ignored) {
-//        }
-//    }
-
-//    private void tryToAddEnPassant() {
-//        try {
-//            addEnPassant();
-//        } catch (IllegalPieceMoveException ignored) {
-//        }
-//    }
-
     private boolean hasReachedTheTop() {
         if (isFirstPlayer()) {
             return getStatus().getCoordinates().y == 0;
@@ -44,25 +30,6 @@ public class PawnModel extends PieceImpl {
 
         return getStatus().getCoordinates().y == Defaults.TILE_AMOUNT - 1;
     }
-
-//    private void addDiagonalMoves() {
-//        int dx = -1;
-//        int dy = -1;
-//
-//        if (!isFirstPlayer()) {
-//            dy = -dy;
-//        }
-//
-//        try {
-//            addDiagonalMoveTo(dx, dy);
-//        } catch (IllegalPieceMoveException ignored) {
-//        }
-//
-//        try {
-//            addDiagonalMoveTo(-dx, dy);
-//        } catch (IllegalPieceMoveException ignored) {
-//        }
-//    }
 
 //    private void addDiagonalMoveTo(int dx, int dy) {
 //        Point destination = PointTranslator.translate(getCoordinates(), dx, dy);

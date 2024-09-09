@@ -1,6 +1,7 @@
 package com.services.moves;
 
 import com.models.pieces.IllegalPieceMoveException;
+import com.models.pieces.PlayerType;
 import com.models.pieces.abstractpiece.Piece;
 import com.validators.MoveOutOfBoundsValidator;
 
@@ -10,13 +11,25 @@ import java.util.List;
 abstract public class AdvanceProcessorImpl implements AdvanceProcessor {
     private final Piece piece;
     private final List<Advance> possibleAdvances;
+    private final List<Runnable> methodsToRun;
 
     public AdvanceProcessorImpl(Piece piece) {
         this.piece = piece;
         this.possibleAdvances = new ArrayList<>();
+
+        methodsToRun = getMethodsToRun(new ArrayList<>());
     }
 
-    abstract protected void obtainPossibleAdvances();
+    private void obtainPossibleAdvances() {
+        methodsToRun.forEach((m) -> {
+            try {
+                m.run();
+            } catch (IllegalPieceMoveException ignored) {
+            }
+        });
+    }
+
+    protected abstract List<Runnable> getMethodsToRun(List<Runnable> methodsToRun);
 
     protected void add(Advance advance) {
         try {
@@ -25,6 +38,10 @@ abstract public class AdvanceProcessorImpl implements AdvanceProcessor {
             }
         } catch (IllegalPieceMoveException ignored) {
         }
+    }
+
+    protected boolean isFirstPlayerPiece() {
+        return getPiece().getPlayerType() == PlayerType.FIRST;
     }
 
     protected Piece getPiece() {
