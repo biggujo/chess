@@ -3,6 +3,7 @@ package com.models.piecesfield;
 import com.models.pieces.IllegalPieceMoveException;
 import com.models.piecesfield.fieldinitializers.EmptyFieldInitializer;
 import com.models.piecesfield.fieldinitializers.FieldInitializer;
+import com.services.moves.Advance;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -16,12 +17,8 @@ class FieldManager {
         initializeComponents();
     }
 
-    public void move(Point src, Point dest) throws IllegalPieceMoveException {
-        if (src.equals(dest)) {
-            return;
-        }
-
-        field.move(src, dest);
+    public void move(Point src, Advance advance) throws IllegalPieceMoveException {
+        field.move(src, advance);
         componentsManager.updateWith(field);
     }
 

@@ -4,6 +4,7 @@ import com.helpers.IndexCalculatorByPoint;
 import com.models.pieces.*;
 import com.models.pieces.abstractpiece.Piece;
 import com.models.piecesfield.fieldinitializers.FieldInitializer;
+import com.services.moves.Advance;
 
 import java.awt.*;
 import java.util.Collections;
@@ -25,9 +26,21 @@ public class Field {
         return field.get(index);
     }
 
-    public void move(Point src, Point dest) throws IllegalPieceMoveException {
-        get(src).moveTo(dest);
-        swap(src, dest);
+    public void move(Point src, Advance advance) throws IllegalPieceMoveException {
+        if (src.equals(advance.getDestination())) {
+            return;
+        }
+
+        get(src).moveTo(advance.getDestination());
+        swap(src, advance.getDestination());
+
+        Point possibleCapture = advance.getPossibleCapture();
+
+        if (possibleCapture == null) {
+            return;
+        }
+
+        captureAt(possibleCapture);
     }
 
     public void swap(Point src, Point dest) {

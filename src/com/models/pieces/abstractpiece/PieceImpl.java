@@ -23,7 +23,7 @@ abstract public class PieceImpl implements Piece {
         this.playerType = playerType;
     }
 
-    public void moveTo(Point point) throws ArrayIndexOutOfBoundsException {
+    public void moveTo(Point point) throws IllegalPieceMoveException {
         if (!isMoveLegalTo(point)) {
             throw new IllegalPieceMoveException();
         }
@@ -107,6 +107,6 @@ abstract public class PieceImpl implements Piece {
     }
 
     private boolean isMoveLegalTo(Point givenCoordinates) {
-        return getAdvancesList().getAvailableMoves().stream().anyMatch(p -> p.equals(givenCoordinates));
+        return getAdvancesList().isAdvancePresent(givenCoordinates);
     }
 }

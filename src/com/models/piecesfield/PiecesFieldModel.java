@@ -1,19 +1,19 @@
 package com.models.piecesfield;
 
+import com.controller.AvailableMovesController;
 import com.helpers.IndexCalculatorByPoint;
 import com.models.currentmove.PlayerStatus;
 import com.models.pieces.IllegalPieceMoveException;
-import com.models.pieces.abstractpiece.Piece;
 import com.models.pieces.PieceType;
 import com.models.pieces.PlayerType;
-import com.view.panels.PanelManager;
+import com.services.moves.Advance;
 import com.view.pieces.PieceComponent;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class PiecesFieldModel {
     private static final FieldManager fieldManager = new FieldManager();
@@ -27,7 +27,7 @@ public class PiecesFieldModel {
         }
 
         if (isReadyToCaptureAt(coordinates)) {
-            tryToCaptureAt(coordinates);
+            tryToMoveTo(coordinates);
             return;
         }
 
@@ -37,12 +37,12 @@ public class PiecesFieldModel {
 
         if (!hasPieceSelected()) {
             selectPieceAt(coordinates);
-            updateAvailableMovesPanel(coordinates);
+            AvailableMovesController.updateAvailableMovesPanel(coordinates);
             return;
         }
 
         if (hasSelectedTheSamePieceAt(coordinates)) {
-            clearAvailableMovesPanel();
+            AvailableMovesController.clearAvailableMovesPanel();
             unselectPiece();
             return;
         }
@@ -53,17 +53,6 @@ public class PiecesFieldModel {
         }
 
         tryToMoveTo(coordinates);
-    }
-
-    private static void selectPieceAt(Point coordinates) {
-        enablePieceAt(coordinates);
-        fieldManager.getField().get(coordinates).getAdvancesList();
-        savePrevCoordinates(coordinates);
-    }
-
-    private static void unselectPiece() {
-        disablePieceAt(prevCoordinates);
-        clearPrevCoordinates();
     }
 
     public static void disablePieceAt(Point coordinates) {
@@ -92,35 +81,39 @@ public class PiecesFieldModel {
         return fieldManager.getComponents().getList();
     }
 
+    private static void selectPieceAt(Point coordinates) {
+        enablePieceAt(coordinates);
+        fieldManager.getField().get(coordinates).getAdvancesList();
+        savePrevCoordinates(coordinates);
+    }
+
+    private static void unselectPiece() {
+        disablePieceAt(prevCoordinates);
+        clearPrevCoordinates();
+    }
+
     private static void selectAnotherPieceAt(Point coordinates) throws IOException {
         disablePieceAt(prevCoordinates);
         enablePieceAt(coordinates);
-        updateAvailableMovesPanel(coordinates);
+        AvailableMovesController.updateAvailableMovesPanel(coordinates);
 
         savePrevCoordinates(coordinates);
     }
 
-    private static void tryToCaptureAt(Point coordinates) throws IOException {
+    private static void tryToMoveTo(Point point) throws IOException {
         try {
-            fieldManager.getField().captureAt(coordinates);
-            tryToMoveTo(coordinates);
-        } catch (IllegalPieceMoveException ignored) {
-        }
-    }
-
-    private static void tryToMoveTo(Point coordinates) throws IOException {
-        try {
-            movePieceTo(coordinates);
+            Advance advance = getAdvanceByDestination(point);
+            movePieceTo(advance);
             playerStatus.switchPlayer();
-        } catch (IllegalPieceMoveException ignored) {
+        } catch (IllegalPieceMoveException | NoSuchElementException ignored) {
         } finally {
-            clearAvailableMovesPanel();
+            AvailableMovesController.clearAvailableMovesPanel();
             unselectPiece();
         }
     }
 
-    private static void movePieceTo(Point coordinates) throws IllegalPieceMoveException {
-        fieldManager.move(prevCoordinates, coordinates);
+    private static void movePieceTo(Advance advance) throws IllegalPieceMoveException {
+        fieldManager.move(prevCoordinates, advance);
         hasMoved = true;
     }
 
@@ -156,14 +149,8 @@ public class PiecesFieldModel {
         return prevCoordinates.equals(coordinates);
     }
 
-    private static void updateAvailableMovesPanel(Point coordinates) throws IOException {
-        Piece piece = PiecesFieldModel.getField().get(coordinates);
-        List<Point> availableMoves = piece.getAdvancesList().getAvailableMoves();
-        PanelManager.getInstance().getAvailableMovesPanel().setAvailableMoves(availableMoves);
-    }
-
-    private static void clearAvailableMovesPanel() throws IOException {
-        PanelManager.getInstance().getAvailableMovesPanel().setAvailableMoves(new ArrayList<>());
+    private static Advance getAdvanceByDestination(Point destination) throws NoSuchElementException {
+        return fieldManager.getField().get(prevCoordinates).getAdvancesList().getAdvanceByMove(destination);
     }
 
     private static boolean isSelectingOwnPiece(Point coordinates) {
