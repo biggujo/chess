@@ -19,7 +19,7 @@ public class PiecesFieldController {
         updatePiecesPanel();
     }
 
-    private static void updatePiecesPanel() {
+    public static void updatePiecesPanel() {
         List<JComponent> updatedField = PiecesFieldModel.getComponents();
 
         SwingUtilities.invokeLater(() -> {

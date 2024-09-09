@@ -1,5 +1,6 @@
 package com.view.panels;
 
+import com.controller.PiecesFieldController;
 import com.globals.Defaults;
 import com.view.panels.initializers.EmptyPanelInitializer;
 import com.view.panels.initializers.PanelInitializer;
@@ -28,6 +29,7 @@ public class PanelManager {
         PanelInitializer emptyInitializer = new EmptyPanelInitializer(cellSize, cellAmount);
 
         piecesPanel = new PiecesPanel(emptyInitializer);
+        PiecesFieldController.updatePiecesPanel();
     }
 
     public AvailableMovesPanel getAvailableMovesPanel() {
