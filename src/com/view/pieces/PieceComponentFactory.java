@@ -1,7 +1,7 @@
 package com.view.pieces;
 
 import com.globals.Defaults;
-import com.models.pieces.Piece;
+import com.models.pieces.abstractpiece.Piece;
 
 import javax.swing.*;
 import java.awt.*;

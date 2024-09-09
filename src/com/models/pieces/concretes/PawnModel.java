@@ -1,36 +1,26 @@
-package com.models.pieces;
+package com.models.pieces.concretes;
 
 import com.globals.Defaults;
-import com.services.moves.Advance;
-import com.services.moves.AdvanceProcessor;
-import com.services.moves.pawn.DoubleForwardAdvanceProcessor;
-import com.services.moves.pawn.SingleForwardAdvanceProcessor;
+import com.models.pieces.PieceType;
+import com.models.pieces.PlayerType;
+import com.models.pieces.abstractpiece.PieceImpl;
 
 import java.awt.*;
-import java.util.List;
 
-public class PawnModel extends NonEmptyPiece {
+public class PawnModel extends PieceImpl {
     private static final PieceType type = PieceType.PAWN;
-
-    private boolean hasMovedAtLeastOnce = false;
 
     public PawnModel(PlayerType playerType, Point coordinates) {
         super(playerType, coordinates);
     }
 
+    @Override
     public void addPossibleAdvances() {
-        if (!hasAddedAdvanceProcessors()) {
-            createAdvancesProcessors();
-        }
-
         if (hasReachedTheTop()) {
             return;
         }
 
-        for (AdvanceProcessor c : getAdvanceProcessors()) {
-            List<Advance> newPossibleAdvances = c.getPossibleAdvances();
-            getAdvancesList().getAvailableAdvances().addAll(newPossibleAdvances);
-        }
+        super.addPossibleAdvances();
     }
 
 //    private void tryToAddDiagonalMoves() {
@@ -49,10 +39,10 @@ public class PawnModel extends NonEmptyPiece {
 
     private boolean hasReachedTheTop() {
         if (isFirstPlayer()) {
-            return getCoordinates().y == 0;
+            return getStatus().getCoordinates().y == 0;
         }
 
-        return getCoordinates().y == Defaults.TILE_AMOUNT - 1;
+        return getStatus().getCoordinates().y == Defaults.TILE_AMOUNT - 1;
     }
 
 //    private void addDiagonalMoves() {
@@ -122,11 +112,6 @@ public class PawnModel extends NonEmptyPiece {
 
     private boolean isFirstPlayer() {
         return getPlayerType() == PlayerType.FIRST;
-    }
-
-    private void createAdvancesProcessors() {
-        getAdvanceProcessors().add(new SingleForwardAdvanceProcessor(this));
-        getAdvanceProcessors().add(new DoubleForwardAdvanceProcessor(this));
     }
 
     @Override

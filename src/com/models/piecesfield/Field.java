@@ -2,6 +2,7 @@ package com.models.piecesfield;
 
 import com.helpers.IndexCalculatorByPoint;
 import com.models.pieces.*;
+import com.models.pieces.abstractpiece.Piece;
 import com.models.piecesfield.fieldinitializers.FieldInitializer;
 
 import java.awt.*;

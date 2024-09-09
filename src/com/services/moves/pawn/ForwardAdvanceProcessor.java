@@ -2,7 +2,7 @@ package com.services.moves.pawn;
 
 import com.helpers.PointTranslator;
 import com.models.pieces.IllegalPieceMoveException;
-import com.models.pieces.Piece;
+import com.models.pieces.abstractpiece.Piece;
 import com.models.pieces.PlayerType;
 import com.models.piecesfield.PiecesFieldModel;
 import com.services.moves.Advance;
@@ -20,7 +20,7 @@ abstract class ForwardAdvanceProcessor extends AdvanceProcessorImpl {
             dy = -dy;
         }
 
-        Point srcCoordinates = getPiece().getCoordinates();
+        Point srcCoordinates = getPiece().getStatus().getCoordinates();
         Point destCoordinates = PointTranslator.translate(srcCoordinates, 0, dy);
 
         try {

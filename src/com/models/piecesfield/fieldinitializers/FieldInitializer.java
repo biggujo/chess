@@ -1,6 +1,6 @@
 package com.models.piecesfield.fieldinitializers;
 
-import com.models.pieces.Piece;
+import com.models.pieces.abstractpiece.Piece;
 
 import java.util.List;
 

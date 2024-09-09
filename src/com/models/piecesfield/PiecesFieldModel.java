@@ -3,7 +3,7 @@ package com.models.piecesfield;
 import com.helpers.IndexCalculatorByPoint;
 import com.models.currentmove.PlayerStatus;
 import com.models.pieces.IllegalPieceMoveException;
-import com.models.pieces.Piece;
+import com.models.pieces.abstractpiece.Piece;
 import com.models.pieces.PieceType;
 import com.models.pieces.PlayerType;
 import com.view.panels.PanelManager;

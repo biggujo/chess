@@ -2,7 +2,7 @@ package com.models.piecesfield.fieldinitializers;
 
 import com.globals.Defaults;
 import com.models.pieces.*;
-import com.models.piecesfield.Field;
+import com.models.pieces.abstractpiece.Piece;
 
 import java.awt.*;
 import java.util.ArrayList;

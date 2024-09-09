@@ -1,7 +1,7 @@
 package com.view.pieces;
 
 import com.helpers.IconPaths;
-import com.models.pieces.Piece;
+import com.models.pieces.abstractpiece.Piece;
 import com.models.pieces.PieceType;
 
 import javax.swing.*;
