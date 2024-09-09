@@ -1,5 +1,7 @@
 package com.view.panels;
 
+import com.globals.MyColors;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
@@ -16,7 +18,7 @@ public class PaddingPanel extends JPanel {
     private void applyBorder() {
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-        Border blackBorder = BorderFactory.createLineBorder(Color.BLACK);
+        Border blackBorder = BorderFactory.createLineBorder(MyColors.BLACK);
         Border emptyBorder = BorderFactory.createEmptyBorder(
                 PADDING_SIZE,
                 PADDING_SIZE,

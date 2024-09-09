@@ -1,6 +1,7 @@
 package com.view.panels;
 
 import com.globals.Defaults;
+import com.globals.MyColors;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,8 +34,8 @@ public class AvailableMovesPanel extends JPanel {
         super.paintComponent(g);
 
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(Color.LIGHT_GRAY);
-        g2d.setBackground(Color.LIGHT_GRAY);
+        g2d.setColor(MyColors.ACTIVE);
+        g2d.setBackground(MyColors.ACTIVE);
 
         for (Point p : availableMoves) {
             fillOvalAt(g2d, p);

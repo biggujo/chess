@@ -1,9 +1,9 @@
 package com.models.cells;
 
-import java.awt.*;
+import com.globals.MyColors;
 
 class BlackCellImpl extends CellImpl {
     public BlackCellImpl() {
-        super(Color.BLACK);
+        super(MyColors.BLACK);
     }
 }

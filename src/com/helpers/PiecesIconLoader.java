@@ -1,14 +1,19 @@
 package com.helpers;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
+import com.github.weisj.jsvg.SVGDocument;
+import com.github.weisj.jsvg.parser.SVGLoader;
+
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 public class PiecesIconLoader {
-    public static Image fetchImageFrom(IconPaths path) {
+    public static SVGDocument fetchImageFrom(IconPaths path) {
         try {
-            return ImageIO.read(new File(path.getPath()));
+            SVGLoader loader = new SVGLoader();
+
+            URL svgUrl = new File(path.getPath()).toURI().toURL();
+            return loader.load(svgUrl);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

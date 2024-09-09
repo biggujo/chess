@@ -1,8 +1,8 @@
 package com.helpers;
 
 public enum IconPaths {
-    PAWN_WHITE("assets/pawn-white.png"),
-    PAWN_BLACK("assets/pawn-black.png");
+    PAWN_WHITE("assets/pawn-white.svg"),
+    PAWN_BLACK("assets/pawn-black.svg");
 
     private final String path;
 
