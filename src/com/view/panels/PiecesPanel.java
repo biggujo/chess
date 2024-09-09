@@ -1,28 +1,21 @@
 package com.view.panels;
 
-import com.globals.Defaults;
-import com.models.piecesfield.PiecesFieldModel;
+import com.view.panels.initializers.PanelInitializer;
 
 import javax.swing.*;
-import java.awt.*;
-import java.io.IOException;
 import java.util.List;
 
 public class PiecesPanel extends GridPanel {
-    PiecesPanel() throws IOException {
-        super(new Dimension(Defaults.TILE_AMOUNT, Defaults.TILE_AMOUNT), Defaults.PIECE_SIZE);
+    PiecesPanel(PanelInitializer panelInitializer) {
+        super(panelInitializer);
 
         addMouseListener(new PiecesMouseListener());
         setOpaque(false);
     }
 
-    @Override
-    List<JComponent> createCellField() {
-        return PiecesFieldModel.getComponents();
-    }
-
-    public void updateWith(List<JComponent> newCells) {
+    public void updateWith(List<JComponent> components) {
         removeAll();
-        addCells(newCells);
+
+        addCells(components);
     }
 }

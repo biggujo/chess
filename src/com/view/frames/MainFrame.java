@@ -12,7 +12,7 @@ public class MainFrame extends JFrame {
         setLayout(new BorderLayout());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setPaddingContentPane();
-        setResizable(false);
+//        setResizable(false);
     }
 
     private void setPaddingContentPane() {

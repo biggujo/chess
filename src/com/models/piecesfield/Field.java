@@ -9,13 +9,13 @@ import java.util.Collections;
 import java.util.List;
 
 public class Field {
-    private final List<Piece> field;
+    private List<Piece> field;
 
     void initializeWith(FieldInitializer initializer) {
-        initializer.initialize(this);
+        field = initializer.initialize(this.getList());
     }
 
-    Field(List<Piece> field) {
+    public Field(List<Piece> field) {
         this.field = field;
     }
 

@@ -4,15 +4,13 @@ import com.view.labels.PlayerInfoLabel;
 import com.view.panels.*;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class Main {
     private static final String MAIN_WINDOW_TITLE = "Chess";
-    private static final Dimension FIELD_SIZE = new Dimension(8, 8);
-    private static final int CELL_SIZE = Defaults.PIECE_SIZE;
+    private static final int TILE_AMOUNT = Defaults.TILE_AMOUNT;
+    private static final int PIECE_SIZE = Defaults.PIECE_SIZE;
 
     public static void main(String[] args) throws IOException {
         PanelManager panelManager = PanelManager.getInstance();
@@ -23,15 +21,12 @@ public class Main {
             JPanel panel = new JPanel();
 
             JPanel piecesPanel = panelManager.getPiecesPanel();
-            JPanel fieldPanel = null;
-            try {
-                fieldPanel = new CellPanel(FIELD_SIZE, CELL_SIZE);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+
+
+            JPanel fieldPanel = new CellPanel(PIECE_SIZE, TILE_AMOUNT);
 
             panel.add(piecesPanel);
-            panel.add(panelManager.getAvailableMovesPanel());
+//            panel.add(panelManager.getAvailableMovesPanel());
             panel.add(fieldPanel);
 
             panel.setLayout(new OverlayLayout(panel));

@@ -1,25 +1,22 @@
 package com.view.panels;
 
+import com.view.panels.initializers.PanelInitializer;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 abstract class FieldPanel extends JPanel {
-    private final Dimension cellsAmount;
-    private final int cellSize;
+    private final PanelInitializer panelInitializer;
 
-    public FieldPanel(Dimension cellsAmount, int cellSize) throws IOException {
-        this.cellsAmount = cellsAmount;
-        this.cellSize = cellSize;
+    public FieldPanel(PanelInitializer panelInitializer) {
+        this.panelInitializer = panelInitializer;
 
-        List<JComponent> cells = createCellField();
-
-        addCells(cells);
-        setOpaque(false);
+        List<JComponent> components = panelInitializer.initialize(new ArrayList<>());
+        addCells(components);
     }
-
-    abstract List<JComponent> createCellField() throws IOException;
 
     protected void addCells(List<JComponent> cells) {
         for (JComponent o : cells) {
@@ -27,11 +24,7 @@ abstract class FieldPanel extends JPanel {
         }
     }
 
-    Dimension getCellsAmount() {
-        return cellsAmount;
-    }
-
-    int getCellSize() {
-        return cellSize;
+    public Dimension getCellsAmount() {
+        return panelInitializer.getCellsAmount();
     }
 }

@@ -5,11 +5,15 @@ import com.models.pieces.*;
 import com.models.piecesfield.Field;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EmptyFieldInitializer implements FieldInitializer {
 
     @Override
-    public Field initialize(Field originalField) {
+    public List<Piece> initialize(List<Piece> originalField) {
+        List<Piece> newFieldList = new ArrayList<>(originalField);
+
         PieceFactory whiteFactory = new PieceFactory(PlayerType.FIRST);
         PieceFactory blackFactory = new PieceFactory(PlayerType.SECOND);
 
@@ -17,19 +21,19 @@ public class EmptyFieldInitializer implements FieldInitializer {
             for (int j = 0; j < Defaults.TILE_AMOUNT; j++) {
                 Point coordinates = new Point(j, i);
                 if (i == 2 && j == 6 || i == 3 && j == 6 || i == 2 && j == 1 || i == 2 && j == 3 || i == 5 && j == 5) {
-                    originalField.getList().add(blackFactory.getInstance(PieceType.PAWN, coordinates));
+                    newFieldList.add(blackFactory.getInstance(PieceType.PAWN, coordinates));
                     continue;
                 }
 
                 if (i == 3 && j == 2 || i == 1 && j == 2 || i == 5 && j == 6) {
-                    originalField.getList().add(whiteFactory.getInstance(PieceType.PAWN, coordinates));
+                    newFieldList.add(whiteFactory.getInstance(PieceType.PAWN, coordinates));
                     continue;
                 }
 
-                originalField.getList().add(blackFactory.getInstance(PieceType.EMPTY, coordinates));
+                newFieldList.add(blackFactory.getInstance(PieceType.EMPTY, coordinates));
             }
         }
 
-        return originalField;
+        return newFieldList;
     }
 }

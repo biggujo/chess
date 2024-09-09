@@ -1,7 +1,9 @@
 package com.models.piecesfield.fieldinitializers;
 
-import com.models.piecesfield.Field;
+import com.models.pieces.Piece;
+
+import java.util.List;
 
 public interface FieldInitializer {
-    Field initialize(Field originalField);
+    List<Piece> initialize(List<Piece> originalField);
 }

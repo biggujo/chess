@@ -1,4 +1,4 @@
-package com.view.cell;
+package com.models.cells;
 
 public enum CellType {
     BLACK,

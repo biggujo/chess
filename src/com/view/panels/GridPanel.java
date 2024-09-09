@@ -1,11 +1,12 @@
 package com.view.panels;
 
-import java.awt.*;
-import java.io.IOException;
+import com.view.panels.initializers.PanelInitializer;
 
-abstract class GridPanel extends FieldPanel {
-    public GridPanel(Dimension cellsAmount, int cellSize) throws IOException {
-        super(cellsAmount, cellSize);
+import java.awt.*;
+
+public abstract class GridPanel extends FieldPanel {
+    public GridPanel(PanelInitializer panelInitializer) {
+        super(panelInitializer);
 
         applyGridLayout();
     }

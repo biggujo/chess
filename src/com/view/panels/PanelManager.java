@@ -1,5 +1,10 @@
 package com.view.panels;
 
+import com.globals.Defaults;
+import com.view.panels.initializers.EmptyPanelInitializer;
+import com.view.panels.initializers.PanelInitializer;
+
+import java.awt.*;
 import java.io.IOException;
 
 public class PanelManager {
@@ -15,9 +20,14 @@ public class PanelManager {
         return panelManager;
     }
 
-    public PanelManager() throws IOException {
+    public PanelManager() {
         availableMovesPanel = new AvailableMovesPanel();
-        piecesPanel = new PiecesPanel();
+
+        Dimension cellSize = new Dimension(Defaults.PIECE_SIZE, Defaults.PIECE_SIZE);
+        Dimension cellAmount = new Dimension(Defaults.TILE_AMOUNT, Defaults.TILE_AMOUNT);
+        PanelInitializer emptyInitializer = new EmptyPanelInitializer(cellSize, cellAmount);
+
+        piecesPanel = new PiecesPanel(emptyInitializer);
     }
 
     public AvailableMovesPanel getAvailableMovesPanel() {
