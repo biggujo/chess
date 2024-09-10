@@ -2,12 +2,10 @@ package com.view.pieces;
 
 import com.github.weisj.jsvg.SVGDocument;
 import com.github.weisj.jsvg.attributes.ViewBox;
-import com.github.weisj.jsvg.geometry.size.FloatSize;
-import com.globals.MyColors;
+import com.globals.Defaults;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public abstract class PieceComponent extends JComponent {
     private final Dimension dimension;
@@ -39,7 +37,7 @@ public abstract class PieceComponent extends JComponent {
 
     public void setActive() {
         setOpaque(true);
-        setBackground(MyColors.ACTIVE);
+        setBackground(Defaults.colorScheme.getHighlight());
     }
 
     public void setInactive() {

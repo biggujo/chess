@@ -1,9 +1,9 @@
 package com.models.cells;
 
-import com.globals.MyColors;
+import com.globals.Defaults;
 
 class WhiteCellImpl extends CellImpl {
     public WhiteCellImpl() {
-        super(MyColors.WHITE);
+        super(Defaults.colorScheme.getLight());
     }
 }

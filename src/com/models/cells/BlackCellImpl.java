@@ -1,9 +1,9 @@
 package com.models.cells;
 
-import com.globals.MyColors;
+import com.globals.Defaults;
 
 class BlackCellImpl extends CellImpl {
     public BlackCellImpl() {
-        super(MyColors.BLACK);
+        super(Defaults.colorScheme.getDark());
     }
 }
