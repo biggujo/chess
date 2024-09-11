@@ -1,28 +1,30 @@
-package com.view.panels;
+package com.view;
 
-import com.controller.PiecesFieldController;
 import com.globals.Defaults;
+import com.view.panels.AvailableMovesPanel;
+import com.view.panels.FieldSerializationPanel;
+import com.view.panels.PiecesPanel;
 import com.view.panels.initializers.EmptyPanelInitializer;
 import com.view.panels.initializers.PanelInitializer;
 
 import java.awt.*;
 import java.io.IOException;
 
-public class PanelManager {
-    public static PanelManager panelManager;
+public class ViewManager {
+    public static ViewManager viewManager;
     private final AvailableMovesPanel availableMovesPanel;
     private final PiecesPanel piecesPanel;
     private final FieldSerializationPanel fieldSerializationPanel;
 
-    public static PanelManager getInstance() throws IOException {
-        if (PanelManager.panelManager == null) {
-            PanelManager.panelManager = new PanelManager();
+    public static ViewManager getInstance() throws IOException {
+        if (ViewManager.viewManager == null) {
+            ViewManager.viewManager = new ViewManager();
         }
 
-        return panelManager;
+        return viewManager;
     }
 
-    private PanelManager() {
+    private ViewManager() {
         availableMovesPanel = new AvailableMovesPanel();
 
         Dimension cellSize = new Dimension(Defaults.PIECE_SIZE, Defaults.PIECE_SIZE);
@@ -30,7 +32,6 @@ public class PanelManager {
         PanelInitializer emptyInitializer = new EmptyPanelInitializer(cellSize, cellAmount);
 
         piecesPanel = new PiecesPanel(emptyInitializer);
-        PiecesFieldController.updatePiecesPanel();
 
         fieldSerializationPanel = new FieldSerializationPanel();
     }

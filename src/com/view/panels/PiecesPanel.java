@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.util.List;
 
 public class PiecesPanel extends GridPanel {
-    PiecesPanel(PanelInitializer panelInitializer) {
+    public PiecesPanel(PanelInitializer panelInitializer) {
         super(panelInitializer);
 
         addMouseListener(new PiecesMouseListener());

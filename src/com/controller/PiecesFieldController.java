@@ -1,7 +1,7 @@
 package com.controller;
 
 import com.models.piecesfield.PiecesFieldModel;
-import com.view.panels.PanelManager;
+import com.view.ViewManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +12,7 @@ public class PiecesFieldController {
     public static void handleClickAt(Point coordinates) throws IOException {
         PiecesFieldModel.getInstance().registerClickAt(coordinates);
 
-        if (!PiecesFieldModel.getInstance().hasMoved()){
+        if (!PiecesFieldModel.getInstance().hasMoved()) {
             return;
         }
 
@@ -24,8 +24,8 @@ public class PiecesFieldController {
 
         SwingUtilities.invokeLater(() -> {
             try {
-                PanelManager.getInstance().getPiecesPanel().updateWith(updatedField);
-                PanelManager.getInstance().getPiecesPanel().revalidate();
+                ViewManager.getInstance().getPiecesPanel().updateWith(updatedField);
+                ViewManager.getInstance().getPiecesPanel().revalidate();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

@@ -1,6 +1,7 @@
+import com.controller.PiecesFieldController;
 import com.globals.Defaults;
+import com.view.ViewManager;
 import com.view.frames.MainFrame;
-import com.view.labels.PlayerInfoLabel;
 import com.view.panels.*;
 
 import javax.swing.*;
@@ -13,20 +14,21 @@ public class Main {
     private static final int PIECE_SIZE = Defaults.PIECE_SIZE;
 
     public static void main(String[] args) throws IOException {
-        PanelManager panelManager = PanelManager.getInstance();
+        ViewManager viewManager = ViewManager.getInstance();
+        PiecesFieldController.updatePiecesPanel();
 
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new MainFrame(MAIN_WINDOW_TITLE);
 
             JPanel panel = new JPanel();
 
-            JPanel piecesPanel = panelManager.getPiecesPanel();
-            JPanel fieldSerializationPanel = panelManager.getFieldSerializationPanel();
+            JPanel piecesPanel = viewManager.getPiecesPanel();
+            JPanel fieldSerializationPanel = viewManager.getFieldSerializationPanel();
 
             JPanel fieldPanel = new CellPanel(PIECE_SIZE, TILE_AMOUNT);
 
             panel.add(piecesPanel);
-            panel.add(panelManager.getAvailableMovesPanel());
+            panel.add(viewManager.getAvailableMovesPanel());
             panel.add(fieldPanel);
 
             panel.setLayout(new OverlayLayout(panel));

@@ -13,7 +13,7 @@ public class AvailableMovesPanel extends JPanel {
     private static final int STEP = Defaults.PIECE_SIZE;
     private List<Point> availableMoves;
 
-    AvailableMovesPanel() {
+    public AvailableMovesPanel() {
         this(new ArrayList<>());
     }
 
