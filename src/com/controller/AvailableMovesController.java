@@ -11,7 +11,7 @@ import java.util.List;
 
 public class AvailableMovesController {
     public static void updateAvailableMovesPanel(Point coordinates) throws IOException {
-        Piece piece = PiecesFieldModel.getField().get(coordinates);
+        Piece piece = PiecesFieldModel.getInstance().getField().get(coordinates);
         List<Point> availableMoves = piece.getAdvancesList().getAvailableMoves();
         PanelManager.getInstance().getAvailableMovesPanel().setAvailableMoves(availableMoves);
     }

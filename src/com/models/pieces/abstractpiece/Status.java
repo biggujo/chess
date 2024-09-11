@@ -1,12 +1,16 @@
 package com.models.pieces.abstractpiece;
 
 import com.models.pieces.IllegalPieceMoveException;
-import com.models.pieces.PlayerType;
 import com.validators.MoveOutOfBoundsValidator;
 
 import java.awt.*;
+import java.io.Serial;
+import java.io.Serializable;
 
-public class Status {
+public class Status implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private boolean isEmptiedMoves;
     private boolean isMoved;
     private Point coordinates;

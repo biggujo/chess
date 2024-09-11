@@ -1,4 +1,4 @@
-package com.view.panels;
+package com.services.listeners;
 
 import com.controller.PiecesFieldController;
 import com.helpers.CellIndexByPointSearch;

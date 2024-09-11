@@ -21,7 +21,7 @@ public class Main {
             JPanel panel = new JPanel();
 
             JPanel piecesPanel = panelManager.getPiecesPanel();
-
+            JPanel fieldSerializationPanel = panelManager.getFieldSerializationPanel();
 
             JPanel fieldPanel = new CellPanel(PIECE_SIZE, TILE_AMOUNT);
 
@@ -32,8 +32,9 @@ public class Main {
             panel.setLayout(new OverlayLayout(panel));
 
             frame.add(new PaddingPanel(panel), BorderLayout.CENTER);
-            frame.add(new PlayerInfoLabel("second"), BorderLayout.NORTH);
-            frame.add(new PlayerInfoLabel("first"), BorderLayout.SOUTH);
+            frame.add(fieldSerializationPanel, BorderLayout.SOUTH);
+//            frame.add(new PlayerInfoLabel("second"), BorderLayout.NORTH);
+//            frame.add(new PlayerInfoLabel("first"), BorderLayout.SOUTH);
             frame.pack();
             frame.setMinimumSize(frame.getSize());
             frame.setVisible(true);

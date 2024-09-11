@@ -10,9 +10,9 @@ import java.util.List;
 
 public class PiecesFieldController {
     public static void handleClickAt(Point coordinates) throws IOException {
-        PiecesFieldModel.registerClickAt(coordinates);
+        PiecesFieldModel.getInstance().registerClickAt(coordinates);
 
-        if (!PiecesFieldModel.hasMoved()) {
+        if (!PiecesFieldModel.getInstance().hasMoved()){
             return;
         }
 
@@ -20,7 +20,7 @@ public class PiecesFieldController {
     }
 
     public static void updatePiecesPanel() {
-        List<JComponent> updatedField = PiecesFieldModel.getComponents();
+        List<JComponent> updatedField = PiecesFieldModel.getInstance().getComponents();
 
         SwingUtilities.invokeLater(() -> {
             try {

@@ -1,4 +1,4 @@
-package com.models.piecesfield.fieldinitializers;
+package com.services.fieldinitializers;
 
 import com.globals.Defaults;
 import com.models.pieces.*;
@@ -9,10 +9,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmptyFieldInitializer implements FieldInitializer {
+    @Override
+    public List<Piece> initialize() {
+        return initialize(null);
+    }
 
     @Override
     public List<Piece> initialize(List<Piece> originalField) {
-        List<Piece> newFieldList = new ArrayList<>(originalField);
+        List<Piece> newFieldList = new ArrayList<>();
+
+        if (originalField != null) {
+            newFieldList.addAll(originalField);
+        }
 
         PieceFactory whiteFactory = new PieceFactory(PlayerType.FIRST);
         PieceFactory blackFactory = new PieceFactory(PlayerType.SECOND);

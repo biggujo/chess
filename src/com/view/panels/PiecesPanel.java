@@ -1,5 +1,6 @@
 package com.view.panels;
 
+import com.services.listeners.PiecesMouseListener;
 import com.view.panels.initializers.PanelInitializer;
 
 import javax.swing.*;

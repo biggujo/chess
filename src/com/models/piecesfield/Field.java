@@ -3,18 +3,23 @@ package com.models.piecesfield;
 import com.helpers.IndexCalculatorByPoint;
 import com.models.pieces.*;
 import com.models.pieces.abstractpiece.Piece;
-import com.models.piecesfield.fieldinitializers.FieldInitializer;
-import com.services.moves.Advance;
+import com.services.fieldinitializers.FieldInitializer;
+import com.services.advanceprocessors.Advance;
 
 import java.awt.*;
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
-public class Field {
+public class Field implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private List<Piece> field;
 
     void initializeWith(FieldInitializer initializer) {
-        field = initializer.initialize(this.getList());
+        field = initializer.initialize();
     }
 
     public Field(List<Piece> field) {

@@ -1,20 +1,25 @@
-package com.services.moves;
+package com.services.advanceprocessors;
 
 import com.models.pieces.IllegalPieceMoveException;
 import com.models.pieces.PlayerType;
 import com.models.pieces.abstractpiece.Piece;
 import com.validators.MoveOutOfBoundsValidator;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
-abstract public class AdvanceProcessorImpl implements AdvanceProcessor {
-    private final Piece piece;
+abstract public class AdvanceProcessorImpl implements AdvanceProcessor, Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    private Piece piece;
     private final List<Advance> possibleAdvances;
     private final List<Runnable> methodsToRun;
 
-    public AdvanceProcessorImpl(Piece piece) {
-        this.piece = piece;
+    public AdvanceProcessorImpl() {
         this.possibleAdvances = new ArrayList<>();
 
         methodsToRun = getMethodsToRun(new ArrayList<>());
@@ -49,7 +54,8 @@ abstract public class AdvanceProcessorImpl implements AdvanceProcessor {
     }
 
     @Override
-    public List<Advance> getPossibleAdvances() {
+    public List<Advance> getPossibleAdvances(Piece piece) {
+        this.piece = piece;
         if (!possibleAdvances.isEmpty()) {
             possibleAdvances.clear();
         }

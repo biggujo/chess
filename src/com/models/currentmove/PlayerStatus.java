@@ -2,7 +2,13 @@ package com.models.currentmove;
 
 import com.models.pieces.PlayerType;
 
-public class PlayerStatus {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class PlayerStatus implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private PlayerType currentPlayer;
 
     public static PlayerStatus fromInitialPlayer(PlayerType initialPlayer) {

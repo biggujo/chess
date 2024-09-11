@@ -12,6 +12,7 @@ public class PanelManager {
     public static PanelManager panelManager;
     private final AvailableMovesPanel availableMovesPanel;
     private final PiecesPanel piecesPanel;
+    private final FieldSerializationPanel fieldSerializationPanel;
 
     public static PanelManager getInstance() throws IOException {
         if (PanelManager.panelManager == null) {
@@ -21,7 +22,7 @@ public class PanelManager {
         return panelManager;
     }
 
-    public PanelManager() {
+    private PanelManager() {
         availableMovesPanel = new AvailableMovesPanel();
 
         Dimension cellSize = new Dimension(Defaults.PIECE_SIZE, Defaults.PIECE_SIZE);
@@ -30,6 +31,8 @@ public class PanelManager {
 
         piecesPanel = new PiecesPanel(emptyInitializer);
         PiecesFieldController.updatePiecesPanel();
+
+        fieldSerializationPanel = new FieldSerializationPanel();
     }
 
     public AvailableMovesPanel getAvailableMovesPanel() {
@@ -38,5 +41,9 @@ public class PanelManager {
 
     public PiecesPanel getPiecesPanel() {
         return piecesPanel;
+    }
+
+    public FieldSerializationPanel getFieldSerializationPanel() {
+        return fieldSerializationPanel;
     }
 }

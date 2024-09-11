@@ -1,4 +1,4 @@
-package com.services.moves.pawn;
+package com.services.advanceprocessors.pawn;
 
 import com.models.pieces.abstractpiece.Piece;
 
@@ -6,10 +6,6 @@ import java.util.List;
 
 public class DoubleForwardAdvanceProcessor extends ForwardAdvanceProcessor {
     private static final int CELLS_TO_MOVE = 2;
-
-    public DoubleForwardAdvanceProcessor(Piece piece) {
-        super(piece);
-    }
 
     @Override
     protected List<Runnable> getMethodsToRun(List<Runnable> methodsToRun) {

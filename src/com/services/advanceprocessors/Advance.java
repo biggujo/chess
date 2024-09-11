@@ -1,6 +1,8 @@
-package com.services.moves;
+package com.services.advanceprocessors;
 
 import java.awt.*;
+import java.io.Serial;
+import java.io.Serializable;
 
 public class Advance {
     private final Point destination;

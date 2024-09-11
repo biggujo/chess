@@ -1,12 +1,12 @@
-package com.services.moves.pawn;
+package com.services.advanceprocessors.pawn;
 
 import com.helpers.PointTranslator;
 import com.models.pieces.IllegalPieceMoveException;
 import com.models.pieces.abstractpiece.Piece;
 import com.models.piecesfield.Field;
 import com.models.piecesfield.PiecesFieldModel;
-import com.services.moves.Advance;
-import com.services.moves.AdvanceProcessorImpl;
+import com.services.advanceprocessors.Advance;
+import com.services.advanceprocessors.AdvanceProcessorImpl;
 
 import java.awt.*;
 import java.util.List;
@@ -16,15 +16,9 @@ public class DiagonalForwardAdvanceProcessor extends AdvanceProcessorImpl {
     private final int dx;
     private int dy;
 
-    public DiagonalForwardAdvanceProcessor(Piece piece) {
-        super(piece);
-
+    public DiagonalForwardAdvanceProcessor() {
         dx = -1;
         dy = -1;
-
-        if (!isFirstPlayerPiece()) {
-            dy = -dy;
-        }
     }
 
     @Override
@@ -66,7 +60,7 @@ public class DiagonalForwardAdvanceProcessor extends AdvanceProcessorImpl {
         Point destination = PointTranslator.translate(currentCoordinates, dx, dy);
         Point captureCoordinates = PointTranslator.translate(currentCoordinates, captureDx, captureDy);
 
-        Field field = PiecesFieldModel.getField();
+        Field field = PiecesFieldModel.getInstance().getField();
         try {
             if (field.isEmptyAt(captureCoordinates)) {
                 throw new IllegalPieceMoveException();
@@ -76,5 +70,16 @@ public class DiagonalForwardAdvanceProcessor extends AdvanceProcessorImpl {
         }
 
         add(new Advance(destination, captureCoordinates));
+    }
+
+    @Override
+    public List<Advance> getPossibleAdvances(Piece piece) {
+        List<Advance> list = super.getPossibleAdvances(piece);
+
+        if (!isFirstPlayerPiece()) {
+            dy = -dy;
+        }
+
+        return list;
     }
 }

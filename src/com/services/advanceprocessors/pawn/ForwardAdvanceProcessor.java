@@ -1,20 +1,15 @@
-package com.services.moves.pawn;
+package com.services.advanceprocessors.pawn;
 
 import com.helpers.PointTranslator;
 import com.models.pieces.IllegalPieceMoveException;
 import com.models.pieces.abstractpiece.Piece;
-import com.models.pieces.PlayerType;
 import com.models.piecesfield.PiecesFieldModel;
-import com.services.moves.Advance;
-import com.services.moves.AdvanceProcessorImpl;
+import com.services.advanceprocessors.Advance;
+import com.services.advanceprocessors.AdvanceProcessorImpl;
 
 import java.awt.*;
 
 abstract class ForwardAdvanceProcessor extends AdvanceProcessorImpl {
-    public ForwardAdvanceProcessor(Piece piece) {
-        super(piece);
-    }
-
     protected void addForwardBy(int dy) throws IllegalPieceMoveException {
         if (isFirstPlayerPiece()) {
             dy = -dy;
@@ -36,6 +31,6 @@ abstract class ForwardAdvanceProcessor extends AdvanceProcessorImpl {
     }
 
     private boolean isBusyCellAt(Point coordinates) throws IndexOutOfBoundsException {
-        return !PiecesFieldModel.getField().isEmptyAt(coordinates);
+        return !PiecesFieldModel.getInstance().getField().isEmptyAt(coordinates);
     }
 }
