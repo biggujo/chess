@@ -53,7 +53,7 @@ public class OrthogonalAdvanceProcessor extends AdvanceProcessorImpl {
     private boolean addMove(int newX, int newY) {
         Point newCoordinates = new Point(newX, newY);
 
-        if (isBusyCellAt(newCoordinates) && isPieceFromTheSamePlayerAt(newCoordinates)) {
+        if (isBusyCellAt(newCoordinates) || isPieceFromTheSamePlayerAt(newCoordinates)) {
             addAdvanceToWithCapture(newCoordinates, newCoordinates);
             return false;
         }
