@@ -3,11 +3,10 @@ package com.models.pieces.abstractpiece;
 import com.helpers.IndexCalculatorByPoint;
 import com.models.pieces.IllegalPieceMoveException;
 import com.models.pieces.PlayerType;
-import com.models.pieces.concretes.PawnModel;
-import com.services.advanceprocessors.Advance;
-import com.services.advanceprocessors.AdvanceProcessor;
-import com.services.advanceprocessors.AdvanceProcessors;
-import com.services.advanceprocessors.Advances;
+import com.services.advanceprocessors.advances.Advance;
+import com.services.advanceprocessors.processors.AdvanceProcessor;
+import com.services.advanceprocessors.processorlists.AdvanceProcessors;
+import com.services.advanceprocessors.advances.Advances;
 
 import java.awt.*;
 import java.io.*;
@@ -34,13 +33,13 @@ abstract public class PieceImpl implements Piece, Serializable {
             throw new IllegalPieceMoveException();
         }
 
-        revalidatePossibleAdvances();
         status.setCoordinates(point);
         status.setEmptiedMoves(true);
         status.setMoved(true);
+        clearPossibleAdvances();
     }
 
-    private void revalidatePossibleAdvances() {
+    protected void revalidatePossibleAdvances() {
         clearPossibleAdvances();
         addPossibleAdvances();
     }
@@ -58,35 +57,22 @@ abstract public class PieceImpl implements Piece, Serializable {
         }
 
         advances.getAvailableAdvances().clear();
+        status.setEmptiedMoves(true);
     }
 
     @Override
     public Advances getAdvancesList() {
         if (status.isEmptiedMoves()) {
             status.setEmptiedMoves(false);
-            addPossibleAdvances();
+            revalidatePossibleAdvances();
         }
 
-        System.out.println(advances);
-
-        return advances;
-    }
-
-    public AdvanceProcessors getAdvanceProcessors() {
-        return advanceProcessors;
-    }
-
-    public Advances getAdvances() {
         return advances;
     }
 
     @Override
     public Status getStatus() {
         return status;
-    }
-
-    protected boolean hasAddedAdvanceProcessors() {
-        return !advanceProcessors.getAdvanceProcessors().isEmpty();
     }
 
     public PlayerType getPlayerType() {

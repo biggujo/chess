@@ -3,7 +3,7 @@ package com.models.pieces.abstractpiece;
 import com.models.pieces.IllegalPieceMoveException;
 import com.models.pieces.PieceType;
 import com.models.pieces.PlayerType;
-import com.services.advanceprocessors.Advances;
+import com.services.advanceprocessors.advances.Advances;
 
 import java.awt.*;
 

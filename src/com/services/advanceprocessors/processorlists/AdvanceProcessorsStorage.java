@@ -1,7 +1,6 @@
-package com.services.advanceprocessors;
+package com.services.advanceprocessors.processorlists;
 
 import com.services.advanceprocessors.empty.EmptyAdvanceProcessors;
-import com.services.advanceprocessors.pawn.PawnAdvanceProcessors;
 
 public class AdvanceProcessorsStorage {
     public static AdvanceProcessors forPawn() {
@@ -10,5 +9,9 @@ public class AdvanceProcessorsStorage {
 
     public static AdvanceProcessors forEmpty() {
         return new EmptyAdvanceProcessors();
+    }
+
+    public static AdvanceProcessors forRook() {
+        return new RookAdvanceProcessors();
     }
 }

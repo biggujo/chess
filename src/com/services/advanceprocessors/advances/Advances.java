@@ -1,8 +1,6 @@
-package com.services.advanceprocessors;
+package com.services.advanceprocessors.advances;
 
 import java.awt.*;
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;

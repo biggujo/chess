@@ -1,16 +1,14 @@
-package com.services.advanceprocessors.pawn;
+package com.services.advanceprocessors.processors;
 
 import com.helpers.PointTranslator;
 import com.models.pieces.IllegalPieceMoveException;
 import com.models.piecesfield.PiecesFieldModel;
-import com.services.advanceprocessors.Advance;
-import com.services.advanceprocessors.AdvanceProcessorImpl;
+import com.services.advanceprocessors.advances.Advance;
 
 import java.awt.*;
 import java.util.List;
-import java.util.stream.IntStream;
 
-class ForwardAdvanceProcessor extends AdvanceProcessorImpl {
+public class ForwardAdvanceProcessor extends AdvanceProcessorImpl {
     private int step;
 
     public ForwardAdvanceProcessor() {
@@ -18,7 +16,7 @@ class ForwardAdvanceProcessor extends AdvanceProcessorImpl {
     }
 
     @Override
-    protected void setup() {
+    protected void setupOnce() {
         if (!isFirstPlayerPiece()) {
             changeDirection();
         }
@@ -59,8 +57,7 @@ class ForwardAdvanceProcessor extends AdvanceProcessorImpl {
     private boolean tryToAddForwardMoveTo(Point destCoordinates) throws IllegalPieceMoveException {
         try {
             if (!isBusyCellAt(destCoordinates)) {
-                Advance advance = new Advance(destCoordinates, null);
-                add(advance);
+                addAdvanceTo(destCoordinates);
                 return true;
             }
         } catch (IndexOutOfBoundsException ignored) {
@@ -68,10 +65,6 @@ class ForwardAdvanceProcessor extends AdvanceProcessorImpl {
         }
 
         return false;
-    }
-
-    private boolean isBusyCellAt(Point coordinates) throws IndexOutOfBoundsException {
-        return !PiecesFieldModel.getInstance().getField().isEmptyAt(coordinates);
     }
 
     private void changeDirection() {

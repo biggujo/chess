@@ -16,6 +16,7 @@ class BlackPieceFactory {
     JComponent getInstance(Piece piece) {
         return switch (piece.getPieceType()) {
             case PAWN -> new Pawn(dimension, IconPaths.PAWN_BLACK);
+            case ROOK -> new Rook(dimension, IconPaths.ROOK_BLACK);
             default -> throw new IllegalArgumentException();
         };
     }

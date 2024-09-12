@@ -19,6 +19,10 @@ class WhitePieceFactory {
             return new Pawn(dimension, IconPaths.PAWN_WHITE);
         }
 
+        if (piece.getPieceType() == PieceType.ROOK) {
+            return new Rook(dimension, IconPaths.ROOK_WHITE);
+        }
+
         throw new IllegalArgumentException();
     }
 }

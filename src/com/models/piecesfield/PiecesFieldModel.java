@@ -6,16 +6,15 @@ import com.models.currentmove.PlayerStatus;
 import com.models.pieces.IllegalPieceMoveException;
 import com.models.pieces.PieceType;
 import com.models.pieces.PlayerType;
-import com.services.advanceprocessors.Advance;
+import com.services.advanceprocessors.advances.Advance;
 import com.services.fieldinitializers.EmptyFieldInitializer;
 import com.services.fieldinitializers.FieldInitializer;
+import com.services.fieldinitializers.RookTestFieldInitializer;
 import com.view.pieces.PieceComponent;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +41,7 @@ public class PiecesFieldModel implements Serializable {
 
     private PiecesFieldModel() {
         List<FieldInitializer> fieldInitializers = new ArrayList<>();
-        fieldInitializers.add(new EmptyFieldInitializer());
+        fieldInitializers.add(new RookTestFieldInitializer());
         fieldManager = FieldManager.with(fieldInitializers);
         playerStatus = PlayerStatus.fromInitialPlayer(PlayerType.FIRST);
     }
@@ -103,10 +102,6 @@ public class PiecesFieldModel implements Serializable {
         return fieldManager.getField();
     }
 
-    public void setField(Field field) {
-        fieldManager.setField(field);
-    }
-
     public List<JComponent> getComponents() {
         return fieldManager.getComponents().getList();
     }
@@ -130,7 +125,7 @@ public class PiecesFieldModel implements Serializable {
         savePrevCoordinates(coordinates);
     }
 
-    private void tryToMoveTo(Point point) throws IOException {
+    private void tryToMoveTo(Point point) {
         try {
             Advance advance = getAdvanceByDestination(point);
             movePieceTo(advance);

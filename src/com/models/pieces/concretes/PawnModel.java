@@ -4,9 +4,7 @@ import com.globals.Defaults;
 import com.models.pieces.PieceType;
 import com.models.pieces.PlayerType;
 import com.models.pieces.abstractpiece.PieceImpl;
-import com.services.advanceprocessors.AdvanceProcessors;
-import com.services.advanceprocessors.AdvanceProcessorsStorage;
-import com.services.advanceprocessors.pawn.PawnAdvanceProcessors;
+import com.services.advanceprocessors.processorlists.AdvanceProcessorsStorage;
 
 import java.awt.*;
 import java.io.IOException;
@@ -22,12 +20,12 @@ public class PawnModel extends PieceImpl {
     }
 
     @Override
-    public void addPossibleAdvances() {
+    public void revalidatePossibleAdvances() {
         if (hasReachedTheTop()) {
             return;
         }
 
-        super.addPossibleAdvances();
+        super.revalidatePossibleAdvances();
     }
 
     private boolean hasReachedTheTop() {
@@ -38,13 +36,13 @@ public class PawnModel extends PieceImpl {
         return getStatus().getCoordinates().y == Defaults.TILE_AMOUNT - 1;
     }
 
-    private boolean isFirstPlayer() {
-        return getPlayerType() == PlayerType.FIRST;
-    }
-
     @Override
     public PieceType getPieceType() {
         return PawnModel.type;
+    }
+
+    private boolean isFirstPlayer() {
+        return getPlayerType() == PlayerType.FIRST;
     }
 
     @Serial

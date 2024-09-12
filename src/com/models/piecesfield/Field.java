@@ -4,7 +4,7 @@ import com.helpers.IndexCalculatorByPoint;
 import com.models.pieces.*;
 import com.models.pieces.abstractpiece.Piece;
 import com.services.fieldinitializers.FieldInitializer;
-import com.services.advanceprocessors.Advance;
+import com.services.advanceprocessors.advances.Advance;
 
 import java.awt.*;
 import java.io.Serial;

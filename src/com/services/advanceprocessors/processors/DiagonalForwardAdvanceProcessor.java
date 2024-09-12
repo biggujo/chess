@@ -1,12 +1,11 @@
-package com.services.advanceprocessors.pawn;
+package com.services.advanceprocessors.processors;
 
 import com.helpers.PointTranslator;
 import com.models.pieces.IllegalPieceMoveException;
 import com.models.pieces.abstractpiece.Piece;
 import com.models.piecesfield.Field;
 import com.models.piecesfield.PiecesFieldModel;
-import com.services.advanceprocessors.Advance;
-import com.services.advanceprocessors.AdvanceProcessorImpl;
+import com.services.advanceprocessors.advances.Advance;
 
 import java.awt.*;
 import java.util.List;
@@ -27,7 +26,7 @@ public class DiagonalForwardAdvanceProcessor extends AdvanceProcessorImpl {
     }
 
     @Override
-    protected void setup() {
+    protected void setupOnce() {
         dy = -1;
 
         if (!isFirstPlayerPiece()) {
@@ -73,7 +72,7 @@ public class DiagonalForwardAdvanceProcessor extends AdvanceProcessorImpl {
             return;
         }
 
-        add(new Advance(destination, captureCoordinates));
+        addAdvanceToWithCapture(destination, captureCoordinates);
     }
 
     public List<Advance> getPossibleAdvances(Piece piece) {

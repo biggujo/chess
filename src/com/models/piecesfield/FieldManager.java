@@ -2,7 +2,7 @@ package com.models.piecesfield;
 
 import com.models.pieces.IllegalPieceMoveException;
 import com.services.fieldinitializers.FieldInitializer;
-import com.services.advanceprocessors.Advance;
+import com.services.advanceprocessors.advances.Advance;
 
 import java.awt.*;
 import java.io.*;

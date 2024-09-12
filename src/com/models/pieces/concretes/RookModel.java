@@ -11,25 +11,14 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serial;
 
-public class EmptyPiece extends PieceImpl {
-    private static final PieceType type = PieceType.EMPTY;
-
-    public EmptyPiece(Point coordinates) {
-        super(PlayerType.NONE, coordinates, AdvanceProcessorsStorage.forEmpty());
-    }
-
-    @Override
-    protected void addPossibleAdvances() {
+public class RookModel extends PieceImpl {
+    public RookModel(PlayerType playerType, Point coordinates) {
+        super(playerType, coordinates, AdvanceProcessorsStorage.forRook());
     }
 
     @Override
     public PieceType getPieceType() {
-        return type;
-    }
-
-    @Override
-    public PlayerType getPlayerType() {
-        return PlayerType.NONE;
+        return PieceType.ROOK;
     }
 
     @Serial
@@ -40,6 +29,6 @@ public class EmptyPiece extends PieceImpl {
     @Serial
     private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
         readObjectCommon(stream);
-        setAdvanceProcessors(AdvanceProcessorsStorage.forEmpty());
+        setAdvanceProcessors(AdvanceProcessorsStorage.forRook());
     }
 }
