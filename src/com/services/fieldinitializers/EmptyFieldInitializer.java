@@ -33,7 +33,7 @@ public class EmptyFieldInitializer implements FieldInitializer {
                     continue;
                 }
 
-                if (i == 3 && j == 2 || i == 1 && j == 2 || i == 5 && j == 6) {
+                if (i == 4 && j == 2 || i == 1 && j == 2 || i == 5 && j == 6 || i == 3 && j == 5 || i == 3 && j == 7) {
                     newFieldList.add(whiteFactory.getInstance(PieceType.PAWN, coordinates));
                     continue;
                 }

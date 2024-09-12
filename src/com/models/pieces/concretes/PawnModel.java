@@ -18,7 +18,7 @@ public class PawnModel extends PieceImpl {
     private static final PieceType type = PieceType.PAWN;
 
     public PawnModel(PlayerType playerType, Point coordinates) {
-        super(playerType, coordinates, AdvanceProcessorsStorage.PAWN.getAdvanceProcessors());
+        super(playerType, coordinates, AdvanceProcessorsStorage.forPawn());
     }
 
     @Override
@@ -55,6 +55,6 @@ public class PawnModel extends PieceImpl {
     @Serial
     private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
         readObjectCommon(stream);
-        setAdvanceProcessors(AdvanceProcessorsStorage.PAWN.getAdvanceProcessors());
+        setAdvanceProcessors(AdvanceProcessorsStorage.forPawn());
     }
 }

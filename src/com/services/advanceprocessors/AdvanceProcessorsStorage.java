@@ -3,17 +3,12 @@ package com.services.advanceprocessors;
 import com.services.advanceprocessors.empty.EmptyAdvanceProcessors;
 import com.services.advanceprocessors.pawn.PawnAdvanceProcessors;
 
-public enum AdvanceProcessorsStorage {
-    PAWN(new PawnAdvanceProcessors()),
-    EMPTY(new EmptyAdvanceProcessors());
-
-    private final AdvanceProcessors advanceProcessors;
-
-    AdvanceProcessorsStorage(AdvanceProcessors advanceProcessors) {
-        this.advanceProcessors = advanceProcessors;
+public class AdvanceProcessorsStorage {
+    public static AdvanceProcessors forPawn() {
+        return new PawnAdvanceProcessors();
     }
 
-    public AdvanceProcessors getAdvanceProcessors() {
-        return advanceProcessors;
+    public static AdvanceProcessors forEmpty() {
+        return new EmptyAdvanceProcessors();
     }
 }

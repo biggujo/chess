@@ -4,8 +4,7 @@ import com.services.advanceprocessors.AdvanceProcessors;
 
 public class PawnAdvanceProcessors extends AdvanceProcessors {
     public PawnAdvanceProcessors() {
-        add(new SingleForwardAdvanceProcessor());
-        add(new DoubleForwardAdvanceProcessor());
+        add(new ForwardAdvanceProcessor());
         add(new DiagonalForwardAdvanceProcessor());
     }
 }
