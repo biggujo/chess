@@ -135,6 +135,7 @@ abstract public class PieceImpl implements Piece, Serializable {
 
     protected void readObjectCommon(ObjectInputStream stream) throws IOException, ClassNotFoundException {
         setStatus((Status) stream.readObject());
+        status.setEmptiedMoves(true);
         setPlayerType((PlayerType) stream.readObject());
         setAdvances(new Advances());
     }

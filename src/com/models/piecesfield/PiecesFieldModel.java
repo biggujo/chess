@@ -14,6 +14,8 @@ import com.view.pieces.PieceComponent;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +25,8 @@ public class PiecesFieldModel implements Serializable {
     public static PiecesFieldModel instance;
     private final FieldManager fieldManager;
     private final PlayerStatus playerStatus;
-    private Point prevCoordinates;
-    private boolean hasMoved;
+    private transient Point prevCoordinates;
+    private transient boolean hasMoved;
 
     public static PiecesFieldModel getInstance() {
         if (PiecesFieldModel.instance == null) {

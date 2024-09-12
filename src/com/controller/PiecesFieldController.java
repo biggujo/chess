@@ -23,12 +23,8 @@ public class PiecesFieldController {
         List<JComponent> updatedField = PiecesFieldModel.getInstance().getComponents();
 
         SwingUtilities.invokeLater(() -> {
-            try {
-                ViewManager.getInstance().getPiecesPanel().updateWith(updatedField);
-                ViewManager.getInstance().getPiecesPanel().revalidate();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            ViewManager.getInstance().getPiecesPanel().updateWith(updatedField);
+            ViewManager.getInstance().getPiecesPanel().revalidate();
         });
     }
 }

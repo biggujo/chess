@@ -13,13 +13,8 @@ import java.util.List;
 
 
 public class DiagonalForwardAdvanceProcessor extends AdvanceProcessorImpl {
-    private final int dx;
+    private static final int X_DIFF = 1;
     private int dy;
-
-    public DiagonalForwardAdvanceProcessor() {
-        dx = -1;
-        dy = -1;
-    }
 
     @Override
     protected List<Runnable> getMethodsToRun(List<Runnable> methodsToRun) {
@@ -31,20 +26,29 @@ public class DiagonalForwardAdvanceProcessor extends AdvanceProcessorImpl {
         return methodsToRun;
     }
 
+    @Override
+    protected void setup() {
+        dy = -1;
+
+        if (!isFirstPlayerPiece()) {
+            dy = -dy;
+        }
+    }
+
     private void addDiagonalMoveToTheLeft() {
-        addDiagonalMoveTo(-dx, dy);
+        addDiagonalMoveTo(-X_DIFF, dy);
     }
 
     private void addDiagonalMoveToTheRight() {
-        addDiagonalMoveTo(dx, dy);
+        addDiagonalMoveTo(X_DIFF, dy);
     }
 
     private void addEnPassantToTheLeft() {
-        addDiagonalMoveTo(dx, dy, -dx, 0);
+        addDiagonalMoveTo(-X_DIFF, dy, -X_DIFF, 0);
     }
 
     private void addEnPassantToTheRight() {
-        addDiagonalMoveTo(dx, dy, dx, 0);
+        addDiagonalMoveTo(X_DIFF, dy, X_DIFF, 0);
     }
 
     private void addDiagonalMoveTo(int dx, int dy) {
@@ -72,14 +76,7 @@ public class DiagonalForwardAdvanceProcessor extends AdvanceProcessorImpl {
         add(new Advance(destination, captureCoordinates));
     }
 
-    @Override
     public List<Advance> getPossibleAdvances(Piece piece) {
-        List<Advance> list = super.getPossibleAdvances(piece);
-
-        if (!isFirstPlayerPiece()) {
-            dy = -dy;
-        }
-
-        return list;
+        return super.getPossibleAdvances(piece);
     }
 }

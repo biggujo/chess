@@ -12,4 +12,8 @@ public class DoubleForwardAdvanceProcessor extends ForwardAdvanceProcessor {
         methodsToRun.add(() -> addForwardBy(CELLS_TO_MOVE));
         return methodsToRun;
     }
+
+    @Override
+    protected void setup() {
+    }
 }

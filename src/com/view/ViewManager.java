@@ -16,7 +16,7 @@ public class ViewManager {
     private final PiecesPanel piecesPanel;
     private final FieldSerializationPanel fieldSerializationPanel;
 
-    public static ViewManager getInstance() throws IOException {
+    public static ViewManager getInstance() {
         if (ViewManager.viewManager == null) {
             ViewManager.viewManager = new ViewManager();
         }

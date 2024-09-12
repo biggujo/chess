@@ -18,6 +18,7 @@ abstract public class AdvanceProcessorImpl implements AdvanceProcessor, Serializ
     private Piece piece;
     private final List<Advance> possibleAdvances;
     private final List<Runnable> methodsToRun;
+    private boolean hasSetUp;
 
     public AdvanceProcessorImpl() {
         this.possibleAdvances = new ArrayList<>();
@@ -45,6 +46,8 @@ abstract public class AdvanceProcessorImpl implements AdvanceProcessor, Serializ
         }
     }
 
+    protected abstract void setup();
+
     protected boolean isFirstPlayerPiece() {
         return getPiece().getPlayerType() == PlayerType.FIRST;
     }
@@ -56,6 +59,12 @@ abstract public class AdvanceProcessorImpl implements AdvanceProcessor, Serializ
     @Override
     public List<Advance> getPossibleAdvances(Piece piece) {
         this.piece = piece;
+
+        if (!hasSetUp) { // Do initialization once
+            setup();
+            hasSetUp = true;
+        }
+
         if (!possibleAdvances.isEmpty()) {
             possibleAdvances.clear();
         }

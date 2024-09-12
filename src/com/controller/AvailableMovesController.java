@@ -16,7 +16,7 @@ public class AvailableMovesController {
         ViewManager.getInstance().getAvailableMovesPanel().setAvailableMoves(availableMoves);
     }
 
-    public static void clearAvailableMovesPanel() throws IOException {
+    public static void clearAvailableMovesPanel() {
         ViewManager.getInstance().getAvailableMovesPanel().setAvailableMoves(new ArrayList<>());
     }
 }

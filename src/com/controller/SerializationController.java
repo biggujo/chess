@@ -15,7 +15,7 @@ public class SerializationController {
         File file = new File("/Users/biggujo/Desktop/field.bin");
         Serializer serializer = new FileSerializerImpl(file);
         try {
-            serializer.save(PiecesFieldModel.getInstance().getInstance());
+            serializer.save(PiecesFieldModel.getInstance());
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
@@ -26,8 +26,9 @@ public class SerializationController {
         Deserializer deserializer = new FileDeserializerImpl(file);
         try {
             PiecesFieldModel piecesFieldModel = (PiecesFieldModel) deserializer.load();
-            PiecesFieldModel.getInstance().setInstance(piecesFieldModel);
+            PiecesFieldModel.setInstance(piecesFieldModel);
             PiecesFieldController.updatePiecesPanel();
+            AvailableMovesController.clearAvailableMovesPanel();
         } catch (IOException | ClassNotFoundException ex) {
             throw new RuntimeException(ex);
         }

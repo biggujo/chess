@@ -45,8 +45,10 @@ public class AvailableMovesPanel extends JPanel {
 
     public void setAvailableMoves(List<Point> availableMoves) {
         this.availableMoves = availableMoves;
-        revalidate();
-        repaint();
+        SwingUtilities.invokeLater(() -> {
+            revalidate();
+            repaint();
+        });
     }
 
     private void fillOvalAt(Graphics2D g2d, Point coordinates) {

@@ -36,12 +36,16 @@ public abstract class PieceComponent extends JComponent {
     }
 
     public void setActive() {
-        setOpaque(true);
-        setBackground(Defaults.colorScheme.getHighlight());
+        SwingUtilities.invokeLater(() -> {
+            setOpaque(true);
+            setBackground(Defaults.colorScheme.getHighlight());
+        });
     }
 
     public void setInactive() {
-        setOpaque(false);
-        setBackground(null);
+        SwingUtilities.invokeLater(() -> {
+            setOpaque(false);
+            setBackground(null);
+        });
     }
 }
