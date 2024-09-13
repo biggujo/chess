@@ -1,4 +1,4 @@
-package com.models.currentmove;
+package com.models.playerstatus;
 
 import com.models.pieces.PlayerType;
 

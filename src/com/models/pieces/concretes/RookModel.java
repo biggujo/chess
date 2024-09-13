@@ -3,6 +3,7 @@ package com.models.pieces.concretes;
 import com.models.pieces.PieceType;
 import com.models.pieces.PlayerType;
 import com.models.pieces.abstractpiece.PieceImpl;
+import com.services.advanceprocessors.processorlists.AdvanceProcessors;
 import com.services.advanceprocessors.processorlists.AdvanceProcessorsStorage;
 
 import java.awt.*;
@@ -10,10 +11,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serial;
+import java.util.function.Supplier;
 
 public class RookModel extends PieceImpl {
+    private static final Supplier<AdvanceProcessors> ADVANCE_PROCESSORS_SUPPLIER = AdvanceProcessorsStorage::forRook;
+
     public RookModel(PlayerType playerType, Point coordinates) {
-        super(playerType, coordinates, AdvanceProcessorsStorage.forRook());
+        super(playerType, coordinates, ADVANCE_PROCESSORS_SUPPLIER.get());
     }
 
     @Override
@@ -29,6 +33,6 @@ public class RookModel extends PieceImpl {
     @Serial
     private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
         readObjectCommon(stream);
-        setAdvanceProcessors(AdvanceProcessorsStorage.forRook());
+        setAdvanceProcessors(ADVANCE_PROCESSORS_SUPPLIER.get());
     }
 }

@@ -1,21 +1,22 @@
 package com.view.pieces;
 
-import com.globals.Defaults;
+import com.services.iconpathresolvers.IconPaths;
 import com.models.pieces.abstractpiece.Piece;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class PieceComponentFactory {
-    private static final Dimension dimension = new Dimension(Defaults.PIECE_SIZE, Defaults.PIECE_SIZE);
-    private static final BlackPieceFactory blackPieceFactory = new BlackPieceFactory(dimension);
-    private static final WhitePieceFactory whitePieceFactory = new WhitePieceFactory(dimension);
+public abstract class PieceComponentFactory {
+    private final Dimension dimension;
+    private final IconPaths paths;
 
-    public static JComponent getInstance(Piece piece) {
-        return switch (piece.getPlayerType()) {
-            case FIRST -> whitePieceFactory.getInstance(piece);
-            case SECOND -> blackPieceFactory.getInstance(piece);
-            case NONE -> new EmptyPieceComponent(dimension);
-        };
+    PieceComponentFactory(Dimension dimension, IconPaths paths) {
+        this.dimension = dimension;
+        this.paths = paths;
+    }
+
+    public JComponent getInstance(Piece piece) {
+        String iconPath = paths.get(piece.getPieceType());
+        return new PieceComponent(dimension, iconPath);
     }
 }

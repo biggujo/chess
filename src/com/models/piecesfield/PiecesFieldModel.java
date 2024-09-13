@@ -2,14 +2,12 @@ package com.models.piecesfield;
 
 import com.controller.AvailableMovesController;
 import com.helpers.IndexCalculatorByPoint;
-import com.models.currentmove.PlayerStatus;
+import com.models.playerstatus.PlayerStatus;
 import com.models.pieces.IllegalPieceMoveException;
 import com.models.pieces.PieceType;
 import com.models.pieces.PlayerType;
 import com.services.advanceprocessors.advances.Advance;
-import com.services.fieldinitializers.EmptyFieldInitializer;
-import com.services.fieldinitializers.FieldInitializer;
-import com.services.fieldinitializers.RookTestFieldInitializer;
+import com.services.fieldinitializers.*;
 import com.view.pieces.PieceComponent;
 
 import javax.swing.*;
@@ -41,7 +39,7 @@ public class PiecesFieldModel implements Serializable {
 
     private PiecesFieldModel() {
         List<FieldInitializer> fieldInitializers = new ArrayList<>();
-        fieldInitializers.add(new RookTestFieldInitializer());
+        fieldInitializers.add(new KnightTestFieldInitializer());
         fieldManager = FieldManager.with(fieldInitializers);
         playerStatus = PlayerStatus.fromInitialPlayer(PlayerType.FIRST);
     }

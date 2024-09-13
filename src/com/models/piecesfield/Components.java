@@ -1,5 +1,7 @@
 package com.models.piecesfield;
 
+import com.services.playerpiecefactories.PieceFactoriesByPlayer;
+import com.view.pieces.EmptyPieceComponent;
 import com.view.pieces.PieceComponentFactory;
 
 import javax.swing.*;
@@ -20,7 +22,14 @@ class Components {
         components = new ArrayList<>();
 
         field.getList().forEach(pieceModel -> {
-            JComponent pieceInstance = PieceComponentFactory.getInstance(pieceModel);
+            PieceComponentFactory factory = PieceFactoriesByPlayer.get(pieceModel.getPlayerType());
+
+            if (factory == null) {
+                components.add(new EmptyPieceComponent());
+                return;
+            }
+
+            JComponent pieceInstance = factory.getInstance(pieceModel);
             components.add(pieceInstance);
         });
     }

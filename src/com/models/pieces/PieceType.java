@@ -3,5 +3,9 @@ package com.models.pieces;
 public enum PieceType {
     EMPTY,
     PAWN,
-    ROOK
+    ROOK,
+    BISHOP,
+    KNIGHT,
+    KING,
+    QUEEN
 }

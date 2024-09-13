@@ -1,6 +1,5 @@
 package com.models.pieces.concretes;
 
-import com.globals.Defaults;
 import com.models.pieces.PieceType;
 import com.models.pieces.PlayerType;
 import com.models.pieces.abstractpiece.PieceImpl;
@@ -14,38 +13,16 @@ import java.io.ObjectOutputStream;
 import java.io.Serial;
 import java.util.function.Supplier;
 
-public class PawnModel extends PieceImpl {
-    private static final Supplier<AdvanceProcessors> ADVANCE_PROCESSORS_SUPPLIER = AdvanceProcessorsStorage::forPawn;
-    private static final PieceType TYPE = PieceType.PAWN;
+public class QueenModel extends PieceImpl {
+    private static final Supplier<AdvanceProcessors> ADVANCE_PROCESSORS_SUPPLIER = AdvanceProcessorsStorage::forQueen;
 
-    public PawnModel(PlayerType playerType, Point coordinates) {
+    public QueenModel(PlayerType playerType, Point coordinates) {
         super(playerType, coordinates, ADVANCE_PROCESSORS_SUPPLIER.get());
     }
 
     @Override
-    public void revalidatePossibleAdvances() {
-        if (hasReachedTheTop()) {
-            return;
-        }
-
-        super.revalidatePossibleAdvances();
-    }
-
-    private boolean hasReachedTheTop() {
-        if (isFirstPlayer()) {
-            return getStatus().getCoordinates().y == 0;
-        }
-
-        return getStatus().getCoordinates().y == Defaults.TILE_AMOUNT - 1;
-    }
-
-    @Override
     public PieceType getPieceType() {
-        return PawnModel.TYPE;
-    }
-
-    private boolean isFirstPlayer() {
-        return getPlayerType() == PlayerType.FIRST;
+        return PieceType.QUEEN;
     }
 
     @Serial

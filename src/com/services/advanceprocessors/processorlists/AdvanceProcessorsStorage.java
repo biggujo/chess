@@ -14,4 +14,21 @@ public class AdvanceProcessorsStorage {
     public static AdvanceProcessors forRook() {
         return new RookAdvanceProcessors();
     }
+
+    public static AdvanceProcessors forBishop() {
+        return new BishopAdvanceProcessors();
+    }
+
+
+    public static AdvanceProcessors forKnight() {
+        return new KnightAdvanceProcessors();
+    }
+
+    public static AdvanceProcessors forKing() {
+        return new KingAdvanceProcessors();
+    }
+
+    public static AdvanceProcessors forQueen() {
+        return new QueenAdvanceProcessors();
+    }
 }

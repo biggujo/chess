@@ -8,7 +8,14 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.IntStream;
 
-public class OrthogonalAdvanceProcessor extends AdvanceProcessorImpl {
+public class OrthogonalAdvanceProcessor extends ConstrainedAdvanceProcessor {
+    public OrthogonalAdvanceProcessor() {
+    }
+
+    public OrthogonalAdvanceProcessor(int maxDiff) {
+        super(maxDiff);
+    }
+
     @Override
     protected List<Runnable> getMethodsToRun(List<Runnable> methodsToRun) {
         methodsToRun.add(this::addTopMoves);
@@ -23,42 +30,27 @@ public class OrthogonalAdvanceProcessor extends AdvanceProcessorImpl {
     }
 
     private void addTopMoves() {
-        processMove((original) -> ReverseIntStream.rangeClosed(original.y - 1, 0)
+        processMove((original) -> ReverseIntStream.rangeClosed(original.y - 1, 0).limit(getStreamLimit())
                 .allMatch((i) -> addMove(original.x, i)));
     }
 
     private void addBottomMoves() {
-        processMove((original) -> IntStream.range(original.y + 1, Defaults.TILE_AMOUNT)
+        processMove((original) -> IntStream.range(original.y + 1, Defaults.TILE_AMOUNT).limit(getStreamLimit())
                 .allMatch((i) -> addMove(original.x, i)));
     }
 
     private void addLeftMoves() {
-        processMove((original) -> ReverseIntStream.rangeClosed(original.x - 1, 0)
+        processMove((original) -> ReverseIntStream.rangeClosed(original.x - 1, 0).limit(getStreamLimit())
                 .allMatch((i) -> addMove(i, original.y)));
     }
 
     private void addRightMoves() {
-        processMove((original) -> IntStream.range(original.x + 1, Defaults.TILE_AMOUNT)
+        processMove((original) -> IntStream.range(original.x + 1, Defaults.TILE_AMOUNT).limit(getStreamLimit())
                 .allMatch((i) -> addMove(i, original.y)));
     }
 
     private void processMove(Consumer<Point> consumer) {
         Point originalCoordinates = getPiece().getStatus().getCoordinates();
         consumer.accept(originalCoordinates);
-    }
-
-    /**
-     * @return is move added without capture
-     */
-    private boolean addMove(int newX, int newY) {
-        Point newCoordinates = new Point(newX, newY);
-
-        if (isBusyCellAt(newCoordinates) || isPieceFromTheSamePlayerAt(newCoordinates)) {
-            addAdvanceToWithCapture(newCoordinates, newCoordinates);
-            return false;
-        }
-
-        addAdvanceTo(newCoordinates);
-        return true;
     }
 }

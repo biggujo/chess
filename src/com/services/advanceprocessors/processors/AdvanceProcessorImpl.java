@@ -65,6 +65,24 @@ abstract public class AdvanceProcessorImpl implements AdvanceProcessor, Serializ
         return PiecesFieldModel.getInstance().getField().get(coordinates).getPlayerType() == getPiece().getPlayerType();
     }
 
+    /**
+     * @return is move added without capture
+     */
+    protected boolean addMove(Point newCoordinates) {
+        if (isBusyCellAt(newCoordinates) || isPieceFromTheSamePlayerAt(newCoordinates)) {
+            addAdvanceToWithCapture(newCoordinates, newCoordinates);
+            return false;
+        }
+
+        addAdvanceTo(newCoordinates);
+        return true;
+    }
+
+    protected boolean addMove(int newX, int newY) {
+        Point newCoordinates = new Point(newX, newY);
+        return addMove(newCoordinates.x, newCoordinates.y);
+    }
+
     protected void addAdvanceToWithCapture(Point newCoordinates, Point captureCoordinates) {
         Advance advance = new Advance(newCoordinates, captureCoordinates);
         add(advance);

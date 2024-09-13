@@ -1,23 +1,14 @@
 package com.view.pieces;
 
-import com.helpers.IconPaths;
-import com.models.pieces.abstractpiece.Piece;
+import com.services.iconpathresolvers.IconPathsStorage;
+import com.models.pieces.PieceFactory;
+import com.models.pieces.PieceType;
 
-import javax.swing.*;
 import java.awt.*;
+import java.util.Map;
 
-class BlackPieceFactory {
-    private final Dimension dimension;
-
-    BlackPieceFactory(Dimension dimension) {
-        this.dimension = dimension;
-    }
-
-    JComponent getInstance(Piece piece) {
-        return switch (piece.getPieceType()) {
-            case PAWN -> new Pawn(dimension, IconPaths.PAWN_BLACK);
-            case ROOK -> new Rook(dimension, IconPaths.ROOK_BLACK);
-            default -> throw new IllegalArgumentException();
-        };
+public class BlackPieceFactory extends PieceComponentFactory {
+    public BlackPieceFactory(Dimension dimension) {
+        super(dimension, IconPathsStorage.BLACK_PATHS);
     }
 }

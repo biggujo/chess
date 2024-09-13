@@ -1,28 +1,14 @@
 package com.view.pieces;
 
-import com.helpers.IconPaths;
+import com.services.iconpathresolvers.IconPaths;
+import com.services.iconpathresolvers.IconPathsStorage;
 import com.models.pieces.abstractpiece.Piece;
-import com.models.pieces.PieceType;
 
 import javax.swing.*;
 import java.awt.*;
 
-class WhitePieceFactory {
-    private final Dimension dimension;
-
-    WhitePieceFactory(Dimension dimension) {
-        this.dimension = dimension;
-    }
-
-    JComponent getInstance(Piece piece) {
-        if (piece.getPieceType() == PieceType.PAWN) {
-            return new Pawn(dimension, IconPaths.PAWN_WHITE);
-        }
-
-        if (piece.getPieceType() == PieceType.ROOK) {
-            return new Rook(dimension, IconPaths.ROOK_WHITE);
-        }
-
-        throw new IllegalArgumentException();
+public class WhitePieceFactory extends PieceComponentFactory {
+    public WhitePieceFactory(Dimension dimension) {
+        super(dimension, IconPathsStorage.WHITE_PATHS);
     }
 }
