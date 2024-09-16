@@ -2,19 +2,18 @@ package com.view;
 
 import com.globals.Defaults;
 import com.view.panels.AvailableMovesPanel;
-import com.view.panels.FieldSerializationPanel;
 import com.view.panels.PiecesPanel;
+import com.view.panels.SettingsPanel;
 import com.view.panels.initializers.EmptyPanelInitializer;
 import com.view.panels.initializers.PanelInitializer;
 
 import java.awt.*;
-import java.io.IOException;
 
 public class ViewManager {
     public static ViewManager viewManager;
     private final AvailableMovesPanel availableMovesPanel;
     private final PiecesPanel piecesPanel;
-    private final FieldSerializationPanel fieldSerializationPanel;
+    private final SettingsPanel settingsPanel;
 
     public static ViewManager getInstance() {
         if (ViewManager.viewManager == null) {
@@ -33,7 +32,7 @@ public class ViewManager {
 
         piecesPanel = new PiecesPanel(emptyInitializer);
 
-        fieldSerializationPanel = new FieldSerializationPanel();
+        settingsPanel = new SettingsPanel();
     }
 
     public AvailableMovesPanel getAvailableMovesPanel() {
@@ -44,7 +43,7 @@ public class ViewManager {
         return piecesPanel;
     }
 
-    public FieldSerializationPanel getFieldSerializationPanel() {
-        return fieldSerializationPanel;
+    public SettingsPanel getSettingsPanel() {
+        return settingsPanel;
     }
 }

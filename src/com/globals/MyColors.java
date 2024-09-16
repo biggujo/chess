@@ -12,12 +12,12 @@ class MyColors implements ColorScheme {
 
     @Override
     public Color getDark() {
-        return MyColors.LIGHT;
+        return MyColors.DARK;
     }
 
     @Override
     public Color getLight() {
-        return MyColors.DARK;
+        return MyColors.LIGHT;
     }
 
     @Override

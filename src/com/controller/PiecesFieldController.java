@@ -12,7 +12,7 @@ public class PiecesFieldController {
     public static void handleClickAt(Point coordinates) throws IOException {
         PiecesFieldModel.getInstance().registerClickAt(coordinates);
 
-        if (!PiecesFieldModel.getInstance().hasMoved()) {
+        if (!PiecesFieldModel.getInstance().isTheLastMoveSuccessful()) {
             return;
         }
 
@@ -20,6 +20,7 @@ public class PiecesFieldController {
     }
 
     public static void updatePiecesPanel() {
+        PiecesFieldModel.getInstance().getFieldManager().initializeComponents();
         List<JComponent> updatedField = PiecesFieldModel.getInstance().getComponents();
 
         SwingUtilities.invokeLater(() -> {

@@ -2,14 +2,13 @@ package com.helpers;
 
 import com.github.weisj.jsvg.SVGDocument;
 import com.github.weisj.jsvg.parser.SVGLoader;
-import com.services.iconpathresolvers.IconPathsStorage;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-public class PiecesIconLoader {
-    public static SVGDocument fetchImageFrom(String path) {
+public class IconResolver {
+    public static SVGDocument resolve(String path) {
         try {
             SVGLoader loader = new SVGLoader();
 

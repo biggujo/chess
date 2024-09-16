@@ -23,7 +23,8 @@ public class PiecesFieldModel implements Serializable {
     private final FieldManager fieldManager;
     private final PlayerStatus playerStatus;
     private transient Point prevCoordinates;
-    private transient boolean hasMoved;
+    private transient boolean isTheMoveSuccessful;
+    private boolean hasMovedAtLeastOnce;
 
     public static PiecesFieldModel getInstance() {
         if (PiecesFieldModel.instance == null) {
@@ -90,9 +91,9 @@ public class PiecesFieldModel implements Serializable {
         pieceComponent.setActive();
     }
 
-    public boolean hasMoved() {
-        boolean hasMovedCopy = hasMoved;
-        hasMoved = false;
+    public boolean isTheLastMoveSuccessful() {
+        boolean hasMovedCopy = isTheMoveSuccessful;
+        isTheMoveSuccessful = false;
         return hasMovedCopy;
     }
 
@@ -100,8 +101,20 @@ public class PiecesFieldModel implements Serializable {
         return fieldManager.getField();
     }
 
+    public FieldManager getFieldManager() {
+        return fieldManager;
+    }
+
     public List<JComponent> getComponents() {
         return fieldManager.getComponents().getList();
+    }
+
+    public PlayerStatus getPlayerStatus() {
+        return playerStatus;
+    }
+
+    public boolean hasMovedAtLeastOnce() {
+        return hasMovedAtLeastOnce;
     }
 
     private void selectPieceAt(Point coordinates) {
@@ -127,6 +140,7 @@ public class PiecesFieldModel implements Serializable {
         try {
             Advance advance = getAdvanceByDestination(point);
             movePieceTo(advance);
+            hasMovedAtLeastOnce = true;
             playerStatus.switchPlayer();
         } catch (IllegalPieceMoveException | NoSuchElementException ignored) {
         } finally {
@@ -137,7 +151,7 @@ public class PiecesFieldModel implements Serializable {
 
     private void movePieceTo(Advance advance) throws IllegalPieceMoveException {
         fieldManager.move(prevCoordinates, advance);
-        hasMoved = true;
+        isTheMoveSuccessful = true;
     }
 
     private boolean isReadyToCaptureAt(Point coordinates) {

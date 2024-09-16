@@ -11,8 +11,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class SerializationController {
-    public static void serializeField() {
-        File file = new File("/Users/biggujo/Desktop/field.bin");
+    public static void serializeField(File file) {
         Serializer serializer = new FileSerializerImpl(file);
         try {
             serializer.save(PiecesFieldModel.getInstance());
@@ -21,8 +20,7 @@ public class SerializationController {
         }
     }
 
-    public static void deserializeField() {
-        File file = new File("/Users/biggujo/Desktop/field.bin");
+    public static void deserializeField(File file) {
         Deserializer deserializer = new FileDeserializerImpl(file);
         try {
             PiecesFieldModel piecesFieldModel = (PiecesFieldModel) deserializer.load();

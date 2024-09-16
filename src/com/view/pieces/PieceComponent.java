@@ -3,7 +3,7 @@ package com.view.pieces;
 import com.github.weisj.jsvg.SVGDocument;
 import com.github.weisj.jsvg.attributes.ViewBox;
 import com.globals.Defaults;
-import com.helpers.PiecesIconLoader;
+import com.helpers.IconResolver;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +13,7 @@ public class PieceComponent extends JComponent {
     private final SVGDocument svgDocument;
 
     public PieceComponent(Dimension dimension, String iconPath) {
-        this(dimension, PiecesIconLoader.fetchImageFrom(iconPath));
+        this(dimension, IconResolver.resolve(iconPath));
     }
 
     public PieceComponent(Dimension dimension, SVGDocument svgDocument) {

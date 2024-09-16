@@ -1,14 +1,12 @@
 package com.services.listeners;
 
 import com.controller.SerializationController;
-import com.models.piecesfield.Field;
-import com.models.piecesfield.PiecesFieldModel;
-import com.services.serializators.Deserializer;
-import com.services.serializators.FileDeserializerImpl;
-import com.services.serializators.FileSerializerImpl;
+import com.view.choosers.ChessFileChooser;
 
+import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 
 public class LoadFieldMouseListener implements MouseListener {
     @Override
@@ -18,7 +16,13 @@ public class LoadFieldMouseListener implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        SerializationController.deserializeField();
+        ChessFileChooser fileChooser = new ChessFileChooser();
+        try {
+            File file = fileChooser.load();
+            SerializationController.deserializeField(file);
+            JOptionPane.showMessageDialog(null, "Game has been loaded from " + file.getAbsolutePath());
+        } catch (NullPointerException ignored) {
+        }
     }
 
     @Override

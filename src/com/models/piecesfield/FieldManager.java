@@ -9,7 +9,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-class FieldManager implements Serializable {
+public class FieldManager implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -55,7 +55,7 @@ class FieldManager implements Serializable {
         initializers.forEach(initializer -> field.initializeWith(initializer));
     }
 
-    private void initializeComponents() {
+    public void initializeComponents() {
         componentsManager = ComponentsManager.from(field);
     }
 
