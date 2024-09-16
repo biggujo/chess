@@ -1,6 +1,5 @@
 package com.controller;
 
-import com.models.piecesfield.Field;
 import com.models.piecesfield.PiecesFieldModel;
 import com.services.serializators.Deserializer;
 import com.services.serializators.FileDeserializerImpl;
@@ -9,6 +8,7 @@ import com.services.serializators.Serializer;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 public class SerializationController {
     public static void serializeField(File file) {
@@ -24,10 +24,9 @@ public class SerializationController {
         Deserializer deserializer = new FileDeserializerImpl(file);
         try {
             PiecesFieldModel piecesFieldModel = (PiecesFieldModel) deserializer.load();
-            PiecesFieldModel.setInstance(piecesFieldModel);
-            PiecesFieldController.updatePiecesPanel();
-            AvailableMovesController.clearAvailableMovesPanel();
-        } catch (IOException | ClassNotFoundException ex) {
+            GameManager.resetGame(piecesFieldModel);
+        } catch (IOException | ClassNotFoundException | InvocationTargetException | InstantiationException |
+                 IllegalAccessException ex) {
             throw new RuntimeException(ex);
         }
     }

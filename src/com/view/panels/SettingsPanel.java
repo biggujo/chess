@@ -1,6 +1,7 @@
 package com.view.panels;
 
 import com.view.components.LoadButton;
+import com.view.components.ResetButton;
 import com.view.components.SaveButton;
 import com.view.components.SwapColorsButton;
 
@@ -18,6 +19,7 @@ public class SettingsPanel extends JPanel {
         components.add(new SwapColorsButton());
         components.add(new SaveButton());
         components.add(new LoadButton());
+        components.add(new ResetButton());
     }
 
     public SettingsPanel() {

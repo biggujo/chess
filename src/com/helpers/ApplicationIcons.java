@@ -5,7 +5,8 @@ import java.io.File;
 public enum ApplicationIcons {
     SWAP("swap"),
     LOAD("load"),
-    SAVE("save");
+    SAVE("save"),
+    RESET("reset");
 
     private final String name;
 

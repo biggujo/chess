@@ -38,7 +38,7 @@ public class PiecesFieldModel implements Serializable {
         PiecesFieldModel.instance = instance;
     }
 
-    private PiecesFieldModel() {
+    public PiecesFieldModel() {
         List<FieldInitializer> fieldInitializers = new ArrayList<>();
         fieldInitializers.add(new KnightTestFieldInitializer());
         fieldManager = FieldManager.with(fieldInitializers);

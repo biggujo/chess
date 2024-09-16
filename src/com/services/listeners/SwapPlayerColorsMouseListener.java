@@ -1,5 +1,6 @@
 package com.services.listeners;
 
+import com.controller.AvailableMovesController;
 import com.controller.PiecesFieldController;
 import com.controller.SwapPlayersController;
 
@@ -17,6 +18,7 @@ public class SwapPlayerColorsMouseListener implements MouseListener {
     public void mousePressed(MouseEvent e) {
         try {
             SwapPlayersController.swapPlayers();
+            AvailableMovesController.clearAvailableMovesPanel();
         } catch (IllegalStateException ignored) {
             JOptionPane.showMessageDialog(null, "You can't change colors since a one move has been made");
         }
