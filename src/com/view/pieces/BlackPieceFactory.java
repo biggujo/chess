@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.Map;
 
 public class BlackPieceFactory extends PieceComponentFactory {
-    public BlackPieceFactory(Dimension dimension) {
-        super(dimension, IconPathsStorage.BLACK_PATHS);
+    public BlackPieceFactory() {
+        super(IconPathsStorage.BLACK_PATHS);
     }
 }

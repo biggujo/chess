@@ -1,6 +1,7 @@
 package com.models.pieces.concretes;
 
 import com.models.pieces.PieceType;
+import com.models.pieces.PiecesValues;
 import com.models.pieces.PlayerType;
 import com.models.pieces.abstractpiece.PieceImpl;
 import com.services.advanceprocessors.processorlists.AdvanceProcessors;
@@ -23,6 +24,11 @@ public class QueenModel extends PieceImpl {
     @Override
     public PieceType getPieceType() {
         return PieceType.QUEEN;
+    }
+
+    @Override
+    public int getValue() {
+        return PiecesValues.get(PieceType.QUEEN);
     }
 
     @Serial

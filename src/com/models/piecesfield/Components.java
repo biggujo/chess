@@ -1,14 +1,17 @@
 package com.models.piecesfield;
 
+import com.globals.Defaults;
 import com.services.playerpiecefactories.PieceFactoriesByPlayer;
 import com.view.pieces.EmptyPieceComponent;
 import com.view.pieces.PieceComponentFactory;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 class Components {
+    private static final Dimension DIMENSION = new Dimension(Defaults.PIECE_SIZE, Defaults.PIECE_SIZE);
     private final ArrayList<JComponent> components;
 
     public static Components from(Field field) {
@@ -29,7 +32,7 @@ class Components {
                 return;
             }
 
-            JComponent pieceInstance = factory.getInstance(pieceModel);
+            JComponent pieceInstance = factory.getInstance(DIMENSION, pieceModel);
             components.add(pieceInstance);
         });
     }

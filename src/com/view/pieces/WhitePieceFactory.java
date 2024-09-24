@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class WhitePieceFactory extends PieceComponentFactory {
-    public WhitePieceFactory(Dimension dimension) {
-        super(dimension, IconPathsStorage.WHITE_PATHS);
+    public WhitePieceFactory() {
+        super(IconPathsStorage.WHITE_PATHS);
     }
 }

@@ -2,6 +2,7 @@ package com.models.pieces.concretes;
 
 import com.globals.Defaults;
 import com.models.pieces.PieceType;
+import com.models.pieces.PiecesValues;
 import com.models.pieces.PlayerType;
 import com.models.pieces.abstractpiece.PieceImpl;
 import com.services.advanceprocessors.processorlists.AdvanceProcessors;
@@ -42,6 +43,11 @@ public class PawnModel extends PieceImpl {
     @Override
     public PieceType getPieceType() {
         return PawnModel.TYPE;
+    }
+
+    @Override
+    public int getValue() {
+        return PiecesValues.get(PawnModel.TYPE);
     }
 
     private boolean isFirstPlayer() {

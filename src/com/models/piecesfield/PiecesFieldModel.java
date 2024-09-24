@@ -2,6 +2,7 @@ package com.models.piecesfield;
 
 import com.controller.AvailableMovesController;
 import com.helpers.IndexCalculatorByPoint;
+import com.models.pieces.abstractpiece.Piece;
 import com.models.playerstatus.PlayerStatus;
 import com.models.pieces.IllegalPieceMoveException;
 import com.models.pieces.PieceType;
@@ -45,38 +46,37 @@ public class PiecesFieldModel implements Serializable {
         playerStatus = PlayerStatus.fromInitialPlayer(PlayerType.FIRST);
     }
 
-    public void registerClickAt(Point coordinates) throws IOException {
+    public Piece captureAt(Point coordinates) throws IOException {
         if (isRegisteringAnEmptyCellAt(coordinates)) {
-            return;
+            return null;
         }
 
         if (isReadyToCaptureAt(coordinates)) {
-            tryToMoveTo(coordinates);
-            return;
+            return tryToMoveTo(coordinates);
         }
 
         if (!isSelectingOwnPiece(coordinates)) {
-            return;
+            return null;
         }
 
         if (!hasPieceSelected()) {
             selectPieceAt(coordinates);
             AvailableMovesController.updateAvailableMovesPanel(coordinates);
-            return;
+            return null;
         }
 
         if (hasSelectedTheSamePieceAt(coordinates)) {
             AvailableMovesController.clearAvailableMovesPanel();
             unselectPiece();
-            return;
+            return null;
         }
 
         if (!fieldManager.getField().isEmptyAt(coordinates)) {
             selectAnotherPieceAt(coordinates);
-            return;
+            return null;
         }
 
-        tryToMoveTo(coordinates);
+        return tryToMoveTo(coordinates);
     }
 
     public void disablePieceAt(Point coordinates) {
@@ -136,17 +136,24 @@ public class PiecesFieldModel implements Serializable {
         savePrevCoordinates(coordinates);
     }
 
-    private void tryToMoveTo(Point point) {
+    private Piece tryToMoveTo(Point point) {
+        Piece piece = null;
         try {
+            piece = fieldManager.getField().get(point);
+
             Advance advance = getAdvanceByDestination(point);
             movePieceTo(advance);
             hasMovedAtLeastOnce = true;
             playerStatus.switchPlayer();
+
+            return piece;
         } catch (IllegalPieceMoveException | NoSuchElementException ignored) {
         } finally {
             AvailableMovesController.clearAvailableMovesPanel();
             unselectPiece();
         }
+
+        return piece;
     }
 
     private void movePieceTo(Advance advance) throws IllegalPieceMoveException {

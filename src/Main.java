@@ -1,8 +1,11 @@
 import com.controller.PiecesFieldController;
 import com.globals.Defaults;
+import com.models.pieces.PlayerType;
 import com.view.ViewManager;
 import com.view.frames.MainFrame;
 import com.view.panels.*;
+import com.view.panels.wrappers.BorderPanel;
+import com.view.panels.wrappers.PaddingPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,7 +35,9 @@ public class Main {
 
             panel.setLayout(new OverlayLayout(panel));
 
-            frame.add(new PaddingPanel(panel), BorderLayout.CENTER);
+            frame.add((JPanel) viewManager.getCapturesPanelBy(PlayerType.SECOND), BorderLayout.SOUTH);
+            frame.add((JPanel) viewManager.getCapturesPanelBy(PlayerType.FIRST), BorderLayout.NORTH);
+            frame.add(new PaddingPanel(new BorderPanel(panel)), BorderLayout.CENTER);
             frame.add(viewManager.getSettingsPanel(), BorderLayout.EAST);
 //            frame.add(new PlayerInfoLabel("second"), BorderLayout.NORTH);
 //            frame.add(new PlayerInfoLabel("first"), BorderLayout.SOUTH);

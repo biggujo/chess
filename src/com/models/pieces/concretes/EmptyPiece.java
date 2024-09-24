@@ -1,6 +1,7 @@
 package com.models.pieces.concretes;
 
 import com.models.pieces.PieceType;
+import com.models.pieces.PiecesValues;
 import com.models.pieces.PlayerType;
 import com.models.pieces.abstractpiece.PieceImpl;
 import com.services.advanceprocessors.processorlists.AdvanceProcessors;
@@ -33,6 +34,11 @@ public class EmptyPiece extends PieceImpl {
     @Override
     public PlayerType getPlayerType() {
         return PlayerType.NONE;
+    }
+
+    @Override
+    public int getValue() {
+        return PiecesValues.get(PieceType.EMPTY);
     }
 
     @Serial

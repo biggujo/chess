@@ -1,5 +1,6 @@
 package com.services.listeners;
 
+import com.controller.GameManager;
 import com.controller.PiecesFieldController;
 import com.helpers.CellIndexByPointSearch;
 
@@ -19,7 +20,7 @@ public class PiecesMouseListener implements MouseListener {
     public void mousePressed(MouseEvent e) {
         Point indexCoordinates = CellIndexByPointSearch.getIndex(e.getPoint());
         try {
-            PiecesFieldController.handleClickAt(indexCoordinates);
+            GameManager.handleClickAt(indexCoordinates);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }

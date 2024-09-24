@@ -16,5 +16,7 @@ public interface Piece extends Comparable<Piece> {
 
     Status getStatus();
 
+    int getValue();
+
     void moveTo(Point point) throws IllegalPieceMoveException;
 }

@@ -1,32 +1,26 @@
-package com.view.panels;
+package com.view.panels.wrappers;
 
 import com.globals.Defaults;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
-import java.awt.*;
 
 public class PaddingPanel extends JPanel {
     private static final int PADDING_SIZE = 12;
 
     public PaddingPanel(JPanel otherPanel) {
-        applyBorder();
         add(otherPanel);
+        applyBorder();
     }
 
-    private void applyBorder() {
-        setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
-        Border blackBorder = BorderFactory.createLineBorder(Defaults.colorScheme.getDark());
+    protected void applyBorder() {
         Border emptyBorder = BorderFactory.createEmptyBorder(
                 PADDING_SIZE,
                 PADDING_SIZE,
                 PADDING_SIZE,
                 PADDING_SIZE);
 
-        CompoundBorder border = new CompoundBorder(emptyBorder, blackBorder);
-
-        setBorder(border);
+        setBorder(emptyBorder);
     }
 }
