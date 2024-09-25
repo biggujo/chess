@@ -7,13 +7,13 @@ public class PiecesValues {
 
     static {
         PIECE_TYPE_INTEGER_MAP = new HashMap<>();
-        PIECE_TYPE_INTEGER_MAP.put(PieceType.EMPTY, Integer.valueOf(0));
-        PIECE_TYPE_INTEGER_MAP.put(PieceType.KING, Integer.valueOf(0));
-        PIECE_TYPE_INTEGER_MAP.put(PieceType.PAWN, Integer.valueOf(1));
-        PIECE_TYPE_INTEGER_MAP.put(PieceType.BISHOP, Integer.valueOf(3));
-        PIECE_TYPE_INTEGER_MAP.put(PieceType.KNIGHT, Integer.valueOf(3));
-        PIECE_TYPE_INTEGER_MAP.put(PieceType.ROOK, Integer.valueOf(5));
-        PIECE_TYPE_INTEGER_MAP.put(PieceType.QUEEN, Integer.valueOf(9));
+        PIECE_TYPE_INTEGER_MAP.put(PieceType.EMPTY, (Integer) 0);
+        PIECE_TYPE_INTEGER_MAP.put(PieceType.KING, (Integer) 0);
+        PIECE_TYPE_INTEGER_MAP.put(PieceType.PAWN, (Integer) 1);
+        PIECE_TYPE_INTEGER_MAP.put(PieceType.BISHOP, (Integer) 3);
+        PIECE_TYPE_INTEGER_MAP.put(PieceType.KNIGHT, (Integer) 3);
+        PIECE_TYPE_INTEGER_MAP.put(PieceType.ROOK, (Integer) 5);
+        PIECE_TYPE_INTEGER_MAP.put(PieceType.QUEEN, (Integer) 9);
     }
 
     public static int get(PieceType pieceType) {

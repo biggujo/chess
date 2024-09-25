@@ -31,6 +31,11 @@ public class KnightTestFieldInitializer implements FieldInitializer {
             for (int j = 0; j < Defaults.TILE_AMOUNT; j++) {
                 Point coordinates = new Point(j, i);
 
+                if (i == 1 && j == 4) {
+                    newFieldList.add(whiteFactory.getInstance(PieceType.PAWN, coordinates));
+                    continue;
+                }
+
                 if (i == 1 && j == 1 || i == 6 && j == 6 || i == 1 && j == 6 || i == 6 && j == 1) {
                     newFieldList.add(blackFactory.getInstance(PieceType.PAWN, coordinates));
                     continue;

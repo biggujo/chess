@@ -16,6 +16,8 @@ public interface Piece extends Comparable<Piece> {
 
     Status getStatus();
 
+    boolean hasReachedTheTop();
+
     int getValue();
 
     void moveTo(Point point) throws IllegalPieceMoveException;

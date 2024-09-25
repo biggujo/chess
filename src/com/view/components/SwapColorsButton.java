@@ -3,13 +3,14 @@ package com.view.components;
 import com.github.weisj.jsvg.SVGDocument;
 import com.helpers.ApplicationIcons;
 import com.helpers.IconResolver;
-import com.services.listeners.SwapPlayerColorsMouseListener;
+import com.services.guilisteners.SwapPlayerColorsMouseListener;
 
 import java.awt.event.MouseListener;
 
 public class SwapColorsButton extends IconButton {
     public SwapColorsButton() {
         super(SwapColorsButton.resolveIcon(), SwapColorsButton.getListener());
+        setToolTipText("Swap colors");
     }
 
     private static SVGDocument resolveIcon() {

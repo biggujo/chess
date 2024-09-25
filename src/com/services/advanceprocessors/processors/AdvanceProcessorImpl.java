@@ -80,7 +80,7 @@ abstract public class AdvanceProcessorImpl implements AdvanceProcessor, Serializ
 
     protected boolean addMove(int newX, int newY) {
         Point newCoordinates = new Point(newX, newY);
-        return addMove(newCoordinates.x, newCoordinates.y);
+        return addMove(newCoordinates);
     }
 
     protected void addAdvanceToWithCapture(Point newCoordinates, Point captureCoordinates) {

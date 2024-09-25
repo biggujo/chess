@@ -32,14 +32,6 @@ public class PawnModel extends PieceImpl {
         super.revalidatePossibleAdvances();
     }
 
-    private boolean hasReachedTheTop() {
-        if (isFirstPlayer()) {
-            return getStatus().getCoordinates().y == 0;
-        }
-
-        return getStatus().getCoordinates().y == Defaults.TILE_AMOUNT - 1;
-    }
-
     @Override
     public PieceType getPieceType() {
         return PawnModel.TYPE;
@@ -48,10 +40,6 @@ public class PawnModel extends PieceImpl {
     @Override
     public int getValue() {
         return PiecesValues.get(PawnModel.TYPE);
-    }
-
-    private boolean isFirstPlayer() {
-        return getPlayerType() == PlayerType.FIRST;
     }
 
     @Serial

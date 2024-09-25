@@ -1,7 +1,6 @@
-package com.services.listeners;
+package com.services.guilisteners;
 
 import com.controller.GameManager;
-import com.controller.PiecesFieldController;
 import com.helpers.CellIndexByPointSearch;
 
 import java.awt.*;

@@ -3,13 +3,14 @@ package com.view.components;
 import com.github.weisj.jsvg.SVGDocument;
 import com.helpers.ApplicationIcons;
 import com.helpers.IconResolver;
-import com.services.listeners.ResetGameMouseListener;
+import com.services.guilisteners.ResetGameMouseListener;
 
 import java.awt.event.MouseListener;
 
 public class ResetButton extends IconButton {
     public ResetButton() {
         super(resolveIcon(), getListener());
+        setToolTipText("Reset the game");
     }
 
     private static SVGDocument resolveIcon() {

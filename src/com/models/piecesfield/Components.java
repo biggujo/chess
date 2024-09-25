@@ -32,7 +32,7 @@ class Components {
                 return;
             }
 
-            JComponent pieceInstance = factory.getInstance(DIMENSION, pieceModel);
+            JComponent pieceInstance = factory.getInstance(DIMENSION, pieceModel.getPieceType());
             components.add(pieceInstance);
         });
     }

@@ -26,9 +26,18 @@ public class Field implements Serializable {
         this.field = field;
     }
 
-    public Piece get(Point point) {
+    public Piece get(Point point) throws NullPointerException {
+        if (point == null) {
+            throw new NullPointerException();
+        }
+
         int index = IndexCalculatorByPoint.getIndex(point);
         return field.get(index);
+    }
+
+    public void set(Piece piece) {
+        int index = IndexCalculatorByPoint.getIndex(piece.getStatus().getCoordinates());
+        field.set(index, piece);
     }
 
     public void move(Point src, Advance advance) throws IllegalPieceMoveException {

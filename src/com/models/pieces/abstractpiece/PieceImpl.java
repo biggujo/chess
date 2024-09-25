@@ -1,5 +1,6 @@
 package com.models.pieces.abstractpiece;
 
+import com.globals.Defaults;
 import com.helpers.IndexCalculatorByPoint;
 import com.models.pieces.IllegalPieceMoveException;
 import com.models.pieces.PlayerType;
@@ -51,7 +52,7 @@ abstract public class PieceImpl implements Piece, Serializable {
         }
     }
 
-    void clearPossibleAdvances() {
+    protected void clearPossibleAdvances() {
         if (advances.getAvailableAdvances().isEmpty()) {
             return;
         }
@@ -77,6 +78,14 @@ abstract public class PieceImpl implements Piece, Serializable {
 
     public PlayerType getPlayerType() {
         return playerType;
+    }
+
+    public boolean hasReachedTheTop() {
+        if (isFirstPlayer()) {
+            return getStatus().getCoordinates().y == 0;
+        }
+
+        return getStatus().getCoordinates().y == Defaults.TILE_AMOUNT - 1;
     }
 
     protected void setAdvances(Advances advances) {
@@ -124,5 +133,9 @@ abstract public class PieceImpl implements Piece, Serializable {
         status.setEmptiedMoves(true);
         setPlayerType((PlayerType) stream.readObject());
         setAdvances(new Advances());
+    }
+
+    private boolean isFirstPlayer() {
+        return getPlayerType() == PlayerType.FIRST;
     }
 }

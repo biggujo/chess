@@ -24,7 +24,7 @@ public class CapturesModel {
     public List<JComponent> getComponents() {
         return pieces.stream().map(p -> {
             PieceComponentFactory factory = PieceFactoriesByPlayer.get(p.getPlayerType());
-            return factory.getInstance(PIECE_DIMENSION, p);
+            return factory.getInstance(PIECE_DIMENSION, p.getPieceType());
         }).toList();
     }
 

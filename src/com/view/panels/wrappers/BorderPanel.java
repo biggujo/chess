@@ -1,5 +1,7 @@
 package com.view.panels.wrappers;
 
+import com.globals.Defaults;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,6 +13,6 @@ public class BorderPanel extends JPanel {
     }
 
     protected void applyBorder() {
-        setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        setBorder(BorderFactory.createLineBorder(Defaults.colorScheme.getDark()));
     }
 }

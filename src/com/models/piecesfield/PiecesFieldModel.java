@@ -2,6 +2,7 @@ package com.models.piecesfield;
 
 import com.controller.AvailableMovesController;
 import com.helpers.IndexCalculatorByPoint;
+import com.models.pieces.NoMoveHasBeenMadeException;
 import com.models.pieces.abstractpiece.Piece;
 import com.models.playerstatus.PlayerStatus;
 import com.models.pieces.IllegalPieceMoveException;
@@ -26,6 +27,7 @@ public class PiecesFieldModel implements Serializable {
     private transient Point prevCoordinates;
     private transient boolean isTheMoveSuccessful;
     private boolean hasMovedAtLeastOnce;
+    private boolean isDisabled;
 
     public static PiecesFieldModel getInstance() {
         if (PiecesFieldModel.instance == null) {
@@ -46,9 +48,16 @@ public class PiecesFieldModel implements Serializable {
         playerStatus = PlayerStatus.fromInitialPlayer(PlayerType.FIRST);
     }
 
-    public Piece captureAt(Point coordinates) throws IOException {
+    /**
+     * @return captured piece or null
+     */
+    public Piece captureAt(Point coordinates) throws IOException, NoMoveHasBeenMadeException {
+        if (isDisabled) {
+            throw new NoMoveHasBeenMadeException();
+        }
+
         if (isRegisteringAnEmptyCellAt(coordinates)) {
-            return null;
+            throw new NoMoveHasBeenMadeException();
         }
 
         if (isReadyToCaptureAt(coordinates)) {
@@ -56,24 +65,24 @@ public class PiecesFieldModel implements Serializable {
         }
 
         if (!isSelectingOwnPiece(coordinates)) {
-            return null;
+            throw new NoMoveHasBeenMadeException();
         }
 
         if (!hasPieceSelected()) {
             selectPieceAt(coordinates);
             AvailableMovesController.updateAvailableMovesPanel(coordinates);
-            return null;
+            throw new NoMoveHasBeenMadeException();
         }
 
         if (hasSelectedTheSamePieceAt(coordinates)) {
             AvailableMovesController.clearAvailableMovesPanel();
             unselectPiece();
-            return null;
+            throw new NoMoveHasBeenMadeException();
         }
 
         if (!fieldManager.getField().isEmptyAt(coordinates)) {
             selectAnotherPieceAt(coordinates);
-            return null;
+            throw new NoMoveHasBeenMadeException();
         }
 
         return tryToMoveTo(coordinates);
@@ -91,10 +100,12 @@ public class PiecesFieldModel implements Serializable {
         pieceComponent.setActive();
     }
 
-    public boolean isTheLastMoveSuccessful() {
-        boolean hasMovedCopy = isTheMoveSuccessful;
-        isTheMoveSuccessful = false;
-        return hasMovedCopy;
+    public Piece getCurrentPiece() {
+        try {
+            return fieldManager.getField().get(prevCoordinates);
+        } catch (NullPointerException ignored) {
+            return null;
+        }
     }
 
     public Field getField() {
@@ -113,8 +124,20 @@ public class PiecesFieldModel implements Serializable {
         return playerStatus;
     }
 
+    public Point getPrevCoordinates() {
+        return prevCoordinates;
+    }
+
     public boolean hasMovedAtLeastOnce() {
         return hasMovedAtLeastOnce;
+    }
+
+    public boolean isDisabled() {
+        return isDisabled;
+    }
+
+    public void setDisabled(boolean disabled) {
+        isDisabled = disabled;
     }
 
     private void selectPieceAt(Point coordinates) {
