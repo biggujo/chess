@@ -1,7 +1,6 @@
 package com.models.piecesfield;
 
 import com.models.pieces.IllegalPieceMoveException;
-import com.models.pieces.abstractpiece.Piece;
 import com.services.fieldinitializers.FieldInitializer;
 import com.services.advanceprocessors.advances.Advance;
 

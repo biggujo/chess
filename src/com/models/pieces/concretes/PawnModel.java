@@ -1,6 +1,5 @@
 package com.models.pieces.concretes;
 
-import com.globals.Defaults;
 import com.models.pieces.PieceType;
 import com.models.pieces.PiecesValues;
 import com.models.pieces.PlayerType;

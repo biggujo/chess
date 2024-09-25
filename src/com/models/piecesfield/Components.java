@@ -10,7 +10,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-class Components {
+public class Components {
     private static final Dimension DIMENSION = new Dimension(Defaults.PIECE_SIZE, Defaults.PIECE_SIZE);
     private final ArrayList<JComponent> components;
 

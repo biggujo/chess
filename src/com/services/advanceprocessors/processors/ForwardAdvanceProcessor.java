@@ -2,8 +2,6 @@ package com.services.advanceprocessors.processors;
 
 import com.helpers.PointTranslator;
 import com.models.pieces.IllegalPieceMoveException;
-import com.models.piecesfield.PiecesFieldModel;
-import com.services.advanceprocessors.advances.Advance;
 
 import java.awt.*;
 import java.util.List;

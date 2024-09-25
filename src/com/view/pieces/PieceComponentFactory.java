@@ -2,7 +2,6 @@ package com.view.pieces;
 
 import com.models.pieces.PieceType;
 import com.services.iconpathresolvers.IconPaths;
-import com.models.pieces.abstractpiece.Piece;
 
 import javax.swing.*;
 import java.awt.*;

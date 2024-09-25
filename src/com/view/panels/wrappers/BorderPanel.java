@@ -3,7 +3,6 @@ package com.view.panels.wrappers;
 import com.globals.Defaults;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class BorderPanel extends JPanel {
     public BorderPanel(JPanel otherPanel) {

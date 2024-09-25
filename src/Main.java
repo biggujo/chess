@@ -3,7 +3,6 @@ import com.globals.Defaults;
 import com.models.pieces.PlayerType;
 import com.view.ViewManager;
 import com.view.frames.MainFrame;
-import com.view.frames.promotion.PromotionFrame;
 import com.view.panels.*;
 import com.view.panels.wrappers.BorderPanel;
 import com.view.panels.wrappers.PaddingPanel;
