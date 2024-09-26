@@ -7,9 +7,9 @@ import com.view.frames.promotion.PromotionFrame;
 
 import javax.swing.*;
 
-public class PawnPromotionFieldListener implements FieldListener {
+public class PawnPromotionOnMoveEndListener implements OnMoveEndListener {
     @Override
-    public void onMoveEnds(Piece originalPiece, Piece capturedPiece) {
+    public void accept(Piece originalPiece, Piece capturedPiece) {
         if (originalPiece == null) {
             throw new NullPointerException();
         }
@@ -21,7 +21,7 @@ public class PawnPromotionFieldListener implements FieldListener {
             return;
         }
 
-        PiecesFieldController.disableField();
+        PiecesFieldController.getInstance().disableField();
         JDialog promotionFrame = new PromotionFrame(originalPiece.getPlayerType(), originalPiece.getStatus().getCoordinates());
         promotionFrame.setVisible(true);
     }

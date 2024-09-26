@@ -10,6 +10,6 @@ public class SwapPlayersController {
         }
         PiecesFieldModel.getInstance().getPlayerStatus().switchPlayer();
         PieceFactoriesByPlayer.swapColors();
-        PiecesFieldController.updatePiecesPanel();
+        PiecesFieldController.getInstance().updatePiecesPanel();
     }
 }

@@ -48,7 +48,7 @@ abstract public class PieceImpl implements Piece, Serializable {
     protected void addPossibleAdvances() {
         for (AdvanceProcessor c : advanceProcessors.getAdvanceProcessors()) {
             List<Advance> newPossibleAdvances = c.getPossibleAdvances(this);
-            getAdvancesList().getAvailableAdvances().addAll(newPossibleAdvances);
+            resolveAdvancesList().getAvailableAdvances().addAll(newPossibleAdvances);
         }
     }
 
@@ -62,7 +62,7 @@ abstract public class PieceImpl implements Piece, Serializable {
     }
 
     @Override
-    public Advances getAdvancesList() {
+    public Advances resolveAdvancesList() {
         if (status.isEmptiedMoves()) {
             status.setEmptiedMoves(false);
             revalidatePossibleAdvances();
@@ -120,7 +120,7 @@ abstract public class PieceImpl implements Piece, Serializable {
     }
 
     private boolean isMoveLegalTo(Point givenCoordinates) {
-        return getAdvancesList().isAdvancePresent(givenCoordinates);
+        return resolveAdvancesList().isAdvancePresent(givenCoordinates);
     }
 
     protected void writeObjectCommon(ObjectOutputStream stream) throws IOException {

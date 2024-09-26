@@ -3,29 +3,34 @@ package com.controller;
 import com.models.pieces.NoMoveHasBeenMadeException;
 import com.models.pieces.abstractpiece.Piece;
 import com.models.piecesfield.PiecesFieldModel;
-import com.services.fieldlisteners.FieldListeners;
-import com.services.fieldlisteners.PawnPromotionFieldListener;
+import com.services.fieldlisteners.OnMoveEndListener;
+import com.services.fieldlisteners.PawnPromotionOnMoveEndListener;
 
 import java.awt.*;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameManager {
-    private static final FieldListeners fieldListeners;
+    private static final List<OnMoveEndListener> onMoveEndListeners;
 
     static {
-        fieldListeners = new FieldListeners();
-        fieldListeners.add(new PawnPromotionFieldListener());
+        onMoveEndListeners = new ArrayList<>();
+        onMoveEndListeners.add(new PawnPromotionOnMoveEndListener());
     }
 
     public static void handleClickAt(Point coordinates) throws IOException {
         try {
             Piece currentPiece = PiecesFieldModel.getInstance().getCurrentPiece();
-            Piece capturedPiece = PiecesFieldModel.getInstance().captureAt(coordinates);
-            PiecesFieldController.updatePiecesPanel();
+
+            PiecesFieldController controller = PiecesFieldController.getInstance();
+
+            Piece capturedPiece = controller.captureAt(coordinates);
+            controller.updatePiecesPanel();
             CapturedPiecesController.add(capturedPiece);
 
-            fieldListeners.runAll(currentPiece, capturedPiece);
+            runAllOnMoveEndListeners(currentPiece, capturedPiece);
         } catch (NoMoveHasBeenMadeException ignored) {
         }
     }
@@ -36,11 +41,16 @@ public class GameManager {
 
     public static void resetGame(PiecesFieldModel piecesFieldModel) throws InvocationTargetException, InstantiationException, IllegalAccessException {
         if (piecesFieldModel == null) {
-            piecesFieldModel = new PiecesFieldModel();
+            PiecesFieldModel.resetModel();
+            piecesFieldModel = PiecesFieldModel.getInstance();
         }
 
         PiecesFieldModel.setInstance(piecesFieldModel);
-        PiecesFieldController.updatePiecesPanel();
+        PiecesFieldController.getInstance().updatePiecesPanel();
         AvailableMovesController.clearAvailableMovesPanel();
+    }
+
+    private static void runAllOnMoveEndListeners(Piece currentPiece, Piece capturedPiece) {
+        onMoveEndListeners.forEach(l -> l.accept(currentPiece, capturedPiece));
     }
 }

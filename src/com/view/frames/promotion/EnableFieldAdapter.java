@@ -8,6 +8,6 @@ import java.awt.event.MouseEvent;
 public class EnableFieldAdapter extends MouseAdapter {
     @Override
     public void mousePressed(MouseEvent e) {
-        PiecesFieldController.enableField();
+        PiecesFieldController.getInstance().enableField();
     }
 }

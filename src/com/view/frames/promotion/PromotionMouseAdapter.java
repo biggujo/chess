@@ -21,7 +21,7 @@ class PromotionMouseAdapter extends MouseAdapter {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        PiecesFieldController.replacePieceAt(coordinates, playerType, pieceType);
+        PiecesFieldController.getInstance().replacePieceAt(coordinates, playerType, pieceType);
     }
 
     static class Builder {

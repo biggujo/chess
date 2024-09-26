@@ -8,7 +8,7 @@ import com.services.advanceprocessors.advances.Advances;
 import java.awt.*;
 
 public interface Piece extends Comparable<Piece> {
-    Advances getAdvancesList();
+    Advances resolveAdvancesList();
 
     PieceType getPieceType();
 

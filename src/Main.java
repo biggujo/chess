@@ -18,7 +18,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         ViewManager viewManager = ViewManager.getInstance();
-        PiecesFieldController.updatePiecesPanel();
+        PiecesFieldController.getInstance().updatePiecesPanel();
 
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new MainFrame(MAIN_WINDOW_TITLE);
