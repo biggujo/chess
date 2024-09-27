@@ -28,6 +28,10 @@ public class PiecesFieldController {
     private final PiecesFieldModel model = PiecesFieldModel.getInstance();
 
     public Piece captureAt(Point coordinates) throws NoMoveHasBeenMadeException {
+        if (model.isUnderCheckCurrentPlayer() && !isKingSelected(coordinates)) {
+            throw new NoMoveHasBeenMadeException();
+        }
+
         if (model.isDisabled()) {
             throw new NoMoveHasBeenMadeException();
         }
@@ -56,7 +60,7 @@ public class PiecesFieldController {
             throw new NoMoveHasBeenMadeException();
         }
 
-        if (!model.getFieldManager().getField().isEmptyAt(coordinates)) {
+        if (!model.getField().isEmptyAt(coordinates)) {
             selectAnotherPieceAt(coordinates);
             throw new NoMoveHasBeenMadeException();
         }
@@ -106,7 +110,7 @@ public class PiecesFieldController {
 
     private void selectPieceAt(Point coordinates) {
         enablePieceAt(coordinates);
-        model.getFieldManager().getField().get(coordinates).resolveAdvancesList();
+        model.getFieldManager().getField().get(coordinates).revalidatePossibleAdvancesWith(model.getField());
         model.savePrevCoordinates(coordinates);
     }
 
@@ -141,5 +145,17 @@ public class PiecesFieldController {
         }
 
         return capturedPiece;
+    }
+
+    private boolean isKingSelected(Point coordinates) {
+        boolean areCurrentCoordinatesContainKing = model.getField().get(coordinates).getPieceType() == PieceType.KING;
+
+        if (model.getPrevCoordinates() == null) {
+            return areCurrentCoordinatesContainKing;
+        }
+
+        boolean arePrevCoordinatesContainKing = model.getField().get(model.getPrevCoordinates()).getPieceType() == PieceType.KING;
+
+        return arePrevCoordinatesContainKing || areCurrentCoordinatesContainKing;
     }
 }

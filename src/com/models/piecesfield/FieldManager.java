@@ -50,7 +50,7 @@ public class FieldManager implements Serializable {
     }
 
     private void initializeField() {
-        field = new Field(new ArrayList<>());
+        field = new Field();
 
         initializers.forEach(initializer -> field.initializeWith(initializer));
     }

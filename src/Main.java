@@ -29,8 +29,8 @@ public class Main {
 
             JPanel fieldPanel = new CellPanel(PIECE_SIZE, TILE_AMOUNT);
 
-            panel.add(piecesPanel);
             panel.add(viewManager.getAvailableMovesPanel());
+            panel.add(piecesPanel);
             panel.add(fieldPanel);
 
             panel.setLayout(new OverlayLayout(panel));

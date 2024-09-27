@@ -10,7 +10,11 @@ public class Advances {
     private final List<Advance> availableAdvances;
 
     public Advances() {
-        availableAdvances = new ArrayList<>();
+        this(new ArrayList<>());
+    }
+
+    public Advances(List<Advance> initialAdvances) {
+        this.availableAdvances = new ArrayList<>(initialAdvances);
     }
 
     public List<Advance> getAvailableAdvances() {
@@ -19,6 +23,10 @@ public class Advances {
 
     public List<Point> getAvailableMoves() {
         return availableAdvances.stream().map(Advance::getDestination).toList();
+    }
+
+    public List<Point> getAvailableCaptures() {
+        return availableAdvances.stream().map(Advance::getPossibleCapture).toList();
     }
 
     public Advance getAdvanceByMove(Point point) throws NoSuchElementException {
@@ -32,7 +40,12 @@ public class Advances {
     }
 
     public boolean isAdvancePresent(Point dest) {
-        return getAdvanceByMove(dest) != null;
+        try {
+            getAdvanceByMove(dest);
+            return true;
+        } catch (NoSuchElementException ignored) {
+            return false;
+        }
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.services.advanceprocessors.processors;
 
+import com.services.advanceprocessors.advances.Advance;
+
 import java.awt.*;
 import java.util.List;
 
@@ -14,6 +16,11 @@ public class LShapedAdvanceProcessor extends AdvanceProcessorImpl {
             new Point(2, -1),
             new Point(2, 1),
     };
+
+    @Override
+    protected List<Advance> modifyPossibleAdvances(List<Advance> originalAdvances) {
+        return originalAdvances;
+    }
 
     @Override
     protected List<Runnable> getMethodsToRun(List<Runnable> methodsToRun) {

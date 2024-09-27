@@ -3,7 +3,7 @@ package com.services.advanceprocessors.processors;
 import com.models.pieces.IllegalPieceMoveException;
 import com.models.pieces.PlayerType;
 import com.models.pieces.abstractpiece.Piece;
-import com.models.piecesfield.PiecesFieldModel;
+import com.models.piecesfield.Field;
 import com.services.advanceprocessors.advances.Advance;
 import com.validators.MoveOutOfBoundsValidator;
 
@@ -18,8 +18,9 @@ abstract public class AdvanceProcessorImpl implements AdvanceProcessor, Serializ
     private static final long serialVersionUID = 1L;
 
     private Piece piece;
-    private final List<Advance> possibleAdvances;
+    private List<Advance> possibleAdvances;
     private final List<Runnable> methodsToRun;
+    private Field field;
     private boolean hasSetUp;
 
     public AdvanceProcessorImpl() {
@@ -29,8 +30,9 @@ abstract public class AdvanceProcessorImpl implements AdvanceProcessor, Serializ
     }
 
     @Override
-    public List<Advance> getPossibleAdvances(Piece piece) {
+    public List<Advance> getPossibleAdvances(Field field, Piece piece) {
         this.piece = piece;
+        this.field = field;
 
         if (!hasSetUp) { // Do initialization once
             setupOnce();
@@ -42,8 +44,12 @@ abstract public class AdvanceProcessorImpl implements AdvanceProcessor, Serializ
         }
         obtainPossibleAdvances();
 
+        possibleAdvances = modifyPossibleAdvances(possibleAdvances);
+
         return possibleAdvances;
     }
+
+    protected abstract List<Advance> modifyPossibleAdvances(List<Advance> originalAdvances);
 
     protected abstract List<Runnable> getMethodsToRun(List<Runnable> methodsToRun);
 
@@ -58,11 +64,11 @@ abstract public class AdvanceProcessorImpl implements AdvanceProcessor, Serializ
     }
 
     protected boolean isBusyCellAt(Point coordinates) throws IndexOutOfBoundsException {
-        return !PiecesFieldModel.getInstance().getField().isEmptyAt(coordinates);
+        return !field.isEmptyAt(coordinates);
     }
 
     protected boolean isPieceFromTheSamePlayerAt(Point coordinates) {
-        return PiecesFieldModel.getInstance().getField().get(coordinates).getPlayerType() == getPiece().getPlayerType();
+        return field.get(coordinates).getPlayerType() == getPiece().getPlayerType();
     }
 
     /**
@@ -100,6 +106,10 @@ abstract public class AdvanceProcessorImpl implements AdvanceProcessor, Serializ
             } catch (IllegalPieceMoveException ignored) {
             }
         });
+    }
+
+    protected Field getField() {
+        return field;
     }
 
     private void add(Advance advance) {

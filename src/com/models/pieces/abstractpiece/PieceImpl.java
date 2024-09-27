@@ -4,6 +4,7 @@ import com.globals.Defaults;
 import com.helpers.IndexCalculatorByPoint;
 import com.models.pieces.IllegalPieceMoveException;
 import com.models.pieces.PlayerType;
+import com.models.piecesfield.Field;
 import com.services.advanceprocessors.advances.Advance;
 import com.services.advanceprocessors.processors.AdvanceProcessor;
 import com.services.advanceprocessors.processorlists.AdvanceProcessors;
@@ -13,7 +14,7 @@ import java.awt.*;
 import java.io.*;
 import java.util.List;
 
-abstract public class PieceImpl implements Piece, Serializable {
+abstract public class PieceImpl implements Piece {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -40,15 +41,17 @@ abstract public class PieceImpl implements Piece, Serializable {
         clearPossibleAdvances();
     }
 
-    protected void revalidatePossibleAdvances() {
+    public void revalidatePossibleAdvancesWith(Field field) {
+        status.setEmptiedMoves(false);
+
         clearPossibleAdvances();
-        addPossibleAdvances();
+        addPossibleAdvances(field);
     }
 
-    protected void addPossibleAdvances() {
+    protected void addPossibleAdvances(Field field) {
         for (AdvanceProcessor c : advanceProcessors.getAdvanceProcessors()) {
-            List<Advance> newPossibleAdvances = c.getPossibleAdvances(this);
-            resolveAdvancesList().getAvailableAdvances().addAll(newPossibleAdvances);
+            List<Advance> newPossibleAdvances = c.getPossibleAdvances(field, this);
+            advances.getAvailableAdvances().addAll(newPossibleAdvances);
         }
     }
 
@@ -62,22 +65,22 @@ abstract public class PieceImpl implements Piece, Serializable {
     }
 
     @Override
-    public Advances resolveAdvancesList() {
-        if (status.isEmptiedMoves()) {
-            status.setEmptiedMoves(false);
-            revalidatePossibleAdvances();
-        }
-
-        return advances;
-    }
-
-    @Override
     public Status getStatus() {
         return status;
     }
 
     public PlayerType getPlayerType() {
         return playerType;
+    }
+
+    @Override
+    public Advances getPossibleAdvances() {
+        return advances;
+    }
+
+    @Override
+    public void setPossibleAdvances(Advances advances) {
+        this.advances = advances;
     }
 
     public boolean hasReachedTheTop() {
@@ -120,7 +123,7 @@ abstract public class PieceImpl implements Piece, Serializable {
     }
 
     private boolean isMoveLegalTo(Point givenCoordinates) {
-        return resolveAdvancesList().isAdvancePresent(givenCoordinates);
+        return advances.isAdvancePresent(givenCoordinates);
     }
 
     protected void writeObjectCommon(ObjectOutputStream stream) throws IOException {
@@ -130,8 +133,8 @@ abstract public class PieceImpl implements Piece, Serializable {
 
     protected void readObjectCommon(ObjectInputStream stream) throws IOException, ClassNotFoundException {
         setStatus((Status) stream.readObject());
-        status.setEmptiedMoves(true);
         setPlayerType((PlayerType) stream.readObject());
+        status.setEmptiedMoves(true);
         setAdvances(new Advances());
     }
 

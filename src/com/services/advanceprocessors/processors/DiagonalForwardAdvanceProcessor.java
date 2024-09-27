@@ -2,9 +2,6 @@ package com.services.advanceprocessors.processors;
 
 import com.helpers.PointTranslator;
 import com.models.pieces.IllegalPieceMoveException;
-import com.models.pieces.abstractpiece.Piece;
-import com.models.piecesfield.Field;
-import com.models.piecesfield.PiecesFieldModel;
 import com.services.advanceprocessors.advances.Advance;
 
 import java.awt.*;
@@ -63,9 +60,8 @@ public class DiagonalForwardAdvanceProcessor extends AdvanceProcessorImpl {
         Point destination = PointTranslator.translate(currentCoordinates, dx, dy);
         Point captureCoordinates = PointTranslator.translate(currentCoordinates, captureDx, captureDy);
 
-        Field field = PiecesFieldModel.getInstance().getField();
         try {
-            if (field.isEmptyAt(captureCoordinates)) {
+            if (getField().isEmptyAt(captureCoordinates)) {
                 throw new IllegalPieceMoveException();
             }
         } catch (IndexOutOfBoundsException ignored) {
@@ -75,7 +71,8 @@ public class DiagonalForwardAdvanceProcessor extends AdvanceProcessorImpl {
         addAdvanceToWithCapture(destination, captureCoordinates);
     }
 
-    public List<Advance> getPossibleAdvances(Piece piece) {
-        return super.getPossibleAdvances(piece);
+    @Override
+    protected List<Advance> modifyPossibleAdvances(List<Advance> originalAdvances) {
+        return originalAdvances;
     }
 }

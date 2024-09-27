@@ -15,7 +15,7 @@ public class Components {
     private final ArrayList<JComponent> components;
 
     public static Components from(Field field) {
-        Field field1 = new Field(field.getList());
+        Field field1 = new Field(field);
         field1.getList().sort(Comparable::compareTo);
 
         return new Components(field1);

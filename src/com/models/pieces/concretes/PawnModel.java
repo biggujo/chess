@@ -4,6 +4,7 @@ import com.models.pieces.PieceType;
 import com.models.pieces.PiecesValues;
 import com.models.pieces.PlayerType;
 import com.models.pieces.abstractpiece.PieceImpl;
+import com.models.piecesfield.Field;
 import com.services.advanceprocessors.processorlists.AdvanceProcessors;
 import com.services.advanceprocessors.processorlists.AdvanceProcessorsStorage;
 
@@ -23,12 +24,12 @@ public class PawnModel extends PieceImpl {
     }
 
     @Override
-    public void revalidatePossibleAdvances() {
+    public void revalidatePossibleAdvancesWith(Field field) {
         if (hasReachedTheTop()) {
             return;
         }
 
-        super.revalidatePossibleAdvances();
+        super.revalidatePossibleAdvancesWith(field);
     }
 
     @Override

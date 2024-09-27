@@ -1,12 +1,18 @@
 package com.services.advanceprocessors.processors;
 
 import com.helpers.PointTranslator;
+import com.services.advanceprocessors.advances.Advance;
 import com.validators.MoveOutOfBoundsValidator;
 
 import java.awt.*;
 import java.util.List;
 
 public class DiagonalAdvanceProcessor extends ConstrainedAdvanceProcessor {
+    @Override
+    protected List<Advance> modifyPossibleAdvances(List<Advance> originalAdvances) {
+        return originalAdvances;
+    }
+
     public DiagonalAdvanceProcessor() {
     }
 

@@ -25,7 +25,7 @@ public class PiecesFieldModel implements Serializable {
 
     private PiecesFieldModel() {
         List<FieldInitializer> fieldInitializers = new ArrayList<>();
-        fieldInitializers.add(new KnightTestFieldInitializer());
+        fieldInitializers.add(new CheckFieldInitializer());
         fieldManager = FieldManager.with(fieldInitializers);
         playerStatus = PlayerStatus.fromInitialPlayer(PlayerType.FIRST);
     }
@@ -89,13 +89,21 @@ public class PiecesFieldModel implements Serializable {
         return !isOwnPieceAt(coordinates) && hasPieceSelected();
     }
 
+    public boolean isUnderCheck(PlayerType currentPlayerType) {
+        PlayerType playerUnderCheck = PiecesFieldModel.getInstance().getPlayerStatus().getPlayerUnderCheck();
+        return playerUnderCheck == currentPlayerType;
+    }
+
+    public boolean isUnderCheckCurrentPlayer() {
+        return isUnderCheck(getPlayerStatus().getCurrentPlayer());
+    }
 
     public boolean hasSelectedTheSamePieceAt(Point coordinates) {
         return prevCoordinates.equals(coordinates);
     }
 
     public Advance getAdvanceByDestination(Point destination) throws NoSuchElementException {
-        return fieldManager.getField().get(prevCoordinates).resolveAdvancesList().getAdvanceByMove(destination);
+        return fieldManager.getField().get(prevCoordinates).getPossibleAdvances().getAdvanceByMove(destination);
     }
 
     public Piece getCurrentPiece() {

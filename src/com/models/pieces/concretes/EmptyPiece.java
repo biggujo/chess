@@ -23,10 +23,6 @@ public class EmptyPiece extends PieceImpl {
     }
 
     @Override
-    protected void addPossibleAdvances() {
-    }
-
-    @Override
     public PieceType getPieceType() {
         return TYPE;
     }

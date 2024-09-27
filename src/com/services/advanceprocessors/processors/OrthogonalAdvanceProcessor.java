@@ -2,14 +2,21 @@ package com.services.advanceprocessors.processors;
 
 import com.globals.Defaults;
 import com.helpers.ReverseIntStream;
+import com.services.advanceprocessors.advances.Advance;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.IntStream;
 
 public class OrthogonalAdvanceProcessor extends ConstrainedAdvanceProcessor {
     public OrthogonalAdvanceProcessor() {
+    }
+
+    @Override
+    protected List<Advance> modifyPossibleAdvances(List<Advance> originalAdvances) {
+        return originalAdvances;
     }
 
     public OrthogonalAdvanceProcessor(int maxDiff) {

@@ -10,6 +10,7 @@ public class PlayerStatus implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private PlayerType currentPlayer;
+    private PlayerType playerUnderCheck;
 
     public static PlayerStatus fromInitialPlayer(PlayerType initialPlayer) {
         return new PlayerStatus(initialPlayer);
@@ -24,6 +25,18 @@ public class PlayerStatus implements Serializable {
             case FIRST -> this.currentPlayer = PlayerType.SECOND;
             case SECOND -> this.currentPlayer = PlayerType.FIRST;
         }
+    }
+
+    public PlayerType getPlayerUnderCheck() {
+        return playerUnderCheck;
+    }
+
+    public void setCheckFor(PlayerType playerType) {
+        playerUnderCheck = playerType;
+    }
+
+    public void clearCheck() {
+        playerUnderCheck = null;
     }
 
     public PlayerType getCurrentPlayer() {

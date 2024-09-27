@@ -2,6 +2,7 @@ package com.services.advanceprocessors.processors;
 
 import com.helpers.PointTranslator;
 import com.models.pieces.IllegalPieceMoveException;
+import com.services.advanceprocessors.advances.Advance;
 
 import java.awt.*;
 import java.util.List;
@@ -11,6 +12,11 @@ public class ForwardAdvanceProcessor extends AdvanceProcessorImpl {
 
     public ForwardAdvanceProcessor() {
         step = -1;
+    }
+
+    @Override
+    protected List<Advance> modifyPossibleAdvances(List<Advance> originalAdvances) {
+        return originalAdvances;
     }
 
     @Override

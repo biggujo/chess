@@ -3,6 +3,7 @@ package com.controller;
 import com.models.pieces.NoMoveHasBeenMadeException;
 import com.models.pieces.abstractpiece.Piece;
 import com.models.piecesfield.PiecesFieldModel;
+import com.services.fieldlisteners.CheckOnMoveEndListener;
 import com.services.fieldlisteners.OnMoveEndListener;
 import com.services.fieldlisteners.PawnPromotionOnMoveEndListener;
 
@@ -18,6 +19,7 @@ public class GameManager {
     static {
         onMoveEndListeners = new ArrayList<>();
         onMoveEndListeners.add(new PawnPromotionOnMoveEndListener());
+        onMoveEndListeners.add(new CheckOnMoveEndListener());
     }
 
     public static void handleClickAt(Point coordinates) throws IOException {

@@ -10,7 +10,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KingTestFieldInitializer implements FieldInitializer {
+public class CheckFieldInitializer implements FieldInitializer {
     @Override
     public List<Piece> initialize() {
         return initialize(null);
@@ -36,8 +36,18 @@ public class KingTestFieldInitializer implements FieldInitializer {
                     continue;
                 }
 
+                if (i == 6 && j == 1) {
+                    newFieldList.add(whiteFactory.getInstance(PieceType.QUEEN, coordinates));
+                    continue;
+                }
+
                 if (i == 0 & j == 0) {
                     newFieldList.add(blackFactory.getInstance(PieceType.KING, coordinates));
+                    continue;
+                }
+
+                if (i == 5 && j == 5) {
+                    newFieldList.add(blackFactory.getInstance(PieceType.ROOK, coordinates));
                     continue;
                 }
 

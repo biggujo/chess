@@ -13,8 +13,8 @@ public class PieceFactoriesByPlayer {
 
     static {
         playerTypeFactory = new HashMap<>();
-        playerTypeFactory.put(PlayerType.FIRST, new BlackPieceFactory());
-        playerTypeFactory.put(PlayerType.SECOND, new WhitePieceFactory());
+        playerTypeFactory.put(PlayerType.FIRST, new WhitePieceFactory());
+        playerTypeFactory.put(PlayerType.SECOND, new BlackPieceFactory());
     }
 
     public static void swapColors() {
