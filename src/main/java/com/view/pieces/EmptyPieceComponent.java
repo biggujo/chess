@@ -6,6 +6,6 @@ import java.awt.*;
 
 public class EmptyPieceComponent extends PieceComponent {
     public EmptyPieceComponent() {
-        super(new Dimension(Defaults.PIECE_SIZE, Defaults.PIECE_SIZE), "assets/empty.svg");
+        super(new Dimension(Defaults.PIECE_SIZE, Defaults.PIECE_SIZE), "src/main/resources/empty.svg");
     }
 }
